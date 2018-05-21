@@ -1,43 +1,40 @@
 <template>
   <div>
-    <x-header :title="HeaderTitle">
-    </x-header>
-    <tab>
-      <template v-for="(item, index) in Items"  >
-        <tab-item v-if="parseInt(Items.length/2)===index"
-                  @on-item-click="ClickButtonTableItem(item)" selected>{{ item.title }}</tab-item>
-        <tab-item v-if="parseInt(Items.length/2)!==index"
-                  @on-item-click="ClickButtonTableItem(item)">{{item.title}}</tab-item>
-      </template>
-    </tab>
+    <group-title>2 columns</group-title>
+    <grid>
+      <grid-item :label="'Grid'" v-for="i in 2" :key="i">
+        <img slot="icon" src="../assets/grid_icon.png">
+      </grid-item>
+    </grid>
   </div>
 </template>
 
 <script>
-  import { XHeader, Actionsheet, Tab, TabItem } from 'vux'
+  import axios from 'axios'
+  import { Grid, GridItem, GroupTitle } from 'vux'
 
   export default {
     components: {
-      XHeader,
-      Actionsheet,
-      Tab,
-      TabItem
+      Grid,
+      GroupTitle,
+      GridItem
     },
     data () {
       return {
         HeaderTitle: '',
-        TitleOne: '为审批',
-        TitleTwo: '已审批',
-        TitleThird: '全部',
-        Items: [{title: '已审批'},
-                {title: '全部'},
-                {title: '未审批'}]
+        GridData: []
+
       }
     },
     methods: {
       ClickButtonTableItem: function () {
         return true
       }
+    },
+    created: function () {
+      //      axios.get('/get/all/grid_data').then(function (response) {
+      //        console.log(JSON.stringify(response))
+      //      })
     }
   }
 </script>
