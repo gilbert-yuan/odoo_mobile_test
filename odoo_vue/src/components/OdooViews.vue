@@ -1,45 +1,61 @@
 <template>
   <div>
-    <x-header :title="HeaderTitle">
-    </x-header>
-    <tab>
-      <template v-for="(item, index) in Items"  >
-        <tab-item v-if="parseInt(Items.length/2)===index"
-                  @on-item-click="ClickButtonTableItem(item)" selected>{{ item.title }}</tab-item>
-        <tab-item v-if="parseInt(Items.length/2)!==index"
-                  @on-item-click="ClickButtonTableItem(item)">{{item.title}}</tab-item>
-      </template>
-    </tab>
+    <sticky
+      scroll-box="vux_view_box_body"
+      ref="sticky"
+      :offset="46"
+      :check-sticky-support="false"
+      :disabled="disabled">
+      <tab>
+        <template v-for="(item, index) in items"  >
+          <tab-item @on-item-click="ClickButtonTableItem(item)" :selected="index===0">{{ item.title }}</tab-item>
+        </template>
+      </tab>
+    </sticky>
+    <component :model.sync="model" :is='curentComponent' :viewData.sync="viewData" v-on:on-click-item="treeRowClick">
+    </component>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
-  import { XHeader, Actionsheet, Tab, TabItem } from 'vux'
+  import Tree from './OdooTree.vue'
+  import { XHeader, Actionsheet, Tab, TabItem, Sticky } from 'vux'
 
   export default {
+    name: 'odooViews',
     components: {
       XHeader,
+      Tree,
+      Sticky,
       Actionsheet,
       Tab,
       TabItem
     },
     data () {
       return {
-        HeaderTitle: '',
-        TitleOne: '为审批',
-        TitleTwo: '已审批',
-        TitleThird: '全部',
-        Items: [{title: '已审批'}, {title: '全部'}, {title: '未审批'}]
+        disabled: false,
+        curentComponent: 'Tree',
+        viewData: [],
+        model: '',
+        items: []
       }
     },
     methods: {
-      ClickButtonTableItem: function () {
+      ClickButtonTableItem: function (item) {
+        this.viewData = {}
+        this.curentComponent = item.component
         return true
+      },
+      treeRowClick: function (item) {
+        this.$router.push({name: 'odooForm', params: {recordId: item.id}})
       }
     },
     created: function () {
-      axios.get('/get/action/views', {actionId: this.$route.params.actionId}).then(function (response) {
+      let self = this
+      axios.get('/get/action/views', {actionId: ''}).then(function (response) {
+        self.items = response.data.viewsData
+        self.model = response.data.model
         console.log(JSON.stringify(response))
       })
     }

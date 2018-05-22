@@ -1,40 +1,52 @@
 <template>
-  <div>
-    <group-title>2 columns</group-title>
-    <grid>
-      <grid-item :label="'Grid'" v-for="i in 2" :key="i">
-        <img slot="icon" src="../assets/grid_icon.png">
-      </grid-item>
-    </grid>
+  <div id="app-box">
+    <template v-for="grid in gridDatas">
+      <group-title>{{grid.groupTitle}}</group-title>
+      <grid :cols="grid.cols">
+        <template v-for="gridSingle in grid.gridRow">
+          <div v-on:click="clickGridItem(gridSingle)">
+            <grid-item :label="gridSingle.title" >
+              <img slot="icon" :src="gridSingle.image">
+            </grid-item>
+          </div>
+        </template>
+      </grid>
+    </template>
+    <router-view class="view"></router-view>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
-  import { Grid, GridItem, GroupTitle } from 'vux'
+  import {XHeader, Grid, GridItem, GroupTitle} from 'vux'
 
   export default {
+    name: 'odooGrid',
     components: {
       Grid,
+      XHeader,
       GroupTitle,
       GridItem
     },
     data () {
       return {
-        HeaderTitle: '',
-        GridData: []
-
+        cols: 4,
+        headerTitle: '',
+        gridDatas: []
       }
     },
     methods: {
-      ClickButtonTableItem: function () {
-        return true
+      clickGridItem: function (gridSingle) {
+        this.$router.push({name: 'odooViews', params: {actionId: gridSingle.actionId, actionTitle: gridSingle.title}})
       }
     },
     created: function () {
-      //      axios.get('/get/all/grid_data').then(function (response) {
-      //        console.log(JSON.stringify(response))
-      //      })
+      let self = this
+      axios.get('/get/all/grid_data').then(function (response) {
+        self.gridDatas = response.data
+      }).catch(function (error) {
+        alert(error)
+      })
     }
   }
 </script>
