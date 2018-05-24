@@ -96,3 +96,57 @@ const getFromViewData = function () {
 }
 // Mock.mock( url, post/get , 返回的数据)；
 Mock.mock('/odoo/form/view/data', 'get', getFromViewData)
+// /odoo/get/formPreView
+const getPreViewFromData = function () {
+  let treeData = []
+  for (let i = 0; i < Random.integer(6, 6); i++) {
+    let oneRecord = []
+    for (let j = 0; j < Random.integer(6, 10); j++) {
+      let type = ['boolean', 'char', 'button'][Random.integer(0, 1)]
+      oneRecord.push({
+        label: Random.ctitle(2, 2),
+        value: Random.ctitle(2, 6),
+        type: type,
+        params: {
+          invisible: [true, false][Random.integer(0, 1)],
+          id: Random.integer(4, 100),
+          model: 'model_name'
+        }
+      })
+    }
+    oneRecord.push({
+      label: Random.ctitle(2, 2),
+      value: Random.ctitle(2, 6),
+      type: 'button',
+      params: {
+        invisible: [true, false][Random.integer(0, 1)],
+        id: Random.integer(4, 100),
+        model: 'model_name'
+      }
+    })
+    oneRecord.push({
+      label: Random.ctitle(2, 2),
+      value: Random.ctitle(2, 6),
+      type: 'button',
+      params: {
+        invisible: [true, false][Random.integer(0, 1)],
+        id: Random.integer(4, 100),
+        model: 'model_name'
+      }
+    })
+    oneRecord.push({
+      label: Random.ctitle(2, 2),
+      value: Random.ctitle(2, 6),
+      type: 'button',
+      params: {
+        invisible: [true, false][Random.integer(0, 1)],
+        id: Random.integer(4, 100),
+        model: 'model_name'
+      }
+    })
+    treeData.push(oneRecord)
+  }
+  return treeData
+}
+// Mock.mock( url, post/get , 返回的数据)；
+Mock.mock('/odoo/get/formPreView', 'get', getPreViewFromData)

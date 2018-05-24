@@ -53,7 +53,11 @@
           </line>
         </g>
       </svg>
-      <panel :list.sync="treeList" type='5' style=" position:autoFixed;" v-on:on-click-item="treeRowClick"></panel>
+      <template v-for="card in cardList">
+        <group>
+          <cell-form-preview :list="card"></cell-form-preview>
+        </group>
+      </template>
     </scroller>
   </div>
 </template>
@@ -61,12 +65,14 @@
 <script>
   import axios from 'axios'
   import { mapState } from 'vuex'
-  import { Panel, Search } from 'vux'
+  import { Search, Group } from 'vux'
+  import CellFormPreview from './cellFormPreview.vue'
   export default {
-    props: ['viewData', 'model'],
-    name: 'Tree',
+    props: ['model'],
+    name: 'OdooCard',
     components: {
-      Panel,
+      Group,
+      CellFormPreview,
       Search
     },
     data () {
@@ -74,7 +80,7 @@
         offset: 0,
         is_all_records_data: false,
         now_record_length: 6,
-        treeList: []
+        cardList: []
       }
     },
     computed: {
@@ -86,12 +92,9 @@
       })
     },
     methods: {
-      treeRowClick: function (item) {
-        this.$emit('on-click-item', item)
-      },
       get_more_data: function (offset, type) {
         let self = this
-        axios.get('/odoo/get/tree', {modelName: this.model, offset: self.offset}).then(function (response) {
+        axios.get('/odoo/get/formPreView', {modelName: this.model, offset: self.offset}).then(function (response) {
           if (type === 'add') {
             if (response.data.length !== 6) {
               self.is_all_records_data = true
@@ -99,11 +102,11 @@
               self.is_all_records_data = false
             }
             self.now_record_length = response.data.length
-            self.treeList = self.treeList.concat(response.data)
-            console.log(self.treeList)
+            self.cardList = self.cardList.concat(response.data)
+            console.log(self.cardList)
           } else {
             self.now_record_length = response.data.length
-            self.treeList = response.data
+            self.cardList = response.data
           }
         }).catch(function (error) {
           alert(error)
@@ -113,7 +116,7 @@
         var self = this
         setTimeout(function () {
           self.offset = 0
-          self.treeList = []
+          self.cardList = []
           self.is_all_records_data = false
           self.get_more_data(0, 'fresh')
           done()

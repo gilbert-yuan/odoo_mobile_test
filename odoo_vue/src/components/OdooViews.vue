@@ -20,6 +20,8 @@
 <script>
   import axios from 'axios'
   import Tree from './OdooTree.vue'
+  import OdooCard from './OdooCard.vue'
+  import { mapState } from 'vuex'
   import { XHeader, Actionsheet, Tab, TabItem, Sticky } from 'vux'
 
   export default {
@@ -27,6 +29,7 @@
     components: {
       XHeader,
       Tree,
+      OdooCard,
       Sticky,
       Actionsheet,
       Tab,
@@ -35,7 +38,7 @@
     data () {
       return {
         disabled: false,
-        curentComponent: 'Tree',
+        curentComponent: 'OdooCard',
         viewData: [],
         model: '',
         items: []
@@ -50,6 +53,14 @@
       treeRowClick: function (item) {
         this.$router.push({name: 'odooForm', params: {recordId: item.id}})
       }
+    },
+    computed: {
+      ...mapState({
+        route: state => state.route,
+        path: state => state.route.path,
+        isLoading: state => state.vux.isLoading,
+        vux: state => state.vux
+      })
     },
     created: function () {
       let self = this

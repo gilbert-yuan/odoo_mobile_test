@@ -15,8 +15,8 @@
           </template>
           <template v-else-if="field.type=='char'">
             <tr>
-              <td style="width: 40%"> {{field.title}}</td>
-              <td style="width: 60%">{{field.value}}</td>
+              <td style="width: 40%"> {{ field.title }}</td>
+              <td style="width: 60%">{{ field.value }}</td>
             </tr>
           </template>
         </template>
@@ -48,6 +48,7 @@
 
 <script>
   import axios from 'axios'
+  import { mapState } from 'vuex'
   import {XTable, CheckIcon} from 'vux'
   export default {
     name: 'formComponent',
@@ -63,12 +64,26 @@
         id: []
       }
     },
+    computed: {
+      ...mapState({
+        route: state => state.route,
+        path: state => state.route.path,
+        isLoading: state => state.vux.isLoading,
+        vux: state => state.vux
+      })
+    },
     created: function () {
-      this.$nextTick(function () {
-        this.get_form_data()
+      let self = this
+      self.vux.menus = ['新建', '删除', '编辑', '取消']
+      self.vux.actionSheetFunction = self.actionSheetFunction
+      self.$nextTick(function () {
+        self.get_form_data()
       })
     },
     methods: {
+      actionSheetFunction: function (itemIndex, items) {
+
+      },
       get_form_data: function () {
         let self = this
         axios.get('/odoo/form/view/data', {model: this.model, id: this.recordId}).then(function (response) {
@@ -80,7 +95,6 @@
     },
     watch: {
       '$route': function (to, from) {
-        console.log('+++++++++=')
       }
     }
   }
