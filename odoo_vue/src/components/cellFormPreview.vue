@@ -1,7 +1,7 @@
 <template>
-  <div class="weui-cell vux-cell-form-preview" :class="{'vux-cell-no-border-intent': !borderIntent}">
+  <div class="weui-cell vux-cell-form-preview" :class="{'vux-cell-no-border-intent': !borderIntent}" >
     <div class="weui-form-preview__bd">
-      <div class="weui-form-preview__item" v-for="item in list">
+      <div class="weui-form-preview__item" v-for="item in list" >
         <template v-if="!item.invisible">
           <template v-if="item.type === 'char'">
             <label class="weui-form-preview__label">{{item.label}}</label>
@@ -27,7 +27,6 @@
         </template>
       </div>
     </div>
-
   </div>
 </template>
 

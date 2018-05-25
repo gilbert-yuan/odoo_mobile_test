@@ -54,9 +54,12 @@
         </g>
       </svg>
       <template v-for="card in cardList">
-        <group>
-          <cell-form-preview :list="card"></cell-form-preview>
-        </group>
+        <div v-on:click="treeRowClick(card)">
+          <group>
+            <cell-form-preview :list="card">
+            </cell-form-preview>
+          </group>
+        </div>
       </template>
     </scroller>
   </div>
@@ -92,6 +95,9 @@
       })
     },
     methods: {
+      treeRowClick: function (item) {
+        this.$emit('on-click-item', item)
+      },
       get_more_data: function (offset, type) {
         let self = this
         axios.get('/odoo/get/formPreView', {modelName: this.model, offset: self.offset}).then(function (response) {

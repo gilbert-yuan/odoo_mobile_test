@@ -19,6 +19,9 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/odoo_vue/src/components/HelloFromVux.vue" />
+  </component>
   <component name="masterDetails">
     <states>
       <state key="ArquillianSettingsConfigurable.UI">
