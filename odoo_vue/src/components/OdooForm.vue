@@ -82,7 +82,7 @@
     },
     methods: {
       actionSheetFunction: function (itemIndex, items) {
-
+        console.log(items, itemIndex)
       },
       get_form_data: function () {
         let self = this

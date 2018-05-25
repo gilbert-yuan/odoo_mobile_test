@@ -12,8 +12,10 @@
         </template>
       </tab>
     </sticky>
-    <component :model.sync="model" :is='curentComponent' :viewData.sync="viewData" v-on:on-click-item="treeRowClick">
-    </component>
+    <template v-for="view in allViews">
+      <component :model.sync="model" :is='view' :viewData.sync="viewData" v-on:on-click-item="treeRowClick" v-show="view===curentComponent">
+      </component>
+    </template>
   </div>
 </template>
 
@@ -38,8 +40,9 @@
     data () {
       return {
         disabled: false,
-        curentComponent: 'OdooCard',
+        curentComponent: 'Tree',
         viewData: [],
+        allViews: ['Tree', 'OdooCard'],
         model: '',
         items: []
       }
@@ -47,8 +50,7 @@
     methods: {
       ClickButtonTableItem: function (item) {
         this.viewData = {}
-        this.curentComponent = item.component
-        return true
+        this.curentComponent = this.curentComponent === 'OdooCard' ? 'Tree' : 'OdooCard'
       },
       treeRowClick: function (item) {
         this.$router.push({name: 'odooForm', params: {recordId: item.id}})

@@ -1,18 +1,71 @@
 <template>
   <div>
+    <group>
+      <template v-for="field in allFormData">
+        <template v-if="field.type === 'char'">
+          <x-input title="field.name" v-model="field.value"></x-input>
+        </template>
+        <template v-else-if="field.type === 'date'" >
 
+        </template>
+        <template v-else-if="field.type === 'datetime'" >
+
+        </template>
+        <template v-else-if="field.type === 'many2one'" >
+
+        </template>
+        <template v-else-if="field.type === 'one2many'" >
+
+        </template>
+        <template v-else-if="field.type === 'boolean'" >
+
+        </template>
+        <template v-else-if="field.type === 'integer'" >
+
+        </template>
+        <template v-else-if="field.type === 'float'" >
+
+        </template>
+        <template v-else-if="field.type === 'selection'" >
+
+        </template>
+        <template v-else-if="field.type === 'text'" >
+
+        </template>
+        <template v-else-if="field.type === 'Html'" >
+
+        </template>
+        <template v-else-if="field.type === 'Binary'" >
+
+        </template>
+        <template v-else-if="field.type === 'Many2many'" >
+
+        </template>
+
+      </template>
+    </group>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
   import { mapState } from 'vuex'
-  import {XTable, CheckIcon} from 'vux'
+  import { GroupTitle, Group, Cell, XInput, Selector, PopupPicker, Datetime, XNumber, XAddress, XTextarea, XSwitch } from 'vux'
+
   export default {
     name: 'formComponent',
     components: {
-      XTable,
-      CheckIcon
+      Group,
+      GroupTitle,
+      Cell,
+      XInput,
+      Selector,
+      PopupPicker,
+      XAddress,
+      Datetime,
+      XNumber,
+      XTextarea,
+      XSwitch
     },
     data: function () {
       return {
@@ -32,8 +85,6 @@
     },
     created: function () {
       let self = this
-      //      self.vux.menus = ['新建', '删除', '编辑', '取消']
-      //      self.vux.actionSheetFunction = self.actionSheetFunction
       self.$nextTick(function () {
         self.get_form_data()
       })
