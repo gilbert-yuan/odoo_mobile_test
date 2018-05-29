@@ -150,3 +150,27 @@ const getPreViewFromData = function () {
 }
 // Mock.mock( url, post/get , 返回的数据)；
 Mock.mock('/odoo/get/formPreView', 'get', getPreViewFromData)
+
+const getViewFromData = function () {
+  let formOptions = []
+  formOptions.push({ type: 'char', title: '姓名', value: '' })
+  formOptions.push({ type: 'date', title: '生日', value: '' })
+  formOptions.push({ type: 'datetime', title: '创建时间', value: '' })
+  formOptions.push({ type: 'boolean', title: '婚否', value: '' })
+  formOptions.push({ type: 'float', title: '年龄', value: '' })
+  formOptions.push({ type: 'text', title: '自评', value: '' })
+  formOptions.push({ type: 'many2one', title: '销售员', value: '', model: 'sale.order', domain: [] })
+  formOptions.push({ type: 'selection', title: '性别', value: '', options: [{ key: 'man', value: '男' }, { key: 'female', value: '女' }] })
+  return formOptions
+}
+
+Mock.mock('/odoo/form/new/data', 'get', getViewFromData)
+const getViewNameSearchData = function () {
+  let formOptions = []
+  for (let i = 0; i < 15; i++) {
+    formOptions.push({key: Random.integer(), value: Random.ctitle(2, 4)})
+  }
+  return formOptions
+}
+
+Mock.mock('/odoo/model/name_search', 'get', getViewNameSearchData)

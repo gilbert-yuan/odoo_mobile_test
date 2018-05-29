@@ -82,7 +82,9 @@
     },
     methods: {
       actionSheetFunction: function (itemIndex, items) {
-        console.log(items, itemIndex)
+        if (items === '新建') {
+          this.$router.push({ name: 'newForm', params: {} })
+        }
       },
       get_form_data: function () {
         let self = this

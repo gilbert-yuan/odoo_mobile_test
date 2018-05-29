@@ -7,16 +7,18 @@ import VueRouter from 'vue-router'
 import App from './App'
 import { sync } from 'vuex-router-sync'
 import CircleMenu from 'vue-circle-menu'
+import { Toast } from 'vux'
 import VueScroller from 'vue-scroller'
 import Grid from './components/OdooGrid.vue'
 import View from './components/OdooViews.vue'
 import Form from './components/OdooForm.vue'
+import NewForm from './components/OdooNewForm.vue'
 Vue.use(VueRouter)
 require('./mock.js')
 Vue.use(Vuex)
 Vue.use(VueScroller)
 Vue.component('CircleMenu', CircleMenu)
-
+Vue.component('toast', Toast)
 const routes = [{
   path: '/',
   component: App
@@ -28,6 +30,10 @@ const routes = [{
   path: '/odoo/view',
   name: 'odooViews',
   component: View
+}, {
+  path: '/odoo/new/form',
+  name: 'newForm',
+  component: NewForm
 }, {
   path: '/odoo/form',
   name: 'odooForm',
