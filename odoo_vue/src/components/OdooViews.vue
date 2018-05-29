@@ -69,7 +69,7 @@
       axios.get('/get/action/views', {actionId: ''}).then(function (response) {
         self.items = response.data.viewsData
         self.model = response.data.model
-        console.log(JSON.stringify(response))
+        // console.log(JSON.stringify(response))
       })
     }
   }

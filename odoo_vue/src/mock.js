@@ -46,7 +46,13 @@ const getTreeView = function () {
   for (let i = 0; i < Random.integer(6, 6); i++) {
     treeData.push({
       title: Random.ctitle(2, 4),
-      meta: {source: Random.ctitle(10, 20), date: '2016-07-08'}
+      meta: [
+        {name: 'name', value: Random.ctitle(2, 8)},
+        {name: 'note', value: Random.ctitle(2, 4)},
+        {name: 'desc', value: Random.ctitle(2, 8)},
+        {name: 'other', value: Random.ctitle(2, 8)},
+        {name: 'date', value: '2011-09-10'}
+      ]
     })
   }
 
@@ -66,6 +72,7 @@ const getFromViewData = function () {
     }
     treeData.push({
       title: Random.ctitle(2, 4),
+      name: Random.ctitle(2, 3),
       value: value,
       type: field
     })
@@ -159,6 +166,17 @@ const getViewFromData = function () {
   formOptions.push({ type: 'boolean', title: '婚否', value: '' })
   formOptions.push({ type: 'float', title: '年龄', value: '' })
   formOptions.push({ type: 'text', title: '自评', value: '' })
+  formOptions.push({ type: 'one2many',
+    title: '订单行',
+    value: [{
+      title: Random.ctitle(2, 4),
+      meta: [
+        {key: 'name', value: Random.ctitle(2, 8)},
+        {key: 'note', value: Random.ctitle(2, 4)},
+        {key: 'desc', value: Random.ctitle(2, 8)},
+        {key: 'other', value: Random.ctitle(2, 8)},
+        {key: 'date', value: '2011-09-10'}]
+    }]})
   formOptions.push({ type: 'many2one', title: '销售员', value: '', model: 'sale.order', domain: [] })
   formOptions.push({ type: 'selection', title: '性别', value: '', options: [{ key: 'man', value: '男' }, { key: 'female', value: '女' }] })
   return formOptions

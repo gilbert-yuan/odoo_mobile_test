@@ -24,7 +24,7 @@
       </x-table>
       <template v-for="field in allFormData">
         <template v-if="field.type=='one2many'">
-          <x-table full-bordered style="background-color:#fff;">
+          <x-table full-bordered style="background-color:#fff;font-size: 8px">
             <thead>
               <tr>
                 <th v-for="tableT in field.value.tableTh">

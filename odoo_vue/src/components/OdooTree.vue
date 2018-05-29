@@ -53,13 +53,14 @@
           </line>
         </g>
       </svg>
-      <panel :list.sync="treeList" type='5' style=" position:autoFixed;" v-on:on-click-item="treeRowClick"></panel>
+      <TreeRow :list.sync="treeList" style=" position:autoFixed;" v-on:on-click-item="treeRowClick"></TreeRow>
     </scroller>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
+  import TreeRow from './field/OdooTreeRow.vue'
   import { mapState } from 'vuex'
   import { Panel, Search } from 'vux'
   export default {
@@ -67,6 +68,7 @@
     name: 'Tree',
     components: {
       Panel,
+      TreeRow,
       Search
     },
     data () {
