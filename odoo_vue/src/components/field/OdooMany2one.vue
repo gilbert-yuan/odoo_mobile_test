@@ -123,11 +123,7 @@
         results: [],
         searchValue: '',
         radioSearchHeight: '0px',
-        options: [
-          {value: 'A', key: 1},
-          {value: 'B', key: 2},
-          {value: 'C', key: 3}
-        ],
+        options: [],
         showPopup: false,
         currentValue: this.value
       }

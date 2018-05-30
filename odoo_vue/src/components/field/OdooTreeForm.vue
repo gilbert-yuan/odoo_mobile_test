@@ -93,14 +93,6 @@
         }
       }
     },
-    // data () {
-    //   return {
-    //     newFormData: this.allFormData
-    //   }
-    // },
-    // created: function () {
-    //   this.newFormData = this.allFormData
-    // },
     methods: {
       saveForm: function () {
         this.$emit('save', this.newFormData)
