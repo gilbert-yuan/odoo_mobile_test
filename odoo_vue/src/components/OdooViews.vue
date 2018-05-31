@@ -12,15 +12,15 @@
         </template>
       </tab>
     </sticky>
-    <template v-for="view in allViews">
-      <component :model.sync="model" :is='view' :viewData.sync="viewData" v-on:on-click-item="treeRowClick" v-show="view===curentComponent">
+    <div v-for="view in allViews">
+      <component :model.sync="model" :is='view' :domain.sync="domain" :view_id.sync="view_id" :offset_step.sync="offset"
+                 v-on:on-click-item="treeRowClick" v-show="view===curentComponent" :limit.sync="limit">
       </component>
-    </template>
+    </div>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   import Tree from './OdooTree.vue'
   import OdooCard from './OdooCard.vue'
   import { mapState } from 'vuex'
@@ -37,23 +37,28 @@
       Tab,
       TabItem
     },
-    data () {
+    data: function () {
       return {
         disabled: false,
         curentComponent: 'Tree',
-        viewData: [],
+        domain: [],
+        view_id: '',
         allViews: ['Tree', 'OdooCard'],
         model: '',
+        noForm: '',
+        offset: '',
+        limit: '',
         items: []
       }
     },
     methods: {
       ClickButtonTableItem: function (item) {
-        this.viewData = {}
-        this.curentComponent = this.curentComponent === 'OdooCard' ? 'Tree' : 'OdooCard'
+        this.domain = item.domain
       },
       treeRowClick: function (item) {
-        this.$router.push({name: 'odooForm', params: {recordId: item.id}})
+        if (!this.noForm) {
+          this.$router.push({name: 'odooForm', params: {recordId: item.id}})
+        }
       }
     },
     computed: {
@@ -66,10 +71,17 @@
     },
     created: function () {
       let self = this
-      axios.get('/get/action/views', {actionId: ''}).then(function (response) {
-        self.items = response.data.viewsData
-        self.model = response.data.model
-        // console.log(JSON.stringify(response))
+      this.$nextTick(() => {
+        self.$http.get('/odoo/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
+          self.items = response.data.viewsData
+          self.view_id = response.data.view_id
+          self.offset = response.data.offset
+          self.limit = response.data.limit
+          self.noForm = response.data.noForm
+          self.curentComponent = response.data.view_type
+          self.model = JSON.stringify(response.data.model)
+          self.ClickButtonTableItem(self.items[0])
+        })
       })
     }
   }

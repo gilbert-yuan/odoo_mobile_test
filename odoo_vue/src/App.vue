@@ -81,7 +81,6 @@
         return this.direction === 'forward' ? 'vux-header-fade-in-right' : 'vux-header-fade-in-left'
       },
       changeLocale: function (menuKey, menuItem) {
-        console.log(menuKey, '++++++++', menuItem)
       },
       viewTransition: function () {
         if (!this.direction) return ''

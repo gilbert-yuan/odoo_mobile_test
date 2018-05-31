@@ -54,9 +54,9 @@
         </g>
       </svg>
       <template v-for="card in cardList">
-        <div v-on:click="treeRowClick(card)">
+        <div>
           <group>
-            <cell-form-preview :list="card">
+            <cell-form-preview :list="card" @on-click-card="treeRowClick" @refresh="refresh">
             </cell-form-preview>
           </group>
         </div>
@@ -66,23 +66,23 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import { mapState } from 'vuex'
-  import { Search, Group } from 'vux'
+  import {mapState} from 'vuex'
+  import {Search, Group} from 'vux'
   import CellFormPreview from './cellFormPreview.vue'
+
   export default {
-    props: ['model'],
+    props: ['model', 'domain', 'view_id', 'limit', 'offset_step'],
     name: 'OdooCard',
     components: {
       Group,
       CellFormPreview,
       Search
     },
-    data () {
+    data: function () {
       return {
         offset: 0,
         is_all_records_data: false,
-        now_record_length: 6,
+        now_record_length: this.offset_step,
         cardList: []
       }
     },
@@ -100,9 +100,23 @@
       },
       get_more_data: function (offset, type) {
         let self = this
-        axios.get('/odoo/get/formPreView', {modelName: this.model, offset: self.offset}).then(function (response) {
+        if (!self.model) {
+          return
+        }
+        self.$http.get('/odoo/get/formPreView', {
+          params: {
+            modelName: self.model,
+            view_id: self.view_id,
+            domain: self.domain,
+            limit: self.limit,
+            offset: self.offset}
+        }).then(function (response) {
+          console.log(response.data, '++++++++++')
+          if (!response.data) {
+            return
+          }
           if (type === 'add') {
-            if (response.data.length !== 6) {
+            if (response.data.length !== self.offset_step) {
               self.is_all_records_data = true
             } else {
               self.is_all_records_data = false
@@ -130,7 +144,7 @@
       },
       infinite: function (done) {
         let self = this
-        if (self.is_all_records_data || self.now_record_length < 6) {
+        if (self.is_all_records_data || self.now_record_length < self.offset_step) {
           setTimeout(function () {
             done(true)
             self.is_all_records_data = false
@@ -138,7 +152,7 @@
           return
         }
         setTimeout(function () {
-          self.offset = self.offset + 6
+          self.offset = self.offset + self.offset_step
           self.get_more_data(self.offset, 'add')
           done()
         }, 300)
@@ -146,7 +160,16 @@
       actionSheetFunction: function (itemIndex, items) {
         let self = this
         if (itemIndex === 0) {
-          self.$router.push({ name: 'newForm', params: {model: self.model} })
+          self.$router.push({name: 'newForm', params: {model: self.model}})
+        }
+      }
+    },
+    watch: {
+      domain: {
+        handler: function (val, oldVal) {
+          let self = this
+          self.offset = 0
+          self.get_more_data(self.offset, 'fresh')
         }
       }
     },
@@ -154,21 +177,23 @@
       let self = this
       self.vux.menus = ['新建', '取消']
       self.vux.actionSheetFunction = self.actionSheetFunction
-      self.get_more_data(0, 'refresh')
+      self.offset = 0
+      self.get_more_data(self.offset, 'refresh')
     }
   }
 </script>
 
 <style lang="less">
   @import '~vux/src/styles/reset.less';
+
   .weui-cells.vux-search_show {
-    margin-top: 0!important;
-    overflow-y: auto!important;
-    position: fixed!important;
-    width: 100%!important;
-    height: auto!important;
+    margin-top: 0 !important;
+    overflow-y: auto !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: auto !important;
     .weui-cell:last-child {
-      margin-bottom: 0px!important;
+      margin-bottom: 0px !important;
     }
     &::-webkit-scrollbar {
       display: none;

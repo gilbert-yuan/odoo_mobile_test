@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import FastClick from 'fastclick'
 import VueRouter from 'vue-router'
 import App from './App'
+import axios from 'axios'
 import { sync } from 'vuex-router-sync'
 import CircleMenu from 'vue-circle-menu'
 import { Toast } from 'vux'
@@ -27,7 +28,7 @@ const routes = [{
   name: 'odooGrid',
   component: Grid
 }, {
-  path: '/odoo/view',
+  path: '/odoo/view/:actionId',
   name: 'odooViews',
   component: View
 }, {
@@ -44,6 +45,19 @@ const routes = [{
 let store = new Vuex.Store({
 })
 
+axios.interceptors.request.use(function (config) {
+  return config
+}, function (error) {
+  return Promise.reject(error)
+})
+
+axios.interceptors.response.use(function (response) {
+  return response
+}, function (error) {
+  return Promise.reject(error)
+})
+
+Vue.prototype.$http = axios
 store.registerModule('vux', {
   state: {
     demoScrollTop: 0,

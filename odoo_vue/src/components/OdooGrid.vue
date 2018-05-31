@@ -17,7 +17,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import {XHeader, Grid, GridItem, GroupTitle} from 'vux'
 
   export default {
@@ -28,7 +27,7 @@
       GroupTitle,
       GridItem
     },
-    data () {
+    data: function () {
       return {
         cols: 4,
         headerTitle: '',
@@ -37,12 +36,12 @@
     },
     methods: {
       clickGridItem: function (gridSingle) {
-        this.$router.push({name: 'odooViews', params: {actionId: gridSingle.actionId, actionTitle: gridSingle.title}})
+        this.$router.push({name: 'odooViews', params: {actionId: gridSingle.actionId}})
       }
     },
     created: function () {
       let self = this
-      axios.get('/get/all/grid_data').then(function (response) {
+      self.$http.get('/odoo/get/all/grid_data').then(function (response) {
         self.gridDatas = response.data
       }).catch(function (error) {
         alert(error)

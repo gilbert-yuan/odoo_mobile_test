@@ -1,14 +1,14 @@
 <template>
   <div class="weui-cell vux-cell-form-preview" :class="{'vux-cell-no-border-intent': !borderIntent}" >
     <div class="weui-form-preview__bd">
-      <div class="weui-form-preview__item" v-for="item in list" >
+      <div class="weui-form-preview__item" v-for="item in list" @click.prevent="card_onclick(list)">
         <template v-if="!item.invisible">
-          <template v-if="item.type === 'char'">
-            <label class="weui-form-preview__label">{{item.label}}</label>
+          <template v-if="['char', 'text', 'many2one', 'integer', 'float', 'date', 'datetime'].indexOf(item.type) >= 0">
+            <label class="weui-form-preview__label">{{item.title}}</label>
             <span class="weui-form-preview__value">{{item.value}}</span>
           </template>
           <template v-else-if="item.type === 'boolean'">
-            <label class="weui-form-preview__label">{{item.label}}</label>
+            <label class="weui-form-preview__label">{{item.title}}</label>
             <template v-if="item.value">
               <span class="weui-form-preview__value"><icon type="success"></icon></span>
             </template>
@@ -21,9 +21,9 @@
       <div class="weui-form-preview__ft">
         <template  v-for="(item, index) in list">
           <button class="weui-form-preview__btn weui-form-preview-btn__primary"
-                  v-if="!item.invisible && item.type === 'button'"
+                  v-show="!item.invisible && item.type === 'button'"
                   v-on:click.prevent="buttonHttp(item, index)"
-                  v-bind:value="list[0].value">{{item.value}} </button>
+                  v-bind:value="list[0].value">{{item.title}} </button>
         </template>
       </div>
     </div>
@@ -46,9 +46,15 @@
       }
     },
     methods: {
+      card_onclick: function (list) {
+        this.$emit('on-click-card', list)
+      },
       buttonHttp: function (item, index) {
-        axios.get('', '').then(function (response) {
-
+        let self = this
+        self.$http.get('/odoo/button/method', {params: { 'method': item.value, 'model': item.model, 'ids': self.list[0].value }}).then(function (response) {
+          if (response.data.success && response.data.method) {
+            self.$emit('refresh', false)
+          }
         }).catch(function () {
 
         })
