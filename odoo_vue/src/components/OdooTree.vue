@@ -1,6 +1,6 @@
 <template>
   <div>
-    <scroller style="position:fixed; top: 84px;width:100%"
+    <scroller style="position:fixed; top: 95px;bottom: 70px;width:100%"
               :on-refresh="refresh"
               refresh-layer-color="#4b8bf4"
               loading-layer-color="#ec4949"
@@ -53,18 +53,17 @@
           </line>
         </g>
       </svg>
-      <TreeRow :list.sync="treeList" style=" position:autoFixed;" v-on:on-click-item="treeRowClick"></TreeRow>
+      <TreeRow :list.sync="list" style=" position:autoFixed;" @on-click-item="treeRowClick"></TreeRow>
     </scroller>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   import TreeRow from './field/OdooTreeRow.vue'
   import { mapState } from 'vuex'
   import { Panel, Search } from 'vux'
   export default {
-    props: ['viewData', 'model'],
+    props: ['model', 'domain', 'view_id', 'limit', 'offset_step'],
     name: 'Tree',
     components: {
       Panel,
@@ -75,8 +74,8 @@
       return {
         offset: 0,
         is_all_records_data: false,
-        now_record_length: 6,
-        treeList: []
+        now_record_length: this.offset_step,
+        list: []
       }
     },
     computed: {
@@ -87,25 +86,47 @@
         vux: state => state.vux
       })
     },
+    watch: {
+      domain: {
+        handler: function (val, oldVal) {
+          let self = this
+          self.offset = 0
+          self.get_more_data(self.offset, 'fresh')
+        }
+      }
+    },
     methods: {
       treeRowClick: function (item) {
         this.$emit('on-click-item', item)
       },
       get_more_data: function (offset, type) {
         let self = this
-        axios.get('/odoo/get/tree', {modelName: this.model, offset: self.offset}).then(function (response) {
+        if (!self.model || !self.limit || !self.offset & self.offset !== 0 || !self.view_id || !self.domain) {
+          return
+        }
+        self.$http.get('/odoo/get/list/view/data', {
+          params: {
+            modelName: self.model,
+            view_id: self.view_id,
+            domain: self.domain,
+            limit: self.limit,
+            offset: self.offset}
+        }).then(function (response) {
+          if (!response.data) {
+            return ''
+          }
           if (type === 'add') {
-            if (response.data.length !== 6) {
+            if (response.data.length !== self.offset_step) {
               self.is_all_records_data = true
             } else {
               self.is_all_records_data = false
             }
             self.now_record_length = response.data.length
-            self.treeList = self.treeList.concat(response.data)
-            console.log(self.treeList)
+            self.list = self.list.concat(response.data)
+            console.log(self.list)
           } else {
             self.now_record_length = response.data.length
-            self.treeList = response.data
+            self.list = response.data
           }
         }).catch(function (error) {
           alert(error)
@@ -115,15 +136,17 @@
         var self = this
         setTimeout(function () {
           self.offset = 0
-          self.treeList = []
+          self.list = []
           self.is_all_records_data = false
-          self.get_more_data(0, 'fresh')
+          self.$nextTick(() => {
+            self.get_more_data(0, 'fresh')
+          })
           done()
         }, 300)
       },
       infinite: function (done) {
         let self = this
-        if (self.is_all_records_data || self.now_record_length < 6) {
+        if (self.is_all_records_data || self.now_record_length < self.offset_step) {
           setTimeout(function () {
             done(true)
             self.is_all_records_data = false
@@ -131,8 +154,10 @@
           return
         }
         setTimeout(function () {
-          self.offset = self.offset + 6
-          self.get_more_data(self.offset, 'add')
+          self.offset = self.offset + self.offset_step
+          self.$nextTick(() => {
+            self.get_more_data(self.offset, 'add')
+          })
           done()
         }, 300)
       },
@@ -147,7 +172,9 @@
       let self = this
       self.vux.menus = ['新建', '取消']
       self.vux.actionSheetFunction = self.actionSheetFunction
-      self.get_more_data(0, 'refresh')
+      this.$nextTick(() => {
+        self.get_more_data(0, 'refresh')
+      })
     }
   }
 </script>

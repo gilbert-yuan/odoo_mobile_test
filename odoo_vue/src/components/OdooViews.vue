@@ -14,7 +14,7 @@
     </sticky>
     <div v-for="view in allViews">
       <component :model.sync="model" :is='view' :domain.sync="domain" :view_id.sync="view_id" :offset_step.sync="offset"
-                 v-on:on-click-item="treeRowClick" v-show="view===curentComponent" :limit.sync="limit">
+                 v-on:on-click-item="treeRowClick" v-if="view===curentComponent" :limit.sync="limit">
       </component>
     </div>
   </div>
@@ -56,8 +56,9 @@
         this.domain = item.domain
       },
       treeRowClick: function (item) {
-        if (!this.noForm) {
-          this.$router.push({name: 'odooForm', params: {recordId: item.id}})
+        let self = this
+        if (!self.noForm) {
+          self.$router.push({name: 'odooForm', params: {recordId: item[0].value, model: self.model, viewId: self.view_id}})
         }
       }
     },
@@ -78,6 +79,7 @@
           self.offset = response.data.offset
           self.limit = response.data.limit
           self.noForm = response.data.noForm
+          console.log(response.data)
           self.curentComponent = response.data.view_type
           self.model = JSON.stringify(response.data.model)
           self.ClickButtonTableItem(self.items[0])

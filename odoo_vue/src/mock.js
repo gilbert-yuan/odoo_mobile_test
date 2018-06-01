@@ -41,25 +41,25 @@ const Random = Mock.Random
 // // Mock.mock( url, post/get , 返回的数据)；
 // Mock.mock('/odoo/get/action/views', 'get', getActionView)
 
-const getTreeView = function () {
-  let treeData = []
-  for (let i = 0; i < Random.integer(6, 6); i++) {
-    treeData.push({
-      title: Random.ctitle(2, 4),
-      meta: [
-        {name: 'name', value: Random.ctitle(2, 8)},
-        {name: 'note', value: Random.ctitle(2, 4)},
-        {name: 'desc', value: Random.ctitle(2, 8)},
-        {name: 'other', value: Random.ctitle(2, 8)},
-        {name: 'date', value: '2011-09-10'}
-      ]
-    })
-  }
-
-  return treeData
-}
-// Mock.mock( url, post/get , 返回的数据)；
-Mock.mock('/odoo/get/tree', 'get', getTreeView)
+// const getTreeView = function () {
+//   let treeData = []
+//   for (let i = 0; i < Random.integer(6, 6); i++) {
+//     treeData.push({
+//       title: Random.ctitle(2, 4),
+//       meta: [
+//         {name: 'name', value: Random.ctitle(2, 8)},
+//         {name: 'note', value: Random.ctitle(2, 4)},
+//         {name: 'desc', value: Random.ctitle(2, 8)},
+//         {name: 'other', value: Random.ctitle(2, 8)},
+//         {name: 'date', value: '2011-09-10'}
+//       ]
+//     })
+//   }
+//
+//   return treeData
+// }
+// // Mock.mock( url, post/get , 返回的数据)；
+// Mock.mock('/odoo/get/tree', 'get', getTreeView)
 
 const getFromViewData = function () {
   let treeData = []

@@ -59,9 +59,7 @@
     data: function () {
       return {
         second_level_menu: [],
-        allFormData: [],
-        model: [],
-        id: []
+        allFormData: []
       }
     },
     computed: {
@@ -88,7 +86,7 @@
       },
       get_form_data: function () {
         let self = this
-        axios.get('/odoo/form/view/data', {model: this.model, id: this.recordId}).then(function (response) {
+        axios.get('/odoo/form/view/data', {model: self.$route.params.model, id: self.$route.params.recordId}).then(function (response) {
           self.allFormData = response.data
         }).catch(function (error) {
           alert(error)

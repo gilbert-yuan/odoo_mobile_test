@@ -10,7 +10,15 @@
             <h4 class="weui-media-box__title" v-html="item.title"></h4>
             <ul class="weui-media-box__info">
               <template  v-for="(field, index) in item.meta">
-                <li class="weui-media-box__info__meta" v-html="field.value"></li>
+                <template v-if="!field.invisible">
+                  <template v-if="['char', 'date', 'datetime', 'integer', 'float', 'selection', 'many2one'].indexOf(field.type)>=0">
+                    <li class="weui-media-box__info__meta">{{field.title}}: {{field.value}}</li>
+                  </template>
+                  <template v-else-if="['boolean'].indexOf(field.type) >= 0">
+                    <li class="weui-media-box__info__meta" v-if="field.value">{{field.title}}: <icon type="success"></icon></li>
+                    <li class="weui-media-box__info__meta" v-else>{{field.title}}: <icon type="cancel"></icon></li>
+                  </template>
+                </template>
               </template>
             </ul>
           </div>
@@ -39,27 +47,23 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import treeForm from './OdooTreeForm.vue'
   import { go } from '../../libs/router'
-  import {Popup, Group, TransferDom} from 'vux'
+  import {Popup, Group, Icon, TransferDom} from 'vux'
 
   export default {
     name: 'TreeRow',
     components: {
       Popup,
+      Icon,
       treeForm,
       Group
     },
     directives: {
       TransferDom
     },
-    props: {
-      header: String,
-      footer: Object,
-      list: Array
-    },
-    data () {
+    props: ['header', 'footer', 'list'],
+    data: function () {
       return {
         showForm: false,
         id: '',
@@ -76,7 +80,7 @@
       },
       addNewRecord: function (newRecord) {
         console.log(newRecord)
-        this.list.push(newRecord)
+        this.treeList.push(newRecord)
         this.showForm = false
       },
       cancelAdd: function (newRecord) {
@@ -95,7 +99,7 @@
       },
       get_form_data: function () {
         let self = this
-        axios.get('/odoo/form/new/data', {model: this.model, id: this.recordId}).then(function (response) {
+        self.$http.get('/odoo/form/new/data', {model: this.model, id: this.recordId}).then(function (response) {
           self.allFormData = response.data
         }).catch(function (error) {
           alert(error)

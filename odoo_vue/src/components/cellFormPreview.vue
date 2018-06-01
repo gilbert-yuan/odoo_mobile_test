@@ -27,12 +27,12 @@
         </template>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
   import { Icon } from 'vux'
-  import axios from 'axios'
   export default {
     name: 'cell-form-preview',
     components: {
@@ -45,6 +45,11 @@
         default: true
       }
     },
+    data: function () {
+      return {
+      }
+    },
+
     methods: {
       card_onclick: function (list) {
         this.$emit('on-click-card', list)
@@ -52,8 +57,10 @@
       buttonHttp: function (item, index) {
         let self = this
         self.$http.get('/odoo/button/method', {params: { 'method': item.value, 'model': item.model, 'ids': self.list[0].value }}).then(function (response) {
-          if (response.data.success && response.data.method) {
+          if (response.data.success) {
             self.$emit('refresh', false)
+          } else {
+            self.$emit('show-toast', {toastType: 'warn', toastMsg: response.data.errMsg, toastShow: true})
           }
         }).catch(function () {
 

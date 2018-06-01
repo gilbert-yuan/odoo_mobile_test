@@ -1,6 +1,6 @@
 <template>
   <div>
-    <scroller style="position:fixed; top: 84px;width:100%"
+    <scroller style="position:fixed; top: 90px;bottom: 70px;width:100%"
               :on-refresh="refresh"
               refresh-layer-color="#4b8bf4"
               loading-layer-color="#ec4949"
@@ -56,12 +56,13 @@
       <template v-for="card in cardList">
         <div>
           <group>
-            <cell-form-preview :list="card" @on-click-card="treeRowClick" @refresh="refresh">
+            <cell-form-preview :list="card" @on-click-card="treeRowClick" @refresh="refresh_data" @show-toast="showToast">
             </cell-form-preview>
           </group>
         </div>
       </template>
     </scroller>
+    <toast v-model="toastShow" :type="toastType">{{toastMsg}}</toast>
   </div>
 </template>
 
@@ -81,6 +82,10 @@
     data: function () {
       return {
         offset: 0,
+        timer: 0,
+        toastShow: false,
+        toastType: 'success',
+        toastMsg: '',
         is_all_records_data: false,
         now_record_length: this.offset_step,
         cardList: []
@@ -94,16 +99,36 @@
         vux: state => state.vux
       })
     },
+    mounted () {
+      let self = this
+      this.timer = setInterval(() => {
+        self.$vux.toast.isVisible()
+      }, 1000)
+    },
+    beforeDestroy () {
+      clearInterval(this.timer)
+    },
     methods: {
+      showToast: function (toastSetting) {
+        let self = this
+        self.toastMsg = toastSetting.toastMsg
+        self.toastType = toastSetting.toastType
+        self.toastShow = toastSetting.toastShow
+      },
+      refresh_data: function () {
+        let self = this
+        self.offset = 0
+        self.get_more_data(self.offset, 'fresh')
+      },
       treeRowClick: function (item) {
         this.$emit('on-click-item', item)
       },
       get_more_data: function (offset, type) {
         let self = this
-        if (!self.model) {
+        if (!self.model || !self.limit || !self.offset & self.offset !== 0 || !self.view_id || !self.domain) {
           return
         }
-        self.$http.get('/odoo/get/formPreView', {
+        self.$http.get('/odoo/get/list/view/data', {
           params: {
             modelName: self.model,
             view_id: self.view_id,
