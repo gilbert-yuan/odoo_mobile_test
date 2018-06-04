@@ -53,7 +53,7 @@
           </line>
         </g>
       </svg>
-      <TreeRow :list.sync="list" style=" position:autoFixed;" @on-click-item="treeRowClick"></TreeRow>
+      <TreeRow :list.sync="list" style=" position:autoFixed;" @on-click-tree-item="treeRowClick"></TreeRow>
     </scroller>
   </div>
 </template>
@@ -97,7 +97,7 @@
     },
     methods: {
       treeRowClick: function (item) {
-        this.$emit('on-click-item', item)
+        this.$emit('on-click-item', item.meta)
       },
       get_more_data: function (offset, type) {
         let self = this

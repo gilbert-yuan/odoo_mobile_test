@@ -54,11 +54,10 @@
         </g>
       </svg>
       <template v-for="card in cardList">
-        <div>
-          <group>
-            <cell-form-preview :list="card" @on-click-card="treeRowClick" @refresh="refresh_data" @show-toast="showToast">
-            </cell-form-preview>
-          </group>
+        <div class="weui-cells">
+          <cell-form-preview :list.sync="card" @on-click-card="treeRowClick" :border-intent="false"
+                             @refresh="refresh_data" @show-toast="showToast">
+          </cell-form-preview>
         </div>
       </template>
     </scroller>
@@ -118,6 +117,7 @@
       refresh_data: function () {
         let self = this
         self.offset = 0
+        self.cardList = []
         self.get_more_data(self.offset, 'fresh')
       },
       treeRowClick: function (item) {
@@ -194,6 +194,7 @@
         handler: function (val, oldVal) {
           let self = this
           self.offset = 0
+          self.cardList = []
           self.get_more_data(self.offset, 'fresh')
         }
       }
@@ -210,21 +211,21 @@
 
 <style lang="less">
   @import '~vux/src/styles/reset.less';
-
-  .weui-cells.vux-search_show {
-    margin-top: 0 !important;
-    overflow-y: auto !important;
-    position: fixed !important;
-    width: 100% !important;
-    height: auto !important;
-    .weui-cell:last-child {
-      margin-bottom: 0px !important;
-    }
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    &::after {
-      display: none;
-    }
-  }
+  /*.card_top_bottom {}*/
+  /*.weui-cells.vux-search_show {*/
+    /*margin-top: 0 !important;*/
+    /*overflow-y: auto !important;*/
+    /*position: fixed !important;*/
+    /*width: 100% !important;*/
+    /*height: auto !important;*/
+    /*.weui-cell:last-child {*/
+      /*margin-bottom: 0px !important;*/
+    /*}*/
+    /*&::-webkit-scrollbar {*/
+      /*display: none;*/
+    /*}*/
+    /*&::after {*/
+      /*display: none;*/
+    /*}*/
+  /*}*/
 </style>

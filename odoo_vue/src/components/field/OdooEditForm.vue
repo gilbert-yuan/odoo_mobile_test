@@ -32,8 +32,8 @@
                 :required="field.required || false"></Char>
         </template>
         <template v-else-if="field.type === 'selection'">
-          <popup-radio :title="field.title" :options="field.options" v-model="field.value"
-                       :required="field.required || false"></popup-radio>
+          <selector :value="field.value" :title="field.title"  :options="field.options"
+                    :required="field.required || false"></selector>
         </template>
         <template v-else-if="field.type === 'text'">
           <x-textarea :title="field.title" v-model="field.value"
@@ -74,6 +74,7 @@
     components: {
       Group,
       Char,
+      Selector,
       Msg,
       Alert,
       XButton,
@@ -82,7 +83,6 @@
       Many2one,
       GroupTitle,
       XInput,
-      Selector,
       Datetime,
       XNumber,
       XTextarea,

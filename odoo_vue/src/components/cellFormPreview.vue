@@ -1,5 +1,5 @@
 <template>
-  <div class="weui-cell vux-cell-form-preview" :class="{'vux-cell-no-border-intent': !borderIntent}" >
+  <div class="weui-cell vux-cell-form-preview">
     <div class="weui-form-preview__bd">
       <div class="weui-form-preview__item" v-for="item in list" @click.prevent="card_onclick(list)">
         <template v-if="!item.invisible">
@@ -16,9 +16,12 @@
               <span class="weui-form-preview__value"><icon type="cancel"></icon></span>
             </template>
           </template>
+          <template v-else-if="!item.invisible && item.type === 'button'">
+            <div :have_button="button=true"/>
+          </template>
         </template>
       </div>
-      <div class="weui-form-preview__ft">
+      <div class="weui-form-preview__ft" v-show="button">
         <template  v-for="(item, index) in list">
           <button class="weui-form-preview__btn weui-form-preview-btn__primary"
                   v-show="!item.invisible && item.type === 'button'"
@@ -47,6 +50,7 @@
     },
     data: function () {
       return {
+        button: false
       }
     },
 

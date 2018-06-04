@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="padding:15px;">
-      <x-table >
+      <x-table>
         <thead></thead>
         <tbody>
         <template v-for="field in allFormData">
@@ -13,7 +13,8 @@
               </td>
             </tr>
           </template>
-          <template v-else-if="field.type=='char'">
+          <template
+            v-else-if="['char', 'boolean', 'integer', 'many2one', 'float', 'selection'].indexOf(field.type) >= 0">
             <tr>
               <td style="width: 40%"> {{ field.title }}</td>
               <td style="width: 60%">{{ field.value }}</td>
@@ -26,18 +27,18 @@
         <template v-if="field.type=='one2many'">
           <x-table full-bordered style="background-color:#fff;font-size: 8px">
             <thead>
-              <tr>
-                <th v-for="tableT in field.value.tableTh">
-                  {{tableT}}
-                </th>
-              </tr>
+            <tr>
+              <th v-for="tableT in field.value.tableTh">
+                {{tableT}}
+              </th>
+            </tr>
             </thead>
             <tbody>
-              <tr v-for="rowVal in  field.value.value">
-                <td v-for="val in rowVal">
-                  {{val}}
-                </td>
-              </tr>
+            <tr v-for="rowVal in  field.value.tableBody">
+              <td v-for="val in rowVal">
+                {{val.value}}
+              </td>
+            </tr>
             </tbody>
           </x-table>
         </template>
@@ -48,8 +49,9 @@
 
 <script>
   import axios from 'axios'
-  import { mapState } from 'vuex'
+  import {mapState} from 'vuex'
   import {XTable, CheckIcon} from 'vux'
+
   export default {
     name: 'formComponent',
     components: {
@@ -81,21 +83,26 @@
     methods: {
       actionSheetFunction: function (itemIndex, items) {
         if (items === '新建') {
-          this.$router.push({ name: 'newForm', params: {} })
+          this.$router.push({name: 'newForm', params: {}})
         }
       },
       get_form_data: function () {
         let self = this
-        axios.get('/odoo/form/view/data', {model: self.$route.params.model, id: self.$route.params.recordId}).then(function (response) {
+        console.log(self.$route.params.model, self.$route.params.viewId, self.$route.params.recordId)
+        axios.get('/odoo/form/view/data', {
+          params: {
+            model: self.$route.params.model,
+            viewId: self.$route.params.viewId,
+            id: self.$route.params.recordId
+          }
+        }).then(function (response) {
+          console.log(response.data)
           self.allFormData = response.data
         }).catch(function (error) {
           alert(error)
         })
       }
     },
-    watch: {
-      '$route': function (to, from) {
-      }
-    }
+    watch: {}
   }
 </script>

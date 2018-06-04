@@ -57,6 +57,7 @@
       },
       treeRowClick: function (item) {
         let self = this
+        console.log(item, '00000')
         if (!self.noForm) {
           self.$router.push({name: 'odooForm', params: {recordId: item[0].value, model: self.model, viewId: self.view_id}})
         }

@@ -1,44 +1,60 @@
 <template>
-  <div>
-    <div class="weui-panel weui-panel_access">
-      <div class="weui-panel__hd" v-if="header" @click="onClickHeader" v-html="header">
-        <slot name="header"></slot>
-      </div>
-      <div class="weui-panel__bd">
-        <slot name="body">
-          <div class="weui-media-box weui-media-box_text" v-for="item in list" @click.prevent="onItemClick(item)">
-            <h4 class="weui-media-box__title" v-html="item.title"></h4>
-            <ul class="weui-media-box__info">
-              <template  v-for="(field, index) in item.meta">
-                <template v-if="!field.invisible">
-                  <template v-if="['char', 'date', 'datetime', 'integer', 'float', 'selection', 'many2one'].indexOf(field.type)>=0">
-                    <li class="weui-media-box__info__meta">{{field.title}}: {{field.value}}</li>
-                  </template>
-                  <template v-else-if="['boolean'].indexOf(field.type) >= 0">
-                    <li class="weui-media-box__info__meta" v-if="field.value">{{field.title}}: <icon type="success"></icon></li>
-                    <li class="weui-media-box__info__meta" v-else>{{field.title}}: <icon type="cancel"></icon></li>
-                  </template>
-                </template>
-              </template>
-            </ul>
+  <div class="vux-1px-t">
+    <swipeout>
+      <div>
+        <div class="weui-panel__hd" v-if="header" @click="onClickHeader" v-html="header">
+          <slot name="header"></slot>
+        </div>
+        <div class="weui-panel__bd">
+          <div ame="body">
+            <div v-for="item in list" >
+              <swipeout-item transition-mode="follow">
+                <div slot="right-menu">
+                  <swipeout-button @click.native="onButtonClick('edit')" type="primary">{{'编辑'}}</swipeout-button>
+                  <swipeout-button @click.native="onButtonClick('delete')" type="warn">{{'删除'}}</swipeout-button>
+                </div>
+                <div slot="content" class="demo-content vux-1px-t" @click.prevent="onItemClick(item)">
+                    <h4 class="weui-media-box__title" v-html="item.title"></h4>
+                    <ul class="weui-media-box__info">
+                      <template v-for="(field, index) in item.meta">
+                        <template v-if="!field.invisible">
+                          <template
+                            v-if="['char', 'date', 'datetime', 'integer', 'float', 'selection', 'many2one'].indexOf(field.type)>=0">
+                            <li class="weui-media-box__info__meta">{{field.title}}: {{field.value}}</li>
+                          </template>
+                          <template v-else-if="['boolean'].indexOf(field.type) >= 0">
+                            <li class="weui-media-box__info__meta" v-if="field.value">{{field.title}}:
+                              <icon type="success"></icon>
+                            </li>
+                            <li class="weui-media-box__info__meta" v-else>{{field.title}}:
+                              <icon type="cancel"></icon>
+                            </li>
+                          </template>
+                        </template>
+                      </template>
+                    </ul>
+                  </div>
+              </swipeout-item>
+            </div>
           </div>
-        </slot>
+        </div>
+        <div class="weui-panel__ft">
+          <a
+            class="weui-cell weui-cell_access weui-cell_link"
+            v-if="footer && footer.title"
+            @click.prevent="onClickFooter">
+            <div class="weui-cell__bd" v-html="footer.title"></div>
+          </a>
+        </div>
       </div>
-      <div class="weui-panel__ft">
-        <a
-          class="weui-cell weui-cell_access weui-cell_link"
-          v-if="footer && footer.title"
-          @click.prevent="onClickFooter">
-          <div class="weui-cell__bd" v-html="footer.title"></div>
-        </a>
-      </div>
-    </div>
+    </swipeout>
+
     <div v-transfer-dom>
       <popup v-model="showForm" height="100%" position="bottom">
         <div class="popup0">
           <group>
             <treeForm :allFormData.sync="allFormData"
-                      :model="model" :id="id" @save="addNewRecord" @cancel="cancelAdd"> </treeForm>
+                      :model="model" :id="id" @save="addNewRecord" @cancel="cancelAdd"></treeForm>
           </group>
         </div>
       </popup>
@@ -48,8 +64,7 @@
 
 <script>
   import treeForm from './OdooTreeForm.vue'
-  import { go } from '../../libs/router'
-  import {Popup, Group, Icon, TransferDom} from 'vux'
+  import {Popup, Group, Icon, TransferDom, Swipeout, SwipeoutItem, SwipeoutButton} from 'vux'
 
   export default {
     name: 'TreeRow',
@@ -57,7 +72,10 @@
       Popup,
       Icon,
       treeForm,
-      Group
+      Group,
+      Swipeout,
+      SwipeoutItem,
+      SwipeoutButton
     },
     directives: {
       TransferDom
@@ -72,11 +90,9 @@
       }
     },
     methods: {
-      onImgError (item, $event) {
-        this.$emit('on-img-error', JSON.parse(JSON.stringify(item)), $event)
-        if (item.fallbackSrc) {
-          $event.target.src = item.fallbackSrc
-        }
+      onButtonClick: function (event) {
+      },
+      handleEvents: function (type) {
       },
       addNewRecord: function (newRecord) {
         console.log(newRecord)
@@ -86,16 +102,15 @@
       cancelAdd: function (newRecord) {
         this.showForm = false
       },
-      onClickFooter () {
+      onClickFooter: function () {
         this.get_form_data()
         this.showForm = true
       },
-      onClickHeader () {
+      onClickHeader: function () {
         this.$emit('on-click-header')
       },
-      onItemClick (item) {
-        this.$emit('on-click-item', item)
-        go(item.url, this.$router)
+      onItemClick: function (item) {
+        this.$emit('on-click-tree-item', item)
       },
       get_form_data: function () {
         let self = this
@@ -114,4 +129,16 @@
   @import '~vux/src/styles/weui/widget/weui_cell/weui_access';
   @import '~vux/src/styles/weui/widget/weui_panel/weui_panel';
   @import '~vux/src/styles/weui/widget/weui_media_box/weui_media_box';
+
+  /*demo-content {*/
+    /*padding: 0px 10px 10px 10px;*/
+  /*}*/
+  .weui-media-box__title {
+    font-size: 15px;
+    padding: 5px 0px 0px 10px;
+  }
+  .weui-media-box__info {
+    padding: 0px 0px 10px 10px;
+    margin-top: 8px;
+  }
 </style>
