@@ -19,6 +19,7 @@
     "mockjs": "^1.0.1-beta3",
     "vue": "^2.5.2",
     "vue-circle-menu": "^1.1.1",
+    "vue-float-action-button": "^0.3.8",
     "vue-router": "^3.0.1",
     "vue-scroller": "^2.2.4",
     "vuex": "^3.0.1",

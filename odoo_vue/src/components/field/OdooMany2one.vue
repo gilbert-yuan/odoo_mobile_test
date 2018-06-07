@@ -55,9 +55,9 @@
     directives: {
       TransferDom
     },
-    props: [ 'title', 'value', 'readonly' ],
+    props: ['title', 'value', 'readonly', 'field', 'options_default'],
     computed: {
-      displayValue () {
+      displayValue: function () {
         if (!this.options.length) {
           return ''
         }
@@ -73,57 +73,66 @@
       }
     },
     methods: {
-      onValueChange (val) {
+      onValueChange: function (val) {
         this.hide()
       },
-      show () {
+      show: function () {
         if (!this.readonly) {
+          this.getNewData()
           this.showPopup = true
         }
       },
       setFocus: function () {
         this.$refs.search.setFocus()
       },
-      onSubmit () {
+      onSubmit: function () {
         this.getNewData()
       },
-      onFocus () {
+      onFocus: function () {
         this.radioSearchHeight = '45px'
       },
-      onCancel () {
+      onCancel: function () {
         this.radioSearchHeight = '0px'
         this.showPopup = false
       },
-      hide () {
+      hide: function () {
         this.showPopup = false
       },
       getNewData: function () {
         let self = this
-        axios.get('/odoo/model/name_search', {model: this.model, value: this.searchValue, limit: 15}).then(function (response) {
-          self.options = response.data
-        }).catch(function (error) {
-          alert(JSON.stringify(error))
-        })
+        axios.get('/odoo/model/name_search',
+          {
+            params:
+              {model: self.field.model, value: self.searchValue || '', domain: self.field.domain || [], limit: 15}
+          }).then(function (response) {
+            self.options = response.data
+          }).catch(function (error) {
+            alert(JSON.stringify(error))
+          })
       }
     },
     watch: {
-      value (val) {
+      value: function (val) {
         this.currentValue = val
       },
-      currentValue (val) {
-        this.$emit('input', val)
-        this.$emit('on-change', val)
+      currentValue: function (val) {
+        this.$emit('update:options_default', [
+          {
+            key: val,
+            value: this.displayValue
+          }
+        ])
       }
     },
     created: function () {
-      this.getNewData()
+      // this.getNewData()
     },
-    data () {
+    data: function () {
       return {
         results: [],
         searchValue: '',
         radioSearchHeight: '0px',
-        options: [],
+        options: this.options_default || [],
         showPopup: false,
         currentValue: this.value
       }

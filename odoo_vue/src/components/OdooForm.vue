@@ -5,7 +5,7 @@
         <thead></thead>
         <tbody>
         <template v-for="field in allFormData">
-          <template v-if="field.type=='boolean'">
+          <template v-if="field.type=='boolean' && !field.invisible">
             <tr>
               <td style="width: 40%"> {{field.title}}</td>
               <td style="width: 60%">
@@ -14,7 +14,7 @@
             </tr>
           </template>
           <template
-            v-else-if="['char', 'boolean', 'integer', 'many2one', 'float', 'selection'].indexOf(field.type) >= 0">
+            v-else-if="['char', 'boolean', 'integer', 'many2one', 'float', 'selection'].indexOf(field.type) >= 0 && !field.invisible">
             <tr>
               <td style="width: 40%"> {{ field.title }}</td>
               <td style="width: 60%">{{ field.value }}</td>
@@ -28,13 +28,13 @@
           <x-table full-bordered style="background-color:#fff;font-size: 8px">
             <thead>
             <tr>
-              <th v-for="tableT in field.value.tableTh">
+              <th v-for="tableT in field.table.tableTh">
                 {{tableT}}
               </th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="rowVal in  field.value.tableBody">
+            <tr v-for="rowVal in  field.table.tableBody">
               <td v-for="val in rowVal">
                 {{val.value}}
               </td>

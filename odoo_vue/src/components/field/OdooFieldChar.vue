@@ -1,6 +1,6 @@
 <template>
   <x-input :title="title" v-model="changeVal" :required="required" :type="type" :placeholder="placeholder"
-           :readonly="readonly" :show-clear="showClear" :is-type="isType"></x-input>
+           :readonly="readonly" :show-clear="showClear" :is-type="isType" @on-focus="focusChange"></x-input>
 </template>
 
 <script>
@@ -13,16 +13,18 @@
     },
     data: function () {
       return {
+        changeVal: this.value
       }
     },
-    computed: {
-      changeVal: {
-        get: function () {
-          return this.value
-        },
-        set: function (v) {
-          this.$emit('update:value', v)
-        }
+    methods: {
+      focusChange: function (val) {
+        this.changeVal = val
+      }
+    },
+    watch: {
+      changeVal: function (newvalue, oldVal) {
+        this.$emit('update:value', newvalue)
+        // this.value = newvalue
       }
     }
   }

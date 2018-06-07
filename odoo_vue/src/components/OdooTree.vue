@@ -53,7 +53,8 @@
           </line>
         </g>
       </svg>
-      <TreeRow :list.sync="list" style=" position:autoFixed;" @on-click-tree-item="treeRowClick"></TreeRow>
+      <TreeRow :list.sync="list" style=" position:autoFixed;" :viewId.sync="view_id"
+               @on-click-tree-item="treeRowClick" :model.sync="model"></TreeRow>
     </scroller>
   </div>
 </template>
@@ -96,6 +97,13 @@
       }
     },
     methods: {
+      fresh: function () {
+        this.$nextTick(() => {
+          self.offset = 0
+          self.list = []
+          self.get_more_data(0, 'refresh')
+        })
+      },
       treeRowClick: function (item) {
         this.$emit('on-click-item', item.meta)
       },

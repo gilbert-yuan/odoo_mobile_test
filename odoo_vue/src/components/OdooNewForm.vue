@@ -1,14 +1,16 @@
 <template>
-   <editForm :allFormData.sync="allFormData" :model="model" :id="id">
-   </editForm>
+  <editForm :allFormData.sync="allFormData" :model="model" :id="id">
+  </editForm>
 </template>
 
 <script>
   import axios from 'axios'
-  import { mapState } from 'vuex'
+  import {mapState} from 'vuex'
   import editForm from './field/OdooEditForm.vue'
-  import { GroupTitle, Group, XInput, Selector, PopupRadio,
-    Datetime, XNumber, XTextarea, XSwitch } from 'vux'
+  import {
+    GroupTitle, Group, XInput, Selector, PopupRadio,
+    Datetime, XNumber, XTextarea, XSwitch
+  } from 'vux'
 
   export default {
     name: 'formComponent',
@@ -52,11 +54,18 @@
       },
       get_form_data: function () {
         let self = this
-        axios.get('/odoo/form/new/data', {model: this.model, id: this.recordId}).then(function (response) {
-          self.allFormData = response.data
-        }).catch(function (error) {
-          alert(error)
-        })
+        console.log(self.$route.params)
+        axios.get('/odoo/form/view/data',
+          {params: {
+            model: self.$route.params.model,
+            viewId: self.$route.params.viewId,
+            id: self.$route.params.id}
+          }).then(function (response) {
+            console.log(response.data, '----------')
+            self.allFormData = response.data
+          }).catch(function (error) {
+            alert(error)
+          })
       }
     },
     watch: {

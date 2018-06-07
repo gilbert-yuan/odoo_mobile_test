@@ -2,6 +2,8 @@
   <div>
     <scroller style="position:fixed; top: 90px;bottom: 70px;width:100%"
               :on-refresh="refresh"
+              noDataText="暂无更多数据"
+              loadingLayerColor="position: relative; top: -0.9em; padding: 0 .55em; color: #999999;"
               refresh-layer-color="#4b8bf4"
               loading-layer-color="#ec4949"
               :on-infinite="infinite">
@@ -85,6 +87,7 @@
         toastShow: false,
         toastType: 'success',
         toastMsg: '',
+        mainBtnColor: '#FF0099',
         is_all_records_data: false,
         now_record_length: this.offset_step,
         cardList: []
@@ -136,7 +139,6 @@
             limit: self.limit,
             offset: self.offset}
         }).then(function (response) {
-          console.log(response.data, '++++++++++')
           if (!response.data) {
             return
           }
@@ -211,6 +213,20 @@
 
 <style lang="less">
   @import '~vux/src/styles/reset.less';
+  .no-data-text {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -0.9em;
+    padding: 0 .55em;
+    color: #999999;
+    width: 65%;
+    margin: 1.5em auto;
+    line-height: 1.6em;
+    font-size: 14px;
+    text-align: center;
+
+  }
   /*.card_top_bottom {}*/
   /*.weui-cells.vux-search_show {*/
     /*margin-top: 0 !important;*/
