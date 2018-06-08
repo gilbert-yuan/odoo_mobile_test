@@ -56,7 +56,6 @@
         </div>
       </div>
     </swipeout>
-
     <div v-transfer-dom>
       <popup v-model="showForm" height="100%" position="bottom">
         <div class="popup0">
@@ -67,7 +66,6 @@
         </div>
       </popup>
     </div>
-    <toast v-model="toastShow" :type="toastType">{{toastMsg}}</toast>
   </div>
 </template>
 
@@ -95,10 +93,8 @@
         showForm: false,
         id: '',
         isEdit: false,
-        toastShow: false,
-        toastType: '',
-        toastMsg: '',
         allFormData: [],
+        menu: [],
         editIndex: 0
       }
     },
@@ -148,9 +144,7 @@
             if (response.data.success) {
               self.list_locate.splice(index, index + 1)
             } else {
-              self.toastType = 'warn'
-              self.toastMsg = response.data.errMsg
-              self.toastShow = true
+              self.$emit('error-toast', {toastType: 'warn', toastMsg: response.data.errMsg, toastShow: true})
             }
           }).catch(function () {
 

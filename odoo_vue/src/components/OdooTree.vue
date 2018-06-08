@@ -2,6 +2,8 @@
   <div>
     <scroller style="position:fixed; top: 95px;bottom: 70px;width:100%"
               :on-refresh="refresh"
+              noDataText="暂无更多数据"
+              loadingLayerColor="position: relative; top: -0.9em; padding: 0 .55em; color: #999999;"
               refresh-layer-color="#4b8bf4"
               loading-layer-color="#ec4949"
               :on-infinite="infinite">
@@ -53,9 +55,11 @@
           </line>
         </g>
       </svg>
-      <TreeRow :list.sync="list" style=" position:autoFixed;" :viewId.sync="view_id"
+      <TreeRow :list.sync="list" style=" position:autoFixed;" :viewId.sync="view_id" @error-toast="errorToast"
                @on-click-tree-item="treeRowClick" :model.sync="model"></TreeRow>
+
     </scroller>
+    <toast v-model="toastShow" :type="toastType">{{toastMsg}}</toast>
   </div>
 </template>
 
@@ -74,6 +78,9 @@
     data () {
       return {
         offset: 0,
+        toastShow: false,
+        toastType: '',
+        toastMsg: '',
         is_all_records_data: false,
         now_record_length: this.offset_step,
         list: []
@@ -97,12 +104,21 @@
       }
     },
     methods: {
+      change: function (status) {
+        console.log(`Status: ${status}`)
+      },
       fresh: function () {
         this.$nextTick(() => {
           self.offset = 0
           self.list = []
           self.get_more_data(0, 'refresh')
         })
+      },
+      errorToast: function (message) {
+        let self = this
+        self.toastShow = message.toastShow
+        self.toastType = message.toastType
+        self.toastMsg = message.toastMsg
       },
       treeRowClick: function (item) {
         this.$emit('on-click-item', item.meta)

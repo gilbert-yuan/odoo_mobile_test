@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <sticky
       scroll-box="vux_view_box_body"
       ref="sticky"
@@ -16,6 +17,9 @@
       <component :model.sync="model" :is='view' :domain.sync="domain" :view_id.sync="view_id" :offset_step.sync="offset"
                  v-on:on-click-item="treeRowClick" v-if="view===curentComponent" :limit.sync="limit">
       </component>
+    </div>
+    <div class="divcss6_right">
+      <x-icon type="ios-plus-outline" size="50"></x-icon>
     </div>
   </div>
 </template>
@@ -91,7 +95,5 @@
 </script>
 
 <style>
-  .overwrite-title-demo {
-    margin-top: 5px;
-  }
+  .divcss6_right{margin-top: 100%; position: absolute; margin-left:85%;}
 </style>
