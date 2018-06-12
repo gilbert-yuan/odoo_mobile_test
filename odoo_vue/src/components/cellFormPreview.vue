@@ -42,7 +42,7 @@
       Icon
     },
     props: {
-      list: Array,
+      card: {},
       borderIntent: {
         type: Boolean,
         default: true
@@ -50,6 +50,8 @@
     },
     data: function () {
       return {
+        id: this.card.id,
+        list: this.card.fieldVals,
         button: false
       }
     },

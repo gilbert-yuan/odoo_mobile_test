@@ -18,10 +18,6 @@
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">&#xe637;</span>
           <span slot="label">首页</span>
         </tabbar-item>
-        <tabbar-item @click.native="showMenu=!showMenu">
-          <x-icon type="ios-plus" size="30" slot="icon"></x-icon>
-          <span slot="label">更多</span>
-        </tabbar-item>
         <tabbar-item  @on-item-click="onclick_tabbar">
           <span class="demo-icon-22" slot="icon">&#xe633;</span>
           <span slot="label">上一页</span>

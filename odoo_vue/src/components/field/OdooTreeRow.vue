@@ -93,7 +93,7 @@
         showForm: false,
         id: '',
         isEdit: false,
-        allFormData: [],
+        allFormData: {},
         menu: [],
         editIndex: 0
       }
@@ -101,11 +101,19 @@
     computed: {
       list_locate: {
         get: function () {
-          return this.list
+          return this.list || []
         },
         set: function (v) {
           this.$emit('update:list', v)
         }
+      }
+    },
+    watch: {
+      list_locate: {
+        handler: function (val, oldVal) {
+          this.$emit('update:list', val)
+        },
+        deep: true
       }
     },
     methods: {
@@ -116,7 +124,7 @@
             self.$router.push({
               name: 'newForm',
               params: {
-                id: item.meta[0].value,
+                id: item.id,
                 model: self.model,
                 viewId: self.viewId
               }
@@ -138,7 +146,7 @@
             params: {
               method: 'unlink',
               model: self.model,
-              ids: item.meta[0].value
+              ids: item.id
             }
           }).then(function (response) {
             if (response.data.success) {
@@ -156,22 +164,22 @@
       addNewRecord: function (newRecord) {
         let self = this
         if (!self.isEdit) {
-          this.list_locate.push({meta: newRecord, title: '新添加'})
+          this.list_locate.push({meta: newRecord.fieldVals, id: newRecord.id || 0, title: '新添加'})
         } else {
-          this.list_locate[self.editIndex] = { meta: newRecord, title: '本次修改记录' }
+          this.list_locate[self.editIndex] = { meta: newRecord.fieldVals, id: newRecord.id || 0, title: '本次修改记录' }
         }
-        this.allFormData = []
+        this.allFormData = {}
         this.showForm = false
       },
       cancelAdd: function (newRecord) {
-        this.allFormData = []
+        this.allFormData = {}
         this.showForm = false
       },
       onClickFooter: function () {
         let self = this
         self.isEdit = false
         console.log(self.recordField, 'this.recordField')
-        self.allFormData = JSON.parse(JSON.stringify(self.recordField))
+        self.allFormData = {fieldVals: JSON.parse(JSON.stringify(self.recordField)), id: 0}
         self.showForm = true
       },
       onClickHeader: function () {

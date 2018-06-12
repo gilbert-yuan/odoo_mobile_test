@@ -3,7 +3,7 @@
     <scroller style="position:fixed; top: 95px;bottom: 70px;width:100%"
               :on-refresh="refresh"
               noDataText="暂无更多数据"
-              loadingLayerColor="position: relative; top: -0.9em; padding: 0 .55em; color: #999999;"
+              loadingLayerColor="position: relative; top: -0.9em; padding: 0 .55em; color: #999999;font-size:5em"
               refresh-layer-color="#4b8bf4"
               loading-layer-color="#ec4949"
               :on-infinite="infinite">
@@ -130,7 +130,7 @@
         }
         self.$http.get('/odoo/get/list/view/data', {
           params: {
-            modelName: self.model,
+            model: self.model,
             view_id: self.view_id,
             domain: self.domain,
             limit: self.limit,

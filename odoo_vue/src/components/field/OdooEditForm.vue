@@ -1,7 +1,7 @@
 <template>
   <div>
     <group>
-      <template v-for="field in allFormData">
+      <template v-for="field in allFormData.fieldVals">
         <template v-if="!field.is_show_edit_form">
           <template v-if="field.type === 'char'">
             <Char :title="field.title" :value.sync="field.value" type="text" :required="field.required || false"></Char>
@@ -14,10 +14,11 @@
                       :required="field.required || false"></datetime>
           </template>
           <template v-else-if="field.type === 'many2one'">
-            <Many2one :title="field.title" :value.sync='field.value' :field="field" :options_default.sync="field.options"></Many2one>
+            <Many2one :title="field.title" :value.sync="field.value" :field="field"
+                      :options_default.sync="field.options"></Many2one>
           </template>
           <template v-else-if="field.type === 'one2many'">
-            <TreeRow :list.sync="field.tree_show" style="position:autoFixed;" v-on:on-click-item="treeRowClick"
+            <TreeRow :list.sync="field.value" style="position:autoFixed;" v-on:on-click-item="treeRowClick"
                      :header="field.title" :footer="getTreeRowFooter()" :recordField="field.many_field"
             ></TreeRow>
           </template>
@@ -33,7 +34,7 @@
                   :required="field.required || false"></Char>
           </template>
           <template v-else-if="field.type === 'selection'">
-            <selector :value="field.value" :title="field.title"  :options="field.options"
+            <selector :value="field.value" :title="field.title" :options="field.options" :readonly="field.readonly||false"
                       :required="field.required || false"></selector>
           </template>
           <template v-else-if="field.type === 'text'">
@@ -58,13 +59,12 @@
   </div>
 </template>
 <script>
-  import axios from 'axios'
   import {mapState} from 'vuex'
   import Char from './OdooFieldChar.vue'
   import TreeRow from './OdooTreeRow.vue'
   import Many2one from './OdooMany2one.vue'
   import {
-    GroupTitle, Group, XInput, Selector, PopupRadio, XButton, Msg, TransferDom, Alert,
+    GroupTitle, Group, XInput, Selector, PopupRadio, XButton, Msg, TransferDom, Alert, Toast,
     Datetime, XNumber, XTextarea, XSwitch
   } from 'vux'
 
@@ -73,6 +73,7 @@
     components: {
       Group,
       Char,
+      Toast,
       Selector,
       Msg,
       Alert,
@@ -101,24 +102,39 @@
     },
     created: function () {
     },
-    data () {
+    data: function () {
       return {
         errorMessage: '',
         showAlert: false
       }
     },
     methods: {
-      onShow: function () {},
-      onHide: function () {},
+      onShow: function () {
+      },
+      onHide: function () {
+      },
       saveRecord: function () {
         let self = this
-        axios.post('/odoo/save/record', {value: this.allFormData, modelName: this.model}).then(function (response) {
-          if (response.success) {
-
+        for (let i = 0; i < self.allFormData.fieldVals.length; i++) {
+          if (self.allFormData.fieldVals[i].required && !self.allFormData.fieldVals[i].value) {
+            self.$vux.toast.show({text: '请输入' + self.allFormData.fieldVals[i].title + '!', type: 'warn'})
+            return
+          }
+        }
+        self.$http.post('/odoo/save/record', {
+          value: this.allFormData.fieldVals,
+          id: this.allFormData.id,
+          model: this.$route.params.model
+        }).then(function (response) {
+          if (response.data && response.data.result.success) {
+            self.$vux.toast.show({text: response.data.result.errMsg, type: 'text'})
+            self.$router ? self.$router.back() : window.history.back()
+          } else if (response.data && !response.data.result.success) {
+            console.log(response)
+            self.$vux.toast.show({text: response.data.result.errMsg, type: 'warn'})
           }
         }).catch(function () {
-          self.showAlert = true
-          self.errorMessage = ''
+
         })
       },
       getTreeRowFooter: function () {

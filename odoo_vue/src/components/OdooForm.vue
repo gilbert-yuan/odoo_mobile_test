@@ -61,6 +61,7 @@
     data: function () {
       return {
         second_level_menu: [],
+        id: 0,
         allFormData: []
       }
     },
@@ -97,7 +98,8 @@
           }
         }).then(function (response) {
           console.log(response.data)
-          self.allFormData = response.data
+          self.allFormData = response.data.fieldVals
+          self.id = response.data.id
         }).catch(function (error) {
           alert(error)
         })

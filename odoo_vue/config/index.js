@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/odoo': {
-        target: 'http://dtfg.tunnel.800890.com',
+        target: 'http://dtfg:8888',
         changeOrigin: true,
         pathRewrite: {
           '^/': ''

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-for="field in newFormData">
+    <template v-for="field in newFormData.fieldVals">
       <template v-if="!field.is_show_edit_form">
         <template v-if="field.type === 'char'">
           <Char :title="field.title" :value.sync="field.value" type="text" :required="field.required || false"></Char>
@@ -86,7 +86,7 @@
     },
     data: function () {
       return {
-        newFormData: []
+        newFormData: {}
       }
     },
     created: function () {

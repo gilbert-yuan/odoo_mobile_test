@@ -18,8 +18,8 @@
                  v-on:on-click-item="treeRowClick" v-if="view===curentComponent" :limit.sync="limit">
       </component>
     </div>
-    <div class="divcss6_right">
-      <x-icon type="ios-plus-outline" size="50"></x-icon>
+    <div class="divcss6_right" >
+      <x-icon type="ios-plus-outline" size="50" @click.native="AddNewRecord()"></x-icon>
     </div>
   </div>
 </template>
@@ -58,6 +58,18 @@
     methods: {
       ClickButtonTableItem: function (item) {
         this.domain = item.domain
+      },
+      AddNewRecord: function () {
+        let self = this
+        console.log('00000')
+        self.$router.push({
+          name: 'newForm',
+          params: {
+            id: 0,
+            model: self.model,
+            viewId: self.view_id
+          }
+        })
       },
       treeRowClick: function (item) {
         let self = this

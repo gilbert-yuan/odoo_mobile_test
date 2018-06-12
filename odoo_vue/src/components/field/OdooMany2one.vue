@@ -58,7 +58,7 @@
     props: ['title', 'value', 'readonly', 'field', 'options_default'],
     computed: {
       displayValue: function () {
-        if (!this.options.length) {
+        if (this.options && !this.options.length) {
           return ''
         }
         if (typeof this.options[0] === 'object') {
@@ -116,6 +116,7 @@
         this.currentValue = val
       },
       currentValue: function (val) {
+        this.$emit('update:value', val)
         this.$emit('update:options_default', [
           {
             key: val,
