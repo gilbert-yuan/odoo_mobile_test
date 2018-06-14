@@ -8,18 +8,18 @@
       :check-sticky-support="false"
       :disabled="disabled">
       <tab>
-        <template v-for="(item, index) in items"  >
+        <template v-for="(item, index) in items">
           <tab-item @on-item-click="ClickButtonTableItem(item)" :selected="index===0">{{ item.title }}</tab-item>
         </template>
       </tab>
     </sticky>
     <div v-for="view in allViews">
       <component :model.sync="model" :is='view' :domain.sync="domain" :view_id.sync="view_id" :offset_step.sync="offset"
-                 v-on:on-click-item="treeRowClick" v-if="view===curentComponent" :limit.sync="limit">
+                 v-on:on-click-item="treeRowClick" v-if="view===curentComponent" :limit.sync="limit" :context="context">
       </component>
     </div>
-    <div class="divcss6_right" >
-      <x-icon type="ios-plus-outline" size="50" @click.native="AddNewRecord()"></x-icon>
+    <div class="floating-button" @click="AddNewRecord()">
+      <i class="icon icon-plus" ></i>
     </div>
   </div>
 </template>
@@ -27,8 +27,8 @@
 <script>
   import Tree from './OdooTree.vue'
   import OdooCard from './OdooCard.vue'
-  import { mapState } from 'vuex'
-  import { XHeader, Actionsheet, Tab, TabItem, Sticky } from 'vux'
+  import {mapState} from 'vuex'
+  import {XHeader, Actionsheet, Tab, TabItem, Sticky} from 'vux'
 
   export default {
     name: 'odooViews',
@@ -47,6 +47,7 @@
         curentComponent: 'Tree',
         domain: [],
         view_id: '',
+        context: {},
         allViews: ['Tree', 'OdooCard'],
         model: '',
         noForm: '',
@@ -61,11 +62,11 @@
       },
       AddNewRecord: function () {
         let self = this
-        console.log('00000')
         self.$router.push({
           name: 'newForm',
           params: {
             id: 0,
+            context: self.context,
             model: self.model,
             viewId: self.view_id
           }
@@ -74,8 +75,11 @@
       treeRowClick: function (item) {
         let self = this
         console.log(item, '00000')
-        if (!self.noForm) {
-          self.$router.push({name: 'odooForm', params: {recordId: item[0].value, model: self.model, viewId: self.view_id}})
+        if (!self.noForm && self.curentComponent !== 'OdooCard') {
+          self.$router.push({
+            name: 'odooForm',
+            params: {recordId: item[0].value, model: self.model, viewId: self.view_id}
+          })
         }
       }
     },
@@ -89,16 +93,19 @@
     },
     created: function () {
       let self = this
+      self.vux.tabbarShow = false
+      self.vux.showBackHeader = true
       this.$nextTick(() => {
         self.$http.get('/odoo/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
           self.items = response.data.viewsData
           self.view_id = response.data.view_id
           self.offset = response.data.offset
           self.limit = response.data.limit
+          self.context = response.data.context
           self.noForm = response.data.noForm
           console.log(response.data)
           self.curentComponent = response.data.view_type
-          self.model = JSON.stringify(response.data.model)
+          self.model = response.data.model
           self.ClickButtonTableItem(self.items[0])
         })
       })
@@ -107,5 +114,63 @@
 </script>
 
 <style>
-  .divcss6_right{margin-top: 100%; position: absolute; margin-left:85%;}
+  .divcss6_right {
+    margin-top: 100%;
+    position: absolute;
+    margin-left: 85%;
+  }
+
+  .floating-button {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    z-index: 1500;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .19), 0 6px 6px rgba(0, 0, 0, .23);
+    background-color: #2196f3;
+    color: #fff;
+    overflow: hidden;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center
+  }
+
+  .floating-button.active-state, html:not(.watch-active-state) .floating-button:active {
+    background: #0c82df
+  }
+
+  .floating-button-toolbar, .speed-dial {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 1500
+  }
+
+  .floating-button-toolbar .floating-button, .speed-dial .floating-button {
+    right: 0;
+    bottom: 0;
+    position: relative
+  }
+
+  i.icon.icon-plus {
+    width: 24px;
+    height: 24px;
+    font-size: 0;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20fill%3D'%23FFFFFF'%20height%3D'24'%20viewBox%3D'0%200%2024%2024'%20width%3D'24'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M19%2013h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'%2F%3E%3Cpath%20d%3D'M0%200h24v24H0z'%20fill%3D'none'%2F%3E%3C%2Fsvg%3E")
+  }
+
+
 </style>

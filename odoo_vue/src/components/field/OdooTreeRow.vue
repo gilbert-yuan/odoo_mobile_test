@@ -87,7 +87,7 @@
     directives: {
       TransferDom
     },
-    props: ['header', 'footer', 'list', 'model', 'viewId', 'recordField'],
+    props: ['header', 'footer', 'list', 'model', 'viewId', 'recordField', 'context'],
     data: function () {
       return {
         showForm: false,

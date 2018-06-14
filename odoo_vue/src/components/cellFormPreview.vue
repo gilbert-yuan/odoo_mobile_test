@@ -16,6 +16,14 @@
               <span class="weui-form-preview__value"><icon type="cancel"></icon></span>
             </template>
           </template>
+          <template v-if="['many2one', 'selecttion'].indexOf(item.type) >= 0">
+            <label class="weui-form-preview__label">{{item.title}}</label>
+            <span class="weui-form-preview__value">{{item.options[0].value}}</span>
+          </template>
+          <template v-if="['selecttion'].indexOf(item.type) >= 0">
+            <label class="weui-form-preview__label">{{item.title}}</label>
+            <span class="weui-form-preview__value">{{item.options[0].value}}</span>
+          </template>
           <template v-else-if="!item.invisible && item.type === 'button'">
             <div :have_button="button=true"/>
           </template>
@@ -62,7 +70,8 @@
       },
       buttonHttp: function (item, index) {
         let self = this
-        self.$http.get('/odoo/button/method', {params: { 'method': item.value, 'model': item.model, 'ids': self.list[0].value }}).then(function (response) {
+        console.log(self.list[index], '-----------------', item)
+        self.$http.get('/odoo/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
           if (response.data.success) {
             self.$emit('refresh', false)
           } else {

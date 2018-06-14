@@ -61,8 +61,10 @@ Vue.prototype.$http = axios
 store.registerModule('vux', {
   state: {
     demoScrollTop: 0,
-    headerTitle: '东方团购内部系统',
+    headerTitle: '内部系统ERP',
     menus: ['刷新'],
+    tabbarShow: true,
+    showBackHeader: false,
     isLoading: false,
     actionSheetFunction: function () {}
   }

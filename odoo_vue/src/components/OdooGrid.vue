@@ -18,6 +18,7 @@
 
 <script>
   import {XHeader, Grid, GridItem, GroupTitle} from 'vux'
+  import {mapState} from 'vuex'
 
   export default {
     name: 'odooGrid',
@@ -26,6 +27,14 @@
       XHeader,
       GroupTitle,
       GridItem
+    },
+    computed: {
+      ...mapState({
+        route: state => state.route,
+        path: state => state.route.path,
+        isLoading: state => state.vux.isLoading,
+        vux: state => state.vux
+      })
     },
     data: function () {
       return {
@@ -36,6 +45,7 @@
     },
     methods: {
       clickGridItem: function (gridSingle) {
+        this.vux.headerTitle = gridSingle.title
         this.$router.push({name: 'odooViews', params: {actionId: gridSingle.actionId}})
       }
     },

@@ -121,10 +121,12 @@
             return
           }
         }
+        console.log(this.$route.params.context, '--------------')
         self.$http.post('/odoo/save/record', {
           value: this.allFormData.fieldVals,
           id: this.allFormData.id,
-          model: this.$route.params.model
+          model: this.$route.params.model,
+          context: this.$route.params.context
         }).then(function (response) {
           if (response.data && response.data.result.success) {
             self.$vux.toast.show({text: response.data.result.errMsg, type: 'text'})

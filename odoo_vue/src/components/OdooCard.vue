@@ -73,7 +73,7 @@
   import CellFormPreview from './cellFormPreview.vue'
 
   export default {
-    props: ['model', 'domain', 'view_id', 'limit', 'offset_step'],
+    props: ['model', 'domain', 'view_id', 'limit', 'offset_step', 'context'],
     name: 'OdooCard',
     components: {
       Group,
