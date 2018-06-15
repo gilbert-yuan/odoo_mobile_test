@@ -115,6 +115,8 @@
           self.model = response.data.model
           if (!self.$route.params.domain) {
             self.ClickButtonTableItem(self.items[0])
+          } else {
+            self.domain = JSON.parse(self.$route.params.domain)
           }
         })
       })

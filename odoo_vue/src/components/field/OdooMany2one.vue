@@ -7,6 +7,8 @@
     <div v-transfer-dom>
       <popup
         height="100%"
+        width="80%"
+        position="right"
         v-model="showPopup"
         style="background-color:#fff;"
         @on-hide="$emit('on-hide')"

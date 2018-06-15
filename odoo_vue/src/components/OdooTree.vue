@@ -195,7 +195,11 @@
       self.vux.menus = ['新建', '取消']
       self.vux.actionSheetFunction = self.actionSheetFunction
       this.$nextTick(() => {
-        self.get_more_data(0, 'refresh')
+        self.offset = 0
+        console.log(self.domain)
+        console.log(self.$route)
+        console.log(self.domain)
+        self.get_more_data(self.offset, 'refresh')
       })
     }
   }

@@ -7,8 +7,8 @@
       <actionsheet :menus="vux.menus" v-model="showMenu" @on-click-menu="vux.actionSheetFunction"></actionsheet>
     </div>
     <view-box ref="viewBox" :body-padding-top="'0px'" body-padding-bottom="55px">
-      <x-header :left-options="{showBack: vux.showBackHeader}" :title="vux.headerTitle"
-                style="width:100%; position:float;">
+      <x-header :left-options="{showBack: vux.showBackHeader, preventGoBack: true}" :title="vux.headerTitle"
+                style="width:100%; position:float;" @on-click-back="onclickBack()">
       </x-header>
       <transition>
         <router-view class="router-view"></router-view>
@@ -72,6 +72,10 @@
       })
     },
     methods: {
+      onclickBack: function () {
+        console.log('-------')
+        window.history.back()
+      },
       onclick_tabbar: function () {
         this.$router.go('-1')
       },
