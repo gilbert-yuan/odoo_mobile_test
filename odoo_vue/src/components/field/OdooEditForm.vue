@@ -121,7 +121,6 @@
             return
           }
         }
-        console.log(this.$route.params.context, '--------------')
         self.$http.post('/odoo/save/record', {
           value: this.allFormData.fieldVals,
           id: this.allFormData.id,
@@ -132,7 +131,6 @@
             self.$vux.toast.show({text: response.data.result.errMsg, type: 'text'})
             self.$router ? self.$router.back() : window.history.back()
           } else if (response.data && !response.data.result.success) {
-            console.log(response)
             self.$vux.toast.show({text: response.data.result.errMsg, type: 'warn'})
           }
         }).catch(function () {
@@ -148,7 +146,6 @@
 
       },
       treeRowClick: function (field) {
-        console.log(field)
       }
     }
   }

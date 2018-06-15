@@ -105,7 +105,6 @@
     },
     methods: {
       change: function (status) {
-        console.log(`Status: ${status}`)
       },
       fresh: function () {
         this.$nextTick(() => {
@@ -147,7 +146,6 @@
             }
             self.now_record_length = response.data.length
             self.list = self.list.concat(response.data)
-            console.log(self.list)
           } else {
             self.now_record_length = response.data.length
             self.list = response.data

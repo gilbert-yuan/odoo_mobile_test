@@ -9,7 +9,7 @@
       :disabled="disabled">
       <tab>
         <template v-for="(item, index) in items">
-          <tab-item @on-item-click="ClickButtonTableItem(item)" :selected="index===0">{{ item.title }}</tab-item>
+          <tab-item @on-item-click="ClickButtonTableItem(item)" :selected="$route.params.domain===JSON.stringify(item.domain)">{{ item.title }}</tab-item>
         </template>
       </tab>
     </sticky>
@@ -58,7 +58,8 @@
     },
     methods: {
       ClickButtonTableItem: function (item) {
-        this.domain = item.domain
+        let self = this
+        self.$router.push({path: '/odoo/view/' + self.$route.params.actionId + '/' + JSON.stringify(item.domain)})
       },
       AddNewRecord: function () {
         let self = this
@@ -74,12 +75,18 @@
       },
       treeRowClick: function (item) {
         let self = this
-        console.log(item, '00000')
         if (!self.noForm && self.curentComponent !== 'OdooCard') {
           self.$router.push({
-            name: 'odooForm',
-            params: {recordId: item[0].value, model: self.model, viewId: self.view_id}
+            path: '/odoo/form/' + item[0].value,
+            query: {recordId: item[0].value, model: self.model, viewId: self.view_id}
           })
+        }
+      }
+    },
+    watch: {
+      '$route': function (to, from) {
+        if (this.$route.params.domain) {
+          this.domain = JSON.parse(this.$route.params.domain)
         }
       }
     },
@@ -106,7 +113,9 @@
           console.log(response.data)
           self.curentComponent = response.data.view_type
           self.model = response.data.model
-          self.ClickButtonTableItem(self.items[0])
+          if (!self.$route.params.domain) {
+            self.ClickButtonTableItem(self.items[0])
+          }
         })
       })
     }

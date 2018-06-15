@@ -102,7 +102,6 @@
     },
     methods: {
       saveForm: function () {
-        console.log(this.newFormData)
         // this.allFormData = this.newFormData
         this.$emit('save', this.newFormData)
       },
@@ -119,7 +118,6 @@
 
       },
       treeRowClick: function (field) {
-        console.log(field)
       }
     }
   }

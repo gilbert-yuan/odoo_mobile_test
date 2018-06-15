@@ -32,11 +32,15 @@ const routes = [{
   name: 'odooViews',
   component: View
 }, {
+  path: '/odoo/view/:actionId/:domain',
+  name: 'odooViewsDetial',
+  component: View
+}, {
   path: '/odoo/new/form',
   name: 'newForm',
   component: NewForm
 }, {
-  path: '/odoo/form',
+  path: '/odoo/form/:record',
   name: 'odooForm',
   component: Form
 }]

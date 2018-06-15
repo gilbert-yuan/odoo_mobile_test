@@ -40,7 +40,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import {Cell, Popup, Radio, TransferDom, Search} from 'vux'
   import find from 'array-find'
 
@@ -100,7 +99,7 @@
       },
       getNewData: function () {
         let self = this
-        axios.get('/odoo/model/name_search',
+        self.$http.get('/odoo/model/name_search',
           {
             params:
               {model: self.field.model, value: self.searchValue || '', domain: self.field.domain || [], limit: 15}

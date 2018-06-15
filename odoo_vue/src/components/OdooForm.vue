@@ -43,19 +43,24 @@
           </x-table>
         </template>
       </template>
+      <template  v-for="(item, index) in allFormData">
+        <x-button v-show="!item.invisible && item.type === 'button'"
+                v-on:click.prevent="buttonHttp(item, index)" type="primary"
+                v-bind:value="item.value">{{item.title}} </x-button>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   import {mapState} from 'vuex'
-  import {XTable, CheckIcon} from 'vux'
+  import {XTable, CheckIcon, XButton} from 'vux'
 
   export default {
     name: 'formComponent',
     components: {
       XTable,
+      XButton,
       CheckIcon
     },
     data: function () {
@@ -87,17 +92,27 @@
           this.$router.push({name: 'newForm', params: {}})
         }
       },
+      buttonHttp: function (item, index) {
+        let self = this
+        self.$http.get('/odoo/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
+          if (response.data.success) {
+            self.$emit('refresh', false)
+          } else {
+            self.$emit('show-toast', {toastType: 'warn', toastMsg: response.data.errMsg, toastShow: true})
+          }
+        }).catch(function () {
+
+        })
+      },
       get_form_data: function () {
         let self = this
-        console.log(self.$route.params.model, self.$route.params.viewId, self.$route.params.recordId)
-        axios.get('/odoo/form/view/data', {
+        self.$http.get('/odoo/form/view/data', {
           params: {
-            model: self.$route.params.model,
-            viewId: self.$route.params.viewId,
-            id: self.$route.params.recordId
+            model: self.$route.query.model,
+            viewId: self.$route.query.viewId,
+            id: self.$route.query.recordId
           }
         }).then(function (response) {
-          console.log(response.data)
           self.allFormData = response.data.fieldVals
           self.id = response.data.id
         }).catch(function (error) {

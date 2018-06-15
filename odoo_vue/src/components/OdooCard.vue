@@ -150,7 +150,6 @@
             }
             self.now_record_length = response.data.length
             self.cardList = self.cardList.concat(response.data)
-            console.log(self.cardList)
           } else {
             self.now_record_length = response.data.length
             self.cardList = response.data

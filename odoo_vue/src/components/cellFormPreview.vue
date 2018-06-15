@@ -3,7 +3,7 @@
     <div class="weui-form-preview__bd">
       <div class="weui-form-preview__item" v-for="item in list" @click.prevent="card_onclick(list)">
         <template v-if="!item.invisible">
-          <template v-if="['char', 'text', 'many2one', 'integer', 'float', 'date', 'datetime'].indexOf(item.type) >= 0">
+          <template v-if="['char', 'text', 'integer', 'float', 'date', 'datetime'].indexOf(item.type) >= 0">
             <label class="weui-form-preview__label">{{item.title}}</label>
             <span class="weui-form-preview__value">{{item.value}}</span>
           </template>
@@ -70,7 +70,6 @@
       },
       buttonHttp: function (item, index) {
         let self = this
-        console.log(self.list[index], '-----------------', item)
         self.$http.get('/odoo/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
           if (response.data.success) {
             self.$emit('refresh', false)

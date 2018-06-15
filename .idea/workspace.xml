@@ -3,12 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="44dbb1b8-fcdc-4d78-8c9b-0b36fed9baf2" name="Default" comment="小休整。">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo_vue/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/OdooCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/OdooCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/OdooGrid.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/OdooGrid.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/OdooForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/OdooForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/OdooNewForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/OdooNewForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/OdooTree.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/OdooTree.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/OdooViews.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/OdooViews.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/cellFormPreview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/cellFormPreview.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/field/OdooEditForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/field/OdooEditForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/field/OdooMany2one.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/field/OdooMany2one.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeForm.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeRow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeRow.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odoo_vue/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/odoo_vue/src/main.js" afterDir="false" />
     </list>
@@ -21,59 +24,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="OdooViews.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooViews.vue">
+      <file leaf-file-name="OdooFieldChar.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooFieldChar.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
-              <folding>
-                <element signature="e#4502#4806#2" expanded="true" />
-              </folding>
+            <state relative-caret-position="240">
+              <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odoo_vue/src/App.vue">
+      <file leaf-file-name="OdooForm.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooForm.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="122" column="16" lean-forward="true" selection-start-line="122" selection-start-column="16" selection-end-line="122" selection-end-column="16" />
+            <state relative-caret-position="607">
+              <caret line="114" column="37" selection-start-line="114" selection-start-column="37" selection-end-line="114" selection-end-column="37" />
               <folding>
-                <element signature="n#style#0;n#x-header#0;n#view-box#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="e#1204#1360#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OdooCard.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooCard.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="59" column="22" lean-forward="true" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
-              <folding>
-                <element signature="n#style#0;n#scroller#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cellFormPreview.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/cellFormPreview.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="22" column="66" lean-forward="true" selection-start-line="22" selection-start-column="66" selection-end-line="22" selection-end-column="66" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OdooGrid.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooGrid.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-              <folding>
-                <element signature="e#543#598#0" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -83,14 +49,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>save</find>
-      <find>ClickButtonTableItem</find>
-      <find>/odoo/form/view/data</find>
-      <find>/odoo/get/list/view/data</find>
-      <find>newFormData</find>
-      <find>odooEd</find>
-      <find>allFormData\</find>
-      <find>self.$route</find>
       <find>treeRowClick</find>
       <find>编辑</find>
       <find>fieldsVals</find>
@@ -108,11 +66,19 @@
       <find>select</find>
       <find>model</find>
       <find>/odoo/button/method</find>
-      <find>buttonHttp</find>
       <find>icon-plus</find>
       <find>showMenu</find>
       <find>floating-button</find>
       <find>tabbarShow</find>
+      <find>buttonHttp</find>
+      <find>odooViews</find>
+      <find>onclick_tabbar</find>
+      <find>self.$route.ge</find>
+      <find>newForm</find>
+      <find>path:</find>
+      <find>/odoo/form/</find>
+      <find>scrollIntoViewIfNeeded</find>
+      <find>console</find>
     </findStrings>
     <replaceStrings>
       <replace>cardList</replace>
@@ -134,7 +100,6 @@
         <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooPop.vue" />
         <option value="$PROJECT_DIR$/odoo_vue/src/libs/router.js" />
         <option value="$PROJECT_DIR$/odoo_vue/src/mock.js" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooNewForm.vue" />
         <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooFieldChar.vue" />
         <option value="$PROJECT_DIR$/odoo_vue/src/utils/_mixins.less" />
         <option value="$PROJECT_DIR$/odoo_vue/src/utils/style.css" />
@@ -150,19 +115,20 @@
         <option value="$PROJECT_DIR$/odoo_vue/src/utils/mixins.js" />
         <option value="$PROJECT_DIR$/odoo_vue/src/components/field/FrameWorkFloatButton.vue" />
         <option value="$PROJECT_DIR$/odoo_vue/config/index.js" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooTree.vue" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooForm.vue" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeForm.vue" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooMany2one.vue" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeRow.vue" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooCard.vue" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooEditForm.vue" />
         <option value="$USER_HOME$/Downloads/framework7.material.min.css" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooViews.vue" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/main.js" />
-        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooGrid.vue" />
         <option value="$PROJECT_DIR$/odoo_vue/src/App.vue" />
         <option value="$PROJECT_DIR$/odoo_vue/src/components/cellFormPreview.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooGrid.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooMany2one.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooNewForm.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/main.js" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooViews.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooForm.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooEditForm.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooTree.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/OdooCard.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeRow.vue" />
+        <option value="$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeForm.vue" />
       </list>
     </option>
   </component>
@@ -226,6 +192,14 @@
               <item name="odoo_vue" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="odoo_mobile_test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="odoo_mobile_test" type="462c0819:PsiDirectoryNode" />
+              <item name="odoo_vue" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="field" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -780,7 +754,9 @@
       <workItem from="1528419665902" duration="401000" />
       <workItem from="1528441368360" duration="2704000" />
       <workItem from="1528447160004" duration="18082000" />
-      <workItem from="1528877037172" duration="5637000" />
+      <workItem from="1528877037172" duration="5783000" />
+      <workItem from="1528958002573" duration="9578000" />
+      <workItem from="1529024410380" duration="686000" />
     </task>
     <task id="LOCAL-00001" summary="小休整。">
       <created>1527643186743</created>
@@ -793,13 +769,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215752000" />
+    <option name="totallyTimeSpent" value="226162000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1251" y="23" width="1252" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23402555" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23642172" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
@@ -848,7 +824,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooFloatButton.vue" />
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/CarbonRipple.vue" />
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/utils/_vars.less" />
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/utils/style.css" />
@@ -872,30 +847,6 @@
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/utils/utils.js" />
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/utils/mixins.js" />
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/FrameWorkFloatButton.vue" />
-    <entry file="file://$PROJECT_DIR$/odoo_vue/node_modules/vux/src/components/x-header/index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="72" column="66" lean-forward="true" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-40">
-          <caret line="74" column="16" lean-forward="true" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="66" column="6" lean-forward="true" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/odoo_vue/dist/static/js/app.5e32f9f7896ef25f3bc5.js" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
@@ -904,16 +855,6 @@
             <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooTree.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="49" column="46" selection-start-line="49" selection-start-column="46" selection-end-line="49" selection-end-column="46" />
-          <folding>
-            <element signature="n#style#0;n#TreeRow#0;n#scroller#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -931,50 +872,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooFieldChar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooMany2one.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeRow.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="185" selection-start-line="185" selection-end-line="186" />
-          <folding>
-            <element signature="e#3155#3196#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooNewForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-          <folding>
-            <element signature="e#118#143#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooEditForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1815">
-          <caret line="128" column="45" selection-start-line="128" selection-start-column="38" selection-end-line="128" selection-end-column="45" />
-          <folding>
-            <element signature="n#style#0;n#TreeRow#0;n#template#4;n#template#0;n#template#0;n#group#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/odoo_vue/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -986,9 +883,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -999,22 +893,10 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/odoo_vue/test/e2e/specs/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/odoo_vue/test/e2e/custom-assertions/elementCount.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/libs/router.js">
       <provider selected="true" editor-type-id="text-editor" />
@@ -1031,12 +913,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/dist/static/js/app.491da96f89efdeb7e3a2.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/dist/static/js/manifest.2ae2e69a05c33dfc65f8.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/dist/static/js/app.491da96f89efdeb7e3a2.js" />
+    <entry file="file://$PROJECT_DIR$/odoo_vue/dist/static/js/manifest.2ae2e69a05c33dfc65f8.js" />
     <entry file="file://$PROJECT_DIR$/odoo_vue/dist/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1088,71 +966,161 @@
     <entry file="file://$PROJECT_DIR$/odoo_vue/config/dev.env.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooViews.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
-          <folding>
-            <element signature="e#4502#4806#2" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/framework7.material.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="413">
           <caret line="14" column="80162" selection-start-line="14" selection-start-column="79830" selection-end-line="14" selection-end-column="80162" />
-          <folding>
-            <element signature="e#44537#44841#2" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooCard.vue">
+    <entry file="file://$PROJECT_DIR$/odoo_vue/node_modules/vux/src/components/x-header/index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="59" column="22" lean-forward="true" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        <state relative-caret-position="435">
+          <caret line="72" column="66" lean-forward="true" selection-start-line="72" selection-start-column="8" selection-end-line="72" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooNewForm.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
           <folding>
-            <element signature="n#style#0;n#scroller#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#119#148#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="122" column="16" lean-forward="true" selection-start-line="122" selection-start-column="16" selection-end-line="122" selection-end-column="16" />
+        <state relative-caret-position="307">
+          <caret line="75" column="13" lean-forward="true" selection-start-line="75" selection-start-column="13" selection-end-line="75" selection-end-column="29" />
           <folding>
             <element signature="n#style#0;n#x-header#0;n#view-box#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#1204#1360#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/cellFormPreview.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="22" column="66" lean-forward="true" selection-start-line="22" selection-start-column="66" selection-end-line="22" selection-end-column="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="15" column="42" lean-forward="true" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
+        <state relative-caret-position="412">
+          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
           <folding>
             <element signature="e#140#161#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooViews.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1095">
+          <caret line="76" column="23" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/cellFormPreview.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-161">
+          <caret line="56" column="7" lean-forward="true" selection-start-line="56" selection-start-column="7" selection-end-line="56" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooForm.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="114" column="37" selection-start-line="114" selection-start-column="37" selection-end-line="114" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooEditForm.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="115" column="31" lean-forward="true" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
+          <folding>
+            <element signature="n#style#0;n#TreeRow#0;n#template#4;n#template#0;n#template#0;n#group#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#2983#3012#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeRow.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="179" column="27" selection-start-line="179" selection-start-column="27" selection-end-line="179" selection-end-column="27" />
+          <folding>
+            <element signature="e#3155#3196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooCard.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="151" column="63" selection-start-line="151" selection-start-column="63" selection-end-line="151" selection-end-column="63" />
+          <folding>
+            <element signature="n#style#0;n#scroller#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#3136#3165#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooGrid.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+        <state relative-caret-position="154">
+          <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding>
             <element signature="e#543#598#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/OdooTree.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-292">
+          <caret line="147" column="55" selection-start-line="147" selection-start-column="55" selection-end-line="147" selection-end-column="55" />
+          <folding>
+            <element signature="n#style#0;n#TreeRow#0;n#scroller#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#3012#3057#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooTreeForm.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="517">
+          <caret line="119" column="38" selection-start-line="119" selection-start-column="38" selection-end-line="119" selection-end-column="38" />
+          <folding>
+            <element signature="e#2457#2486#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooPop.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="42" column="10" lean-forward="true" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+          <folding>
+            <element signature="e#1270#1321#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooMany2one.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="64" column="24" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
+          <folding>
+            <element signature="e#1340#1399#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odoo_vue/src/components/field/OdooFieldChar.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
         </state>
       </provider>
     </entry>

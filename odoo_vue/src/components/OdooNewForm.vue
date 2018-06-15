@@ -4,7 +4,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import {mapState} from 'vuex'
   import editForm from './field/OdooEditForm.vue'
   import {
@@ -55,7 +54,7 @@
       get_form_data: function () {
         let self = this
         console.log(self.$route.params)
-        axios.get('/odoo/form/view/data',
+        self.$http.get('/odoo/form/view/data',
           {params: {
             model: self.$route.params.model,
             viewId: self.$route.params.viewId,

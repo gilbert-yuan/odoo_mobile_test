@@ -178,7 +178,6 @@
       onClickFooter: function () {
         let self = this
         self.isEdit = false
-        console.log(self.recordField, 'this.recordField')
         self.allFormData = {fieldVals: JSON.parse(JSON.stringify(self.recordField)), id: 0}
         self.showForm = true
       },
