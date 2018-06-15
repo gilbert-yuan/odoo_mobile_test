@@ -45,7 +45,9 @@
           </template>
           <template v-else-if="field.type === 'Binary'">
           </template>
-          <template v-else-if="field.type === 'Many2many'">
+          <template v-else-if="field.type === 'many2many'">
+            <Many2many :title="field.title" :value.sync="field.value" :field="field"
+                       :options_default.sync="field.options"></Many2many>
           </template>
         </template>
       </template>
@@ -60,6 +62,7 @@
 </template>
 <script>
   import {mapState} from 'vuex'
+  import Many2many from './OdooMany2many.vue'
   import Char from './OdooFieldChar.vue'
   import TreeRow from './OdooTreeRow.vue'
   import Many2one from './OdooMany2one.vue'
@@ -73,6 +76,7 @@
     components: {
       Group,
       Char,
+      Many2many,
       Toast,
       Selector,
       Msg,
