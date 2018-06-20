@@ -51,7 +51,7 @@
     },
     created: function () {
       let self = this
-      self.$http.get('/odoo/get/all/grid_data').then(function (response) {
+      self.$http.get('/odoo/mobile/get/all/grid_data').then(function (response) {
         self.gridDatas = response.data
       }).catch(function (error) {
         alert(error)

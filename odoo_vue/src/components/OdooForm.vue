@@ -94,7 +94,7 @@
       },
       buttonHttp: function (item, index) {
         let self = this
-        self.$http.get('/odoo/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
+        self.$http.get('/odoo/mobile/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
           if (response.data.success) {
             self.$emit('refresh', false)
           } else {
@@ -106,7 +106,7 @@
       },
       get_form_data: function () {
         let self = this
-        self.$http.get('/odoo/form/view/data', {
+        self.$http.get('/odoo/mobile/form/view/data', {
           params: {
             model: self.$route.query.model,
             viewId: self.$route.query.viewId,

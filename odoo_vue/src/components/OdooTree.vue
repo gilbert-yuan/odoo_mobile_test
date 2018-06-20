@@ -127,7 +127,7 @@
         if (!self.model || !self.limit || !self.offset & self.offset !== 0 || !self.view_id || !self.domain) {
           return
         }
-        self.$http.get('/odoo/get/list/view/data', {
+        self.$http.get('/odoo/mobile/get/list/view/data', {
           params: {
             model: self.model,
             view_id: self.view_id,

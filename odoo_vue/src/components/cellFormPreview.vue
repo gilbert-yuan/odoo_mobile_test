@@ -70,7 +70,7 @@
       },
       buttonHttp: function (item, index) {
         let self = this
-        self.$http.get('/odoo/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
+        self.$http.get('/odoo/mobile/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
           if (response.data.success) {
             self.$emit('refresh', false)
           } else {

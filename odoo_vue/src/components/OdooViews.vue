@@ -103,7 +103,7 @@
       self.vux.tabbarShow = false
       self.vux.showBackHeader = true
       this.$nextTick(() => {
-        self.$http.get('/odoo/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
+        self.$http.get('/odoo/mobile/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
           self.items = response.data.viewsData
           self.view_id = response.data.view_id
           self.offset = response.data.offset

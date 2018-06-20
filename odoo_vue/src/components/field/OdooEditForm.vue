@@ -125,7 +125,7 @@
             return
           }
         }
-        self.$http.post('/odoo/save/record', {
+        self.$http.post('/odoo/mobile/save/record', {
           value: this.allFormData.fieldVals,
           id: this.allFormData.id,
           model: this.$route.params.model,

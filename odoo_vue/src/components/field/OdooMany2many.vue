@@ -1,9 +1,8 @@
 <template>
-  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly">
-    <span class="vux-cell-value" v-if="displayValue">{{ displayValue }}</span>
-    <span slot="icon">
-      <slot name="icon"></slot>
-    </span>
+  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly" primary="title">
+    <div style="width:250px;overflow: hidden; text-overflow: ellipsis;white-space: nowrap;">
+      <span class="vux-cell-value" v-if="displayValue">{{ displayValue }}</span>
+    </div>
     <div v-transfer-dom>
       <popup
         height="100%"
@@ -31,7 +30,6 @@
 
 <script>
   import {Cell, Popup, Radio, TransferDom, Search, Checklist} from 'vux'
-  import find from 'array-find'
 
   export default {
     name: 'Many2many',
@@ -48,18 +46,22 @@
     props: ['title', 'value', 'readonly', 'field', 'options_default'],
     computed: {
       displayValue: function () {
+        let ChoiceVal = ''
         if (this.options && !this.options.length) {
-          return ''
+          return ChoiceVal
         }
         if (typeof this.options[0] === 'object') {
-          const match = find(this.options, option => {
-            return option.key === this.currentValue
+          const match = this.options.filter(option => {
+            return this.currentValue.indexOf(option.key) >= 0
           })
           if (match) {
-            return match.value
+            match.forEach(function (value) {
+              ChoiceVal = ChoiceVal + ' ' + value.value
+            })
+            return ChoiceVal
           }
         }
-        return this.currentValue
+        return ChoiceVal
       }
     },
     methods: {
@@ -90,12 +92,11 @@
       },
       getNewData: function () {
         let self = this
-        self.$http.get('/odoo/model/name_search',
+        self.$http.get('/odoo/mobile/model/name_search',
           {
             params:
               {model: self.field.model, value: self.searchValue || '', domain: self.field.domain || [], limit: 15}
           }).then(function (response) {
-            console.log(response.data, '----------')
             self.options = response.data
           }).catch(function (error) {
             alert(JSON.stringify(error))
@@ -107,13 +108,9 @@
         this.currentValue = val
       },
       currentValue: function (val) {
+        console.log(val)
         this.$emit('update:value', val)
-        this.$emit('update:options_default', [
-          {
-            key: val,
-            value: this.displayValue
-          }
-        ])
+        this.$emit('update:options_default', this.currentValue)
       }
     },
     created: function () {
@@ -126,14 +123,12 @@
         radioSearchHeight: '0px',
         options: this.options_default || [],
         showPopup: false,
-        currentValue: this.value
+        currentValue: []
       }
     }
   }
 </script>
 
-<style>
-  .vux-popup-radio-popup {
-    background-color: #fff;
-  }
+<style  type="less">
+
 </style>

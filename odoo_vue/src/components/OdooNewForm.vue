@@ -54,13 +54,12 @@
       get_form_data: function () {
         let self = this
         console.log(self.$route.params)
-        self.$http.get('/odoo/form/view/data',
+        self.$http.get('/odoo/mobile/form/view/data',
           {params: {
             model: self.$route.params.model,
             viewId: self.$route.params.viewId,
             id: self.$route.params.id}
           }).then(function (response) {
-            console.log(response.data, '----------')
             self.allFormData = response.data
           }).catch(function (error) {
             alert(error)

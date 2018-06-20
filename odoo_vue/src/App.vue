@@ -1,12 +1,12 @@
 <template>
   <div id="app" style="height:100%;">
-    <div v-transfer-dom>
-      <loading v-model="isLoading"></loading>
-    </div>
-    <div v-transfer-dom>
-      <actionsheet :menus="vux.menus" v-model="showMenu" @on-click-menu="vux.actionSheetFunction"></actionsheet>
-    </div>
     <view-box ref="viewBox" :body-padding-top="'0px'" body-padding-bottom="55px">
+      <div v-transfer-dom>
+        <loading v-model="isLoading"></loading>
+      </div>
+      <div v-transfer-dom>
+        <actionsheet :menus="vux.menus" v-model="showMenu" @on-click-menu="vux.actionSheetFunction"></actionsheet>
+      </div>
       <x-header :left-options="{showBack: vux.showBackHeader, preventGoBack: true}" :title="vux.headerTitle"
                 style="width:100%; position:float;" @on-click-back="onclickBack()">
       </x-header>
@@ -73,7 +73,6 @@
     },
     methods: {
       onclickBack: function () {
-        console.log('-------')
         window.history.back()
       },
       onclick_tabbar: function () {

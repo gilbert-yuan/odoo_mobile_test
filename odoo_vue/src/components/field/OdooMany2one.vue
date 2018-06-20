@@ -1,5 +1,5 @@
 <template>
-  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly">
+  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly" :primary="'title'">
     <span class="vux-cell-value" v-if="displayValue">{{ displayValue }}</span>
     <span slot="icon">
       <slot name="icon"></slot>
@@ -101,7 +101,7 @@
       },
       getNewData: function () {
         let self = this
-        self.$http.get('/odoo/model/name_search',
+        self.$http.get('/odoo/mobile/model/name_search',
           {
             params:
               {model: self.field.model, value: self.searchValue || '', domain: self.field.domain || [], limit: 15}
@@ -142,7 +142,8 @@
   }
 </script>
 
-<style>
+<style type="less">
+
   .vux-popup-radio-popup {
     background-color: #fff;
   }

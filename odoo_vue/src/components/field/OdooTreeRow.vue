@@ -142,7 +142,7 @@
       delete: function (item, index) {
         let self = this
         if (!self.recordField) {
-          self.$http.get('/odoo/button/method', {
+          self.$http.get('/odoo/mobile/button/method', {
             params: {
               method: 'unlink',
               model: self.model,
@@ -189,7 +189,7 @@
       },
       get_form_data: function () {
         let self = this
-        self.$http.get('/odoo/form/new/data', {model: this.model, id: this.recordId}).then(function (response) {
+        self.$http.get('/odoo/mobile/form/new/data', {model: this.model, id: this.recordId}).then(function (response) {
           self.allFormData = response.data
         }).catch(function (error) {
           alert(error)
