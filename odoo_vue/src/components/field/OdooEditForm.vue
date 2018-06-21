@@ -1,13 +1,14 @@
 <template>
   <div>
-    <group>
-      <template v-for="field in allFormData.fieldVals">
+    <group label-width="`.5em" label-margin-right="2em" label-align="justify">
+      <template v-for="(field, index) in allFormData.fieldVals" >
         <template v-if="!field.is_show_edit_form">
           <template v-if="field.type === 'char'">
             <Char :title="field.title" :value.sync="field.value" type="text" :required="field.required || false"></Char>
           </template>
           <template v-else-if="field.type === 'date'">
-            <datetime v-model="field.value" :title="field.title" :required="field.required || false"></datetime>
+            <datetime v-model="field.value" :title="field.title" :required="field.required || false"
+            ></datetime>
           </template>
           <template v-else-if="field.type === 'datetime'">
             <datetime v-model="field.value" :title="field.title" format="YYYY-MM-DD HH:mm"
@@ -38,7 +39,7 @@
                       :required="field.required || false"></selector>
           </template>
           <template v-else-if="field.type === 'text'">
-            <x-textarea :title="field.title" v-model="field.value"
+            <x-textarea :title="field.title" v-model="field.value" :show-counter="false" :rows="3"
                         :required="field.required || false"></x-textarea>
           </template>
           <template v-else-if="field.type === 'Html'">
@@ -50,11 +51,12 @@
                        :options_default.sync="field.options"></Many2many>
           </template>
         </template>
+        <group v-show="allFormData.fieldVals.length === index+1" >
+          <x-button type="primary" @click.native="saveRecord" v-show="formShow">保存</x-button>
+        </group>
       </template>
     </group>
-    <group>
-      <x-button type="primary" @click.native="saveRecord">保存</x-button>
-    </group>
+
     <div v-transfer-dom>
       <alert v-model="showAlert" title="错误" @on-show="onShow" @on-hide="onHide"> {{ errorMessage}}</alert>
     </div>
@@ -105,10 +107,18 @@
       })
     },
     created: function () {
+      let self = this
+      self.$nextTick(function () {
+
+      })
+    },
+    mounted: function () {
+      this.formShow = true
     },
     data: function () {
       return {
         errorMessage: '',
+        formShow: false,
         showAlert: false
       }
     },

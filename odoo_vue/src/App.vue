@@ -13,7 +13,7 @@
       <transition>
         <router-view class="router-view"></router-view>
       </transition>
-      <tabbar class="vux-demo-tabbar" icon-class="vux-center" v-show="$route.name=='odooGrid'" slot="bottom">
+      <tabbar class="vux-demo-tabbar" icon-class="vux-center" v-show="['odooGrid', 'OdooUser'].indexOf($route.name) >=0" slot="bottom">
         <tabbar-item :link="{path:'/'}" :selected="$router.path === '/'">
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon"
                 style="position:relative;top: -2px;">&#xe637;</span>
@@ -21,7 +21,7 @@
         </tabbar-item>
         <tabbar-item @on-item-click="onclick_tabbar">
           <span class="demo-icon-22" slot="icon">&#xe633;</span>
-          <span slot="label">上一页</span>
+          <span slot="label">我</span>
         </tabbar-item>
       </tabbar>
     </view-box>
@@ -30,9 +30,10 @@
 
 <script>
   import {
-    Radio, Group, Cell, Badge, Drawer, Actionsheet, ButtonTab, ButtonTabItem, ViewBox,
+    Radio, Group, Cell, Badge, Drawer, Actionsheet, ButtonTab, ButtonTabItem, ViewBox, cookie,
     XHeader, Tabbar, TabbarItem, Loading, TransferDom
   } from 'vux'
+
   import {mapState} from 'vuex'
 
   export default {
@@ -76,7 +77,7 @@
         window.history.back()
       },
       onclick_tabbar: function () {
-        this.$router.go('-1')
+        this.$router.push({name: 'OdooUser'})
       },
       headerTransition: function () {
         if (!this.direction) return ''
@@ -93,10 +94,14 @@
     },
     created: function () {
       let self = this
-      self.vux.menus = ['刷新', '取消']
-      self.vux.actionSheetFunction = self.actionSheetFunction
-      self.headerTitle = self.vux.headerTitle
-      self.$router.push({name: 'odooGrid'})
+      if (cookie.get('uid', {})) {
+        self.vux.menus = ['刷新', '取消']
+        self.vux.actionSheetFunction = self.actionSheetFunction
+        self.headerTitle = self.vux.headerTitle
+        self.$router.push({name: 'odooGrid'})
+      } else {
+        self.$router.push({name: 'OdooLogin'})
+      }
     }
   }
 </script>

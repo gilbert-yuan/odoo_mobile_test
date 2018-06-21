@@ -14,7 +14,7 @@
       </tab>
     </sticky>
     <div v-for="view in allViews">
-      <component :model.sync="model" :is='view' :domain.sync="domain" :view_id.sync="view_id" :offset_step.sync="offset"
+      <component :model.sync="model" :is='view' :domain.sync="domain" :view_id.sync="view_id" :offset_step.sync="offset" :order="order"
                  v-on:on-click-item="treeRowClick" v-if="view===curentComponent" :limit.sync="limit" :context="context">
       </component>
     </div>
@@ -51,6 +51,7 @@
         allViews: ['Tree', 'OdooCard'],
         model: '',
         noForm: '',
+        order: '',
         offset: '',
         limit: '',
         items: []
@@ -108,9 +109,9 @@
           self.view_id = response.data.view_id
           self.offset = response.data.offset
           self.limit = response.data.limit
+          self.order = response.data.order
           self.context = response.data.context
           self.noForm = response.data.noForm
-          console.log(response.data)
           self.curentComponent = response.data.view_type
           self.model = response.data.model
           if (!self.$route.params.domain) {

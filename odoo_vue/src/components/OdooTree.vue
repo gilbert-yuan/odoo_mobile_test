@@ -68,7 +68,7 @@
   import { mapState } from 'vuex'
   import { Panel, Search } from 'vux'
   export default {
-    props: ['model', 'domain', 'view_id', 'limit', 'offset_step'],
+    props: ['model', 'domain', 'view_id', 'limit', 'offset_step', 'order'],
     name: 'Tree',
     components: {
       Panel,
@@ -133,6 +133,7 @@
             view_id: self.view_id,
             domain: self.domain,
             limit: self.limit,
+            order: self.order,
             offset: self.offset}
         }).then(function (response) {
           if (!response.data) {
@@ -155,7 +156,7 @@
         })
       },
       refresh: function (done) {
-        var self = this
+        let self = this
         setTimeout(function () {
           self.offset = 0
           self.list = []
@@ -196,9 +197,6 @@
       self.vux.actionSheetFunction = self.actionSheetFunction
       this.$nextTick(() => {
         self.offset = 0
-        console.log(self.domain)
-        console.log(self.$route)
-        console.log(self.domain)
         self.get_more_data(self.offset, 'refresh')
       })
     }

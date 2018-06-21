@@ -13,11 +13,12 @@ import Grid from './components/OdooGrid.vue'
 import View from './components/OdooViews.vue'
 import Form from './components/OdooForm.vue'
 import NewForm from './components/OdooNewForm.vue'
+import Login from './components/OdooLogin.vue'
+import OdooUser from './components/OdooUserMe.vue'
 Vue.use(ToastPlugin, {position: 'middle'})
 Vue.use(VueRouter)
 require('./mock.js')
 Vue.use(Vuex)
-Vue.use(cookie)
 Vue.use(VueScroller)
 Vue.component('toast', Toast)
 
@@ -29,9 +30,17 @@ const routes = [{
   name: 'odooGrid',
   component: Grid
 }, {
+  path: '/odoo/login/',
+  name: 'OdooLogin',
+  component: Login
+}, {
   path: '/odoo/view/:actionId',
   name: 'odooViews',
   component: View
+}, {
+  path: '/odoo/me',
+  name: 'OdooUser',
+  component: OdooUser
 }, {
   path: '/odoo/view/:actionId/:domain',
   name: 'odooViewsDetial',
@@ -51,24 +60,15 @@ let store = new Vuex.Store({
 })
 
 axios.interceptors.request.use(function (config) {
-  const token = cookie.get('session', {}) // 获取Cookie
-  config.data = JSON.stringify(config.data)
-  config.headers = {
-    'Content-Type': 'application/x-www-form-urlencoded' // 设置跨域头部
-  }
-  if (token) {
-    config.params = {'token': token} // 后台接收的参数，后面我们将说明后台如何接收
-  }
   return config
 }, function (error) {
   return Promise.reject(error)
 })
 
 axios.interceptors.response.use(function (response) {
-  if(response.data.errCode === 2) {
+  if (!cookie.get('uid', {})) {
     router.push({
-      path: '/login',
-      query: {redirect: router.currentRoute.fullPath} // 从哪个页面跳转
+      path: '/odoo/login'
     })
   }
   return response

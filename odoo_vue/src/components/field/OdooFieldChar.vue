@@ -1,5 +1,5 @@
 <template>
-  <x-input :title="title" v-model="changeVal" :required="required" :type="type" :placeholder="placeholder"
+  <x-input :title="title" v-model="changeVal" :required="required" :type="type" :placeholder="placeholder" text-align="right"
            :readonly="readonly" :show-clear="showClear" :is-type="isType" @on-focus="focusChange"></x-input>
 </template>
 

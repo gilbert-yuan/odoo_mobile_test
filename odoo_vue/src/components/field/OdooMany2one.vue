@@ -1,13 +1,15 @@
 <template>
-  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly" :primary="'title'">
-    <span class="vux-cell-value" v-if="displayValue">{{ displayValue }}</span>
+  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly" :primary="'title'" value-text-align="left">
+    <div  style="width:12.5em;overflow: hidden; text-overflow: ellipsis;white-space: nowrap;">
+       <span v-if="displayValue" value-text-align="left" >{{ displayValue }}</span>
+    </div>
     <span slot="icon">
       <slot name="icon"></slot>
     </span>
     <div v-transfer-dom>
       <popup
         height="100%"
-        width="80%"
+        width="60%"
         position="right"
         v-model="showPopup"
         style="background-color:#fff;"
