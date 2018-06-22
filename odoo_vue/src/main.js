@@ -2,12 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuex from 'vuex'
-import FastClick from 'fastclick'
 import VueRouter from 'vue-router'
 import App from './App'
 import axios from 'axios'
 import { sync } from 'vuex-router-sync'
-import { Toast, ToastPlugin, cookie } from 'vux'
+import { Toast, ToastPlugin, cookie, LoadingPlugin, Loading } from 'vux'
 import VueScroller from 'vue-scroller'
 import Grid from './components/OdooGrid.vue'
 import View from './components/OdooViews.vue'
@@ -19,6 +18,8 @@ Vue.use(ToastPlugin, {position: 'middle'})
 Vue.use(VueRouter)
 require('./mock.js')
 Vue.use(Vuex)
+Vue.use(Loading)
+Vue.use(LoadingPlugin)
 Vue.use(VueScroller)
 Vue.component('toast', Toast)
 
@@ -50,7 +51,7 @@ const routes = [{
   name: 'newForm',
   component: NewForm
 }, {
-  path: '/odoo/form/:record',
+  path: '/odoo/form/:recordId',
   name: 'odooForm',
   component: Form
 }]
@@ -58,25 +59,6 @@ const routes = [{
 /** i18n **/
 let store = new Vuex.Store({
 })
-
-axios.interceptors.request.use(function (config) {
-  return config
-}, function (error) {
-  return Promise.reject(error)
-})
-
-axios.interceptors.response.use(function (response) {
-  if (!cookie.get('uid', {})) {
-    router.push({
-      path: '/odoo/login'
-    })
-  }
-  return response
-}, function (error) {
-  return Promise.reject(error)
-})
-
-Vue.prototype.$http = axios
 store.registerModule('vux', {
   state: {
     demoScrollTop: 0,
@@ -88,13 +70,35 @@ store.registerModule('vux', {
     actionSheetFunction: function () {}
   }
 })
+console.log(store)
+axios.interceptors.request.use(function (config) {
+  store.state.vux.isLoading = true
+  if (!cookie.get('uid', {}) && config.url !== '/odoo/login') {
+    router.push({
+      path: '/odoo/login'
+    })
+  }
+  return config
+}, function (error) {
+  store.state.vux.isLoading = false
+  return Promise.reject(error)
+})
+
+axios.interceptors.response.use(function (response) {
+  store.state.vux.isLoading = false
+  return response
+}, function (error) {
+  store.state.vux.isLoading = false
+  return Promise.reject(error)
+})
+
+Vue.prototype.$http = axios
 
 const router = new VueRouter({
   routes
 })
-sync(store, router)
-FastClick.attach(document.body)
 
+sync(store, router)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

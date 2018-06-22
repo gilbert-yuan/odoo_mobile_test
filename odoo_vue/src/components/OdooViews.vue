@@ -60,7 +60,9 @@
     methods: {
       ClickButtonTableItem: function (item) {
         let self = this
-        self.$router.push({path: '/odoo/view/' + self.$route.params.actionId + '/' + JSON.stringify(item.domain)})
+        if (item) {
+          self.$router.push({path: '/odoo/view/' + self.$route.params.actionId + '/' + JSON.stringify(item.domain)})
+        }
       },
       AddNewRecord: function () {
         let self = this
@@ -77,9 +79,10 @@
       treeRowClick: function (item) {
         let self = this
         if (!self.noForm && self.curentComponent !== 'OdooCard') {
+          console.log(item, '-----------')
           self.$router.push({
-            path: '/odoo/form/' + item[0].value,
-            query: {recordId: item[0].value, model: self.model, viewId: self.view_id}
+            path: '/odoo/form/' + item.id,
+            query: {recordId: item.value, model: self.model, viewId: self.view_id}
           })
         }
       }
@@ -104,6 +107,7 @@
       self.vux.tabbarShow = false
       self.vux.showBackHeader = true
       this.$nextTick(() => {
+        console.log(self.$route.params, '-----------')
         self.$http.get('/odoo/mobile/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
           self.items = response.data.viewsData
           self.view_id = response.data.view_id
@@ -114,7 +118,7 @@
           self.noForm = response.data.noForm
           self.curentComponent = response.data.view_type
           self.model = response.data.model
-          if (!self.$route.params.domain) {
+          if (!self.$route.params.domain && self.items) {
             self.ClickButtonTableItem(self.items[0])
           } else {
             self.domain = JSON.parse(self.$route.params.domain)

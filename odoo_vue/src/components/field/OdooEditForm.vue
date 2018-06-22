@@ -1,6 +1,6 @@
 <template>
   <div>
-    <group label-width="`.5em" label-margin-right="2em" label-align="justify">
+    <group label-width="5.5em" label-margin-right="2em" label-align="justify">
       <template v-for="(field, index) in allFormData.fieldVals" >
         <template v-if="!field.is_show_edit_form">
           <template v-if="field.type === 'char'">
@@ -51,7 +51,7 @@
                        :options_default.sync="field.options"></Many2many>
           </template>
         </template>
-        <group v-show="allFormData.fieldVals.length === index+1" >
+        <group v-show="allFormData.fieldVals.length === index+1" style="top">
           <x-button type="primary" @click.native="saveRecord" v-show="formShow">保存</x-button>
         </group>
       </template>

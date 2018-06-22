@@ -14,10 +14,24 @@
             </tr>
           </template>
           <template
-            v-else-if="['char', 'boolean', 'integer', 'many2one', 'float', 'selection'].indexOf(field.type) >= 0 && !field.invisible">
+            v-else-if="['char', 'boolean', 'integer', 'float'].indexOf(field.type) >= 0 && !field.invisible">
             <tr>
               <td style="width: 40%"> {{ field.title }}</td>
               <td style="width: 60%">{{ field.value }}</td>
+            </tr>
+          </template>
+          <template v-else-if="['many2one'].indexOf(field.type) >= 0 && !field.invisible">
+            <tr>
+              <td style="width: 40%"> {{field.title}}</td>
+              <td style="width: 60%">{{ field.options && field.options[0].value}}</td>
+            </tr>
+          </template>
+          <template v-else-if="['selection'].indexOf(field.type) >= 0 && !field.invisible">
+            <tr>
+              <td style="width: 40%"> {{field.title}}</td>
+              <template v-for="option in field.options">
+                <td style="width: 60%" v-if="option.key == field.value">{{ option.value }}</td>
+              </template>
             </tr>
           </template>
         </template>
@@ -36,7 +50,18 @@
             <tbody>
             <tr v-for="rowVal in  field.table.tableBody">
               <td v-for="val in rowVal">
-                {{val.value}}
+                <template v-if="field.type=='boolean' && !val.invisible">
+                  <check-icon :value="val.value" type="plain"></check-icon>
+                </template>
+                <template v-else-if="['char', 'boolean', 'integer', 'float'].indexOf(val.type) >= 0 && !val.invisible">
+                  {{ val.value }}
+                </template>
+                <template v-else-if="['many2one'].indexOf(val.type) >= 0 && !val.invisible">
+                  {{ val.options && val.options[0].value}}
+                </template>
+                <template v-else-if="['selection'].indexOf(val.type) >= 0 && !val.invisible">
+                  <template v-for="option in val.options"> {{ option.value }} </template>
+                </template>
               </td>
             </tr>
             </tbody>
@@ -110,9 +135,10 @@
           params: {
             model: self.$route.query.model,
             viewId: self.$route.query.viewId,
-            id: self.$route.query.recordId
+            id: self.$route.params.recordId
           }
         }).then(function (response) {
+          console.log(response.data.fieldVals, 'response.data.fieldVals')
           self.allFormData = response.data.fieldVals
           self.id = response.data.id
         }).catch(function (error) {

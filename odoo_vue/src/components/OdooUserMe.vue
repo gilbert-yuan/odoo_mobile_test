@@ -1,6 +1,8 @@
 <template>
   <div>
-    <x-button @click.native="cancelLogin" type="warn">退出登录</x-button>
+    <box gap="10px 10px">
+      <x-button @click.native="cancelLogin" type="warn">退出登录</x-button>
+    </box>
   </div>
 </template>
 

@@ -7,11 +7,14 @@
       <div v-transfer-dom>
         <actionsheet :menus="vux.menus" v-model="showMenu" @on-click-menu="vux.actionSheetFunction"></actionsheet>
       </div>
-      <x-header :left-options="{showBack: vux.showBackHeader, preventGoBack: true}" :title="vux.headerTitle"
+      <x-header :left-options="{showBack: vux.showBackHeader, preventGoBack: true, backText: '返回首页'}"
+                :title="vux.headerTitle"
                 style="width:100%; position:float;" @on-click-back="onclickBack()">
       </x-header>
       <transition>
-        <router-view class="router-view"></router-view>
+        <box gap="0.05em 0.2em">
+          <router-view class="router-view"></router-view>
+        </box>
       </transition>
       <tabbar class="vux-demo-tabbar" icon-class="vux-center" v-show="['odooGrid', 'OdooUser'].indexOf($route.name) >=0" slot="bottom">
         <tabbar-item :link="{path:'/'}" :selected="$router.path === '/'">
@@ -35,6 +38,7 @@
   } from 'vux'
 
   import {mapState} from 'vuex'
+  import Box from "vux/src/components/box/index";
 
   export default {
     name: 'app',
@@ -42,6 +46,7 @@
       TransferDom
     },
     components: {
+      Box,
       Radio,
       Group,
       Cell,
@@ -60,7 +65,7 @@
       return {
         isShowNav: false,
         direction: 'forward',
-        headerTitle: '东方团购内部系统',
+        headerTitle: '',
         showMenu: false
       }
     },
@@ -74,7 +79,7 @@
     },
     methods: {
       onclickBack: function () {
-        window.history.back()
+        this.$router.push({name: 'odooGrid'})
       },
       onclick_tabbar: function () {
         this.$router.push({name: 'OdooUser'})
@@ -92,7 +97,7 @@
       actionSheetFunction: function (item, items) {
       }
     },
-    created: function () {
+    mounted: function () {
       let self = this
       if (cookie.get('uid', {})) {
         self.vux.menus = ['刷新', '取消']

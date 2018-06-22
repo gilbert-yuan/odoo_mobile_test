@@ -23,12 +23,12 @@
                     <template v-for="(field, index) in item.meta">
                       <template v-if="!field.invisible || !field.is_show_form_tree">
                         <template
-                          v-if="['char', 'date', 'datetime', 'integer', 'float', 'selection'].indexOf(field.type)>=0">
+                          v-if="['char', 'date', 'datetime', 'integer', 'float'].indexOf(field.type)>=0">
                           <li class="weui-media-box__info__meta">{{field.title}}: {{field.value}}</li>
                         </template>
                         <template
                           v-if="['many2one'].indexOf(field.type)>=0">
-                          <li class="weui-media-box__info__meta">{{field.title}}: {{field.options[0].value}}</li>
+                          <li class="weui-media-box__info__meta">{{field.title}}: {{ field.options ? field.options[0].value: ''}}</li>
                         </template>
                         <template v-else-if="['boolean'].indexOf(field.type) >= 0">
                           <li class="weui-media-box__info__meta" v-if="field.value">{{field.title}}:
@@ -36,6 +36,11 @@
                           </li>
                           <li class="weui-media-box__info__meta" v-else>{{field.title}}:
                             <icon type="cancel"></icon>
+                          </li>
+                        </template>
+                        <template v-else-if="['selection'].indexOf(field.type) >= 0">
+                          <li class="weui-media-box__info__meta" v-if="field.value">{{field.title}}:
+                            <icon type="success"></icon>
                           </li>
                         </template>
                       </template>
@@ -185,6 +190,7 @@
         this.$emit('on-click-header')
       },
       onItemClick: function (item) {
+        console.log(item, 'item')
         this.$emit('on-click-tree-item', item)
       },
       get_form_data: function () {

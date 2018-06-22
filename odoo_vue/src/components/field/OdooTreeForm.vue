@@ -1,49 +1,50 @@
 <template>
   <div>
-    <template v-for="field in newFormData.fieldVals">
-      <template v-if="!field.is_show_edit_form">
-        <template v-if="field.type === 'char'">
-          <Char :title="field.title" :value.sync="field.value" type="text" :required="field.required || false"></Char>
-        </template>
-        <template v-else-if="field.type === 'date'">
-          <datetime v-model="field.value" :title="field.title" :required="field.required || false"></datetime>
-        </template>
-        <template v-else-if="field.type === 'datetime'">
-          <datetime v-model="field.value" :title="field.title" format="YYYY-MM-DD HH:mm"
-                    :required="field.required || false"></datetime>
-        </template>
-        <template v-else-if="field.type === 'many2one'">
-          <Many2one :title="field.title" :value.sync='field.value' :field="field"
-                    :options_default.sync="field.options"></Many2one>
-        </template>
-        <template v-else-if="field.type === 'boolean'">
-          <x-switch :title="field.title" v-model="field.value"></x-switch>
-        </template>
-        <template v-else-if="field.type === 'integer'">
-          <x-number :title="field.title"  v-model="field.value" button-style="round"
-                    :required="field.required || false"></x-number>
-        </template>
-        <template v-else-if="field.type === 'float'">
-          <Char :title="field.title" :value.sync="field.value" type="number"
-                :required="field.required || false"></Char>
-        </template>
-        <template v-else-if="field.type === 'selection'">
-          <selector :title="field.title" :options="field.options" v-model="field.value"
-                    :required="field.required || false"></selector>
-        </template>
-        <template v-else-if="field.type === 'text'">
-          <x-textarea :title="field.title" v-model="field.value"
-                      :required="field.required || false"></x-textarea>
-        </template>
-        <template v-else-if="field.type === 'Html'">
-        </template>
-        <template v-else-if="field.type === 'Binary'">
-        </template>
-        <template v-else-if="field.type === 'Many2many'">
+    <box gap="10px 10px">
+      <template v-for="field in newFormData.fieldVals">
+        <template v-if="!field.is_show_edit_form">
+          <template v-if="field.type === 'char'">
+            <Char :title="field.title" :value.sync="field.value" type="text" :required="field.required || false"></Char>
+          </template>
+          <template v-else-if="field.type === 'date'">
+            <datetime v-model="field.value" :title="field.title" :required="field.required || false"></datetime>
+          </template>
+          <template v-else-if="field.type === 'datetime'">
+            <datetime v-model="field.value" :title="field.title" format="YYYY-MM-DD HH:mm"
+                      :required="field.required || false"></datetime>
+          </template>
+          <template v-else-if="field.type === 'many2one'">
+            <Many2one :title="field.title" :value.sync='field.value' :field="field"
+                      :options_default.sync="field.options"></Many2one>
+          </template>
+          <template v-else-if="field.type === 'boolean'">
+            <x-switch :title="field.title" v-model="field.value"></x-switch>
+          </template>
+          <template v-else-if="field.type === 'integer'">
+            <x-number :title="field.title"  v-model="field.value" button-style="round"
+                      :required="field.required || false"></x-number>
+          </template>
+          <template v-else-if="field.type === 'float'">
+            <Char :title="field.title" :value.sync="field.value" type="number"
+                  :required="field.required || false"></Char>
+          </template>
+          <template v-else-if="field.type === 'selection'">
+            <selector :title="field.title" :options="field.options" v-model="field.value"
+                      :required="field.required || false"></selector>
+          </template>
+          <template v-else-if="field.type === 'text'">
+            <x-textarea :title="field.title" v-model="field.value"
+                        :required="field.required || false"></x-textarea>
+          </template>
+          <template v-else-if="field.type === 'Html'">
+          </template>
+          <template v-else-if="field.type === 'Binary'">
+          </template>
+          <template v-else-if="field.type === 'Many2many'">
+          </template>
         </template>
       </template>
-    </template>
-    <box gap="10px 10px">
+
       <x-button  type="primary" @click.native="saveForm">保存</x-button>
       <x-button  type="warn" @click.native="cancel">取消</x-button>
     </box>

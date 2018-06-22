@@ -120,11 +120,11 @@
         self.toastMsg = message.toastMsg
       },
       treeRowClick: function (item) {
-        this.$emit('on-click-item', item.meta)
+        this.$emit('on-click-item', item)
       },
       get_more_data: function (offset, type) {
         let self = this
-        if (!self.model || !self.limit || !self.offset & self.offset !== 0 || !self.view_id || !self.domain) {
+        if (!self.model || !self.limit || !offset & offset !== 0 || !self.view_id || !self.domain) {
           return
         }
         self.$http.get('/odoo/mobile/get/list/view/data', {
@@ -134,7 +134,7 @@
             domain: self.domain,
             limit: self.limit,
             order: self.order,
-            offset: self.offset}
+            offset: offset}
         }).then(function (response) {
           if (!response.data) {
             return ''

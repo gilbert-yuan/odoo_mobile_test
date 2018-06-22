@@ -2,10 +2,10 @@
   <div>
     <box gap="10px 10px">
       <group>
-        <div style="">
-        <blur :blur-amount=40 url="https://odoo.net.cn/uploads/profile/6861-profileimg.jpg">
-          <p class="center"><img src="https://odoo.net.cn/uploads/profile/6861-profileimg.jpg"></p>
-        </blur>
+        <div class="container">
+          <div class="box">
+            <p class="center"><img src="https://odoo.net.cn/uploads/profile/6861-profileimg.jpg"></p>
+          </div>
         </div>
       </group>
     <group>
@@ -76,6 +76,13 @@
   }
 </script>
 <style scoped>
+  .container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
   .center {
     text-align: center;
     padding-top: 20px;
@@ -87,5 +94,17 @@
     height: 150px;
     border-radius: 50%;
     border: 4px solid #ececec;
+  }
+  .box {
+    background-image: url("https://odoo.net.cn/uploads/profile/6861-profileimg.jpg");
+    border-radius: 5px;
+    font-family: sans-serif;
+    text-align: center;
+    line-height: 1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    max-width: 100%;
+    max-height: 100%;
+    padding: 20px 40px;
   }
 </style>
