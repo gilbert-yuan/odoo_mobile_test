@@ -51,7 +51,7 @@
       })
     },
     created: function () {
-      this.vux.headerTitle = this.vux.headerTitle + '登录'
+      this.vux.headerTitle = '系统登录'
       this.$nextTick(function () {
         this.name = ''
         this.password = ''

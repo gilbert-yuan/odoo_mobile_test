@@ -7,17 +7,21 @@
       <slot name="icon"></slot>
     </span>
     <div v-transfer-dom>
+      <div :class="'odoo_many2one_field' + field && field.name ||''">
       <popup
-        height="100%"
-        width="75%"
+        ref="many2one"
+        width="100%"
         position="right"
         v-model="showPopup"
+        :parentClass="'odoo_many2one_field' + field && field.name ||''"
         style="background-color:#fff;"
+        :show-mask="true"
         @on-hide="$emit('on-hide')"
         @on-show="$emit('on-show')">
         <search
           :results="results"
           v-model="searchValue"
+          :autoFixed="true"
           position="absolute"
           @on-focus="onFocus"
           @on-cancel="onCancel"
@@ -39,13 +43,15 @@
           </template>
         </radio>
       </popup>
+      </div>
     </div>
   </cell>
 </template>
 
 <script>
-  import {Cell, Popup, Radio, TransferDom, Search} from 'vux'
+  import {Cell, Popup, Radio, TransferDom} from 'vux'
   import find from 'array-find'
+  import Search from './OdooSearch'
 
   export default {
     name: 'Many2one',

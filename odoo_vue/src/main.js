@@ -87,9 +87,12 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
   store.state.vux.isLoading = false
   return response
-}, function (error) {
+}, function () {
+  router.push({
+    path: '/odoo/login'
+  })
   store.state.vux.isLoading = false
-  return Promise.reject(error)
+  // return Promise.reject(error)
 })
 
 Vue.prototype.$http = axios

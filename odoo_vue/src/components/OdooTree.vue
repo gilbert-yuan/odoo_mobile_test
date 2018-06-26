@@ -56,6 +56,7 @@
         </g>
       </svg>
       <TreeRow :list.sync="list" style=" position:autoFixed;" :viewId.sync="view_id" @error-toast="errorToast"
+               :showOperation="true"
                @on-click-tree-item="treeRowClick" :model.sync="model"></TreeRow>
 
     </scroller>
@@ -66,14 +67,13 @@
 <script>
   import TreeRow from './field/OdooTreeRow.vue'
   import { mapState } from 'vuex'
-  import { Panel, Search } from 'vux'
+  import { Panel } from 'vux'
   export default {
     props: ['model', 'domain', 'view_id', 'limit', 'offset_step', 'order'],
     name: 'Tree',
     components: {
       Panel,
-      TreeRow,
-      Search
+      TreeRow
     },
     data () {
       return {

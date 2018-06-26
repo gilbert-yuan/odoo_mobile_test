@@ -9,7 +9,7 @@
           <div ame="body">
             <div v-for="(item, index) in list_locate">
               <swipeout-item transition-mode="follow">
-                <div slot="right-menu">
+                <div slot="right-menu" v-if="showOperation">
                   <swipeout-button @click.native="onButtonClick('edit', item, index)" type="primary">{{'编辑'}}
                   </swipeout-button>
                   <swipeout-button @click.native="onButtonClick('delete', item, index)" type="warn">{{'删除'}}
@@ -17,18 +17,18 @@
                 </div>
                 <div slot="content" class="demo-content vux-1px-t" @click.prevent="onItemClick(item)">
                   <template v-if="item.title">
-                    <h4 class="weui-media-box__title" v-html="item.title" ></h4>
+                    <h4 class="weui-media-box__title">{{item.title}}</h4>
                   </template>
                   <ul class="weui-media-box__info">
                     <template v-for="(field, index) in item.meta">
                       <template v-if="!field.invisible || !field.is_show_form_tree">
                         <template
                           v-if="['char', 'date', 'datetime', 'integer', 'float'].indexOf(field.type)>=0">
-                          <li class="weui-media-box__info__meta">{{field.title}}: {{field.value}}</li>
+                          <li class="weui-media-box__info__meta">{{field.title}}: <span class="line_color_value">{{field.value}}</span></li>
                         </template>
                         <template
                           v-if="['many2one'].indexOf(field.type)>=0">
-                          <li class="weui-media-box__info__meta">{{field.title}}: {{ field.options ? field.options[0].value: ''}}</li>
+                          <li class="weui-media-box__info__meta">{{field.title}}: <span class="line_color_value">{{ field.options ? field.options[0].value: ''}}</span></li>
                         </template>
                         <template v-else-if="['boolean'].indexOf(field.type) >= 0">
                           <li class="weui-media-box__info__meta" v-if="field.value">{{field.title}}:
@@ -40,7 +40,7 @@
                         </template>
                         <template v-else-if="['selection'].indexOf(field.type) >= 0">
                           <li class="weui-media-box__info__meta" v-if="field.value">{{field.title}}:
-                            <icon type="success"></icon>
+                            <span class="line_color_value">{{field.options?field.options[0].value:''}}</span>
                           </li>
                         </template>
                       </template>
@@ -62,7 +62,7 @@
       </div>
     </swipeout>
     <div v-transfer-dom>
-      <popup v-model="showForm" height="100%" position="bottom">
+      <popup v-model="showForm" height="100%" position="bottom" :show-mask="true">
         <div class="popup0">
           <group>
             <treeForm :allFormData.sync="allFormData" :isEdit="isEdit"
@@ -76,8 +76,7 @@
 
 <script>
   import treeForm from './OdooTreeForm.vue'
-  import {Popup, Group, Icon, TransferDom, Swipeout, SwipeoutItem, SwipeoutButton} from 'vux'
-
+  import {Group, Icon, TransferDom, Swipeout, SwipeoutItem, SwipeoutButton, Popup} from 'vux'
   export default {
     name: 'TreeRow',
     components: {
@@ -92,7 +91,7 @@
     directives: {
       TransferDom
     },
-    props: ['header', 'footer', 'list', 'model', 'viewId', 'recordField', 'context'],
+    props: ['header', 'footer', 'list', 'model', 'viewId', 'recordField', 'context', 'showOperation'],
     data: function () {
       return {
         showForm: false,
@@ -216,11 +215,21 @@
   /*}*/
   .weui-media-box__title {
     font-size: 15px;
+    color: #080209;
     padding: 5px 0px 0px 10px;
   }
-
+  .weui-panel__hd {
+    color: #080209;
+  }
   .weui-media-box__info {
     padding: 0px 0px 10px 10px;
     margin-top: 8px;
+
+  }
+  .weui-media-box__info__meta {
+    color: #92888f
+  }
+  .line_color_value {
+    color: #080209
   }
 </style>

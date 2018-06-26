@@ -38,35 +38,11 @@
         </tbody>
       </x-table>
       <template v-for="field in allFormData">
-        <template v-if="field.type=='one2many'">
-          <x-table full-bordered style="background-color:#fff;font-size: 8px">
-            <thead>
-            <tr>
-              <th v-for="tableT in field.table.tableTh">
-                {{tableT}}
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="rowVal in  field.table.tableBody">
-              <td v-for="val in rowVal">
-                <template v-if="field.type=='boolean' && !val.invisible">
-                  <check-icon :value="val.value" type="plain"></check-icon>
-                </template>
-                <template v-else-if="['char', 'boolean', 'integer', 'float'].indexOf(val.type) >= 0 && !val.invisible">
-                  {{ val.value }}
-                </template>
-                <template v-else-if="['many2one'].indexOf(val.type) >= 0 && !val.invisible">
-                  {{ val.options && val.options[0].value}}
-                </template>
-                <template v-else-if="['selection'].indexOf(val.type) >= 0 && !val.invisible">
-                  <template v-for="option in val.options"> {{ option.value }} </template>
-                </template>
-              </td>
-            </tr>
-            </tbody>
-          </x-table>
-        </template>
+        <div v-if="field.type=='one2many'">
+          <TreeRow :list.sync="field.value" v-on:on-click-item="treeRowClick"
+                    style="position:autoFixed;" :showOperation="false"
+                   :header="field.title" :recordField="field.many_field"></TreeRow>
+        </div>
       </template>
       <template  v-for="(item, index) in allFormData">
         <x-button v-show="!item.invisible && item.type === 'button'"
@@ -80,11 +56,13 @@
 <script>
   import {mapState} from 'vuex'
   import {XTable, CheckIcon, XButton} from 'vux'
+  import TreeRow from './field/OdooTreeRow.vue'
 
   export default {
     name: 'formComponent',
     components: {
       XTable,
+      TreeRow,
       XButton,
       CheckIcon
     },
@@ -112,6 +90,8 @@
       })
     },
     methods: {
+      treeRowClick: function () {},
+      // getTreeRowFooter: function () {},
       actionSheetFunction: function (itemIndex, items) {
         if (items === '新建') {
           this.$router.push({name: 'newForm', params: {}})

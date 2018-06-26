@@ -20,6 +20,7 @@
           </template>
           <template v-else-if="field.type === 'one2many'">
             <TreeRow :list.sync="field.value" style="position:autoFixed;" v-on:on-click-item="treeRowClick"
+                     :showOperation="true"
                      :header="field.title" :footer="getTreeRowFooter()" :recordField="field.many_field"
             ></TreeRow>
           </template>

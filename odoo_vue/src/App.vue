@@ -34,11 +34,10 @@
 <script>
   import {
     Radio, Group, Cell, Badge, Drawer, Actionsheet, ButtonTab, ButtonTabItem, ViewBox, cookie,
-    XHeader, Tabbar, TabbarItem, Loading, TransferDom
+    XHeader, Tabbar, TabbarItem, Loading, TransferDom, Box
   } from 'vux'
 
   import {mapState} from 'vuex'
-  import Box from "vux/src/components/box/index";
 
   export default {
     name: 'app',

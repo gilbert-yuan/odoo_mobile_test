@@ -29,7 +29,8 @@
 </template>
 
 <script>
-  import {Cell, Popup, Radio, TransferDom, Search, Checklist} from 'vux'
+  import {Cell, Popup, Radio, TransferDom, Checklist} from 'vux'
+  import Search from './OdooSearch'
 
   export default {
     name: 'Many2many',
@@ -75,7 +76,7 @@
         }
       },
       setFocus: function () {
-        this.$refs.search.setFocus()
+        // this.$refs.search.setFocus()
       },
       onSubmit: function () {
         this.getNewData()

@@ -18,11 +18,11 @@
           </template>
           <template v-if="['many2one', 'selecttion'].indexOf(item.type) >= 0">
             <label class="weui-form-preview__label">{{item.title}}</label>
-            <span class="weui-form-preview__value">{{item.options[0].value}}</span>
+            <span class="weui-form-preview__value">{{item.options?item.options[0].value:''}}</span>
           </template>
           <template v-if="['selecttion'].indexOf(item.type) >= 0">
             <label class="weui-form-preview__label">{{item.title}}</label>
-            <span class="weui-form-preview__value">{{item.options[0].value}}</span>
+            <span class="weui-form-preview__value">{{item.options?item.options[0].value:''}}</span>
           </template>
           <template v-else-if="!item.invisible && item.type === 'button'">
             <div :have_button="button=true"/>

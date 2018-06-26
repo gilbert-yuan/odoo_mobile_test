@@ -69,7 +69,7 @@
 
 <script>
   import {mapState} from 'vuex'
-  import {Search, Group} from 'vux'
+  import {Group} from 'vux'
   import CellFormPreview from './cellFormPreview.vue'
 
   export default {
@@ -77,8 +77,7 @@
     name: 'OdooCard',
     components: {
       Group,
-      CellFormPreview,
-      Search
+      CellFormPreview
     },
     data: function () {
       return {
