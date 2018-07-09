@@ -13,6 +13,7 @@ import View from './components/OdooViews.vue'
 import Form from './components/OdooForm.vue'
 import NewForm from './components/OdooNewForm.vue'
 import Login from './components/OdooLogin.vue'
+import Echats from './components/OdooEcharts.vue'
 import OdooUser from './components/OdooUserMe.vue'
 Vue.use(ToastPlugin, {position: 'middle'})
 Vue.use(VueRouter)
@@ -30,6 +31,10 @@ const routes = [{
   path: '/odoo/grid',
   name: 'odooGrid',
   component: Grid
+}, {
+  path: '/odoo/charts',
+  name: 'Echarts',
+  component: Echats
 }, {
   path: '/odoo/login/',
   name: 'OdooLogin',

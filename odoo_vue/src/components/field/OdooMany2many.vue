@@ -6,7 +6,7 @@
     <div v-transfer-dom>
       <popup
         height="100%"
-        width="75%"
+        width="100%"
         position="right"
         v-model="showPopup"
         style="background-color:#fff;"
