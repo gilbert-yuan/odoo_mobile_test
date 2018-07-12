@@ -22,7 +22,7 @@
           :results="results"
           v-model="searchValue"
           :autoFixed="true"
-          position="absolute"
+          position="fixed"
           @on-focus="onFocus"
           @on-cancel="onCancel"
           @on-submit="onSubmit"
@@ -141,7 +141,7 @@
       return {
         results: [],
         searchValue: '',
-        radioSearchHeight: '0px',
+        radioSearchHeight: '45px',
         options: this.options_default || [],
         showPopup: false,
         currentValue: this.value

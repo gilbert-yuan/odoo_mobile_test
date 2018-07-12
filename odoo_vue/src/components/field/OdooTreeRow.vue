@@ -20,7 +20,7 @@
                     <h4 class="weui-media-box__title">{{item.title}}</h4>
                   </template>
                   <ul class="weui-media-box__info">
-                    <template v-for="(field, index) in item.meta">
+                    <template v-for="(field) in item.meta">
                       <template v-if="!field.invisible || !field.is_show_form_tree">
                         <template
                           v-if="['char', 'date', 'datetime', 'integer', 'float'].indexOf(field.type)>=0">
@@ -134,7 +134,10 @@
               }
             })
           } else {
-            self.allFormData = self.list_locate[index].meta
+            self.allFormData = {
+              fieldVals: item.meta,
+              id: item.id
+            }
             self.isEdit = true
             self.editIndex = index
             self.showForm = true
@@ -170,7 +173,7 @@
         if (!self.isEdit) {
           this.list_locate.push({meta: newRecord.fieldVals, id: newRecord.id || 0, title: '新添加'})
         } else {
-          this.list_locate[self.editIndex] = { meta: newRecord.fieldVals, id: newRecord.id || 0, title: '本次修改记录' }
+          this.list_locate[self.editIndex] = { meta: newRecord.fieldVals, id: newRecord.id || 0, title: '本条修改记录' }
         }
         this.allFormData = {}
         this.showForm = false

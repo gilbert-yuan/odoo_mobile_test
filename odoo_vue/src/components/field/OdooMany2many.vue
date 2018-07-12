@@ -15,12 +15,13 @@
         <search
           :results="results"
           v-model="searchValue"
-          position="absolute"
+          position="fixed"
           @on-focus="onFocus"
           @on-cancel="onCancel"
           @on-submit="onSubmit"
           ref="search"></search>
-        <checklist  random-order
+        <checklist random-order
+                   :style="'margin-top:' + radioSearchHeight"
                    :options.sync="options" v-model="currentValue"
                    @on-change="onValueChange"></checklist>
       </popup>

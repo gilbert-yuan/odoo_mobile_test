@@ -52,7 +52,7 @@
                        :options_default.sync="field.options"></Many2many>
           </template>
         </template>
-        <group v-show="allFormData.fieldVals.length === index+1" style="top">
+        <group v-show="allFormData.fieldVals.length === index+1">
           <x-button type="primary" @click.native="saveRecord" v-show="formShow">保存</x-button>
         </group>
       </template>

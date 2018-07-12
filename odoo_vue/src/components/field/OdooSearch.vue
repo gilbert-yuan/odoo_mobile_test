@@ -46,7 +46,7 @@
       <a
         href="javascript:"
         class="weui-search-bar__cancel-btn"
-        @click="cancel">{{ cancelText || '取消'}}
+        @click="cancel">{{ cancelText || '返回'}}
       </a>
     </div>
   </div>
