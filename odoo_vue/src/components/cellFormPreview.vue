@@ -51,6 +51,8 @@
     },
     props: {
       card: {},
+      model: {type: String},
+      viewId: {type: String},
       borderIntent: {
         type: Boolean,
         default: true
@@ -70,15 +72,26 @@
       },
       buttonHttp: function (item, index) {
         let self = this
-        self.$http.get('/odoo/mobile/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
-          if (response.data.success) {
-            self.$emit('refresh', false)
-          } else {
-            self.$emit('show-toast', {toastType: 'warn', toastMsg: response.data.errMsg, toastShow: true})
-          }
-        }).catch(function () {
+        if (item.value === 'change') {
+          self.$router.push({
+            name: 'newForm',
+            params: {
+              id: self.card.id,
+              model: self.model,
+              viewId: self.viewId
+            }
+          })
+        } else {
+          self.$http.get('/odoo/mobile/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
+            if (response.data.success) {
+              self.$emit('refresh', false)
+            } else {
+              self.$emit('show-toast', {toastType: 'warn', toastMsg: response.data.errMsg, toastShow: true})
+            }
+          }).catch(function () {
 
-        })
+          })
+        }
       }
     }
   }

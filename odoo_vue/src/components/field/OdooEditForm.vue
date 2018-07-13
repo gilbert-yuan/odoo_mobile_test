@@ -16,6 +16,7 @@
           </template>
           <template v-else-if="field.type === 'many2one'">
             <Many2one :title="field.title" :value.sync="field.value" :field="field"
+                      :required="field.required || false" :readonly="field.readonly||false"
                       :options_default.sync="field.options"></Many2one>
           </template>
           <template v-else-if="field.type === 'one2many'">

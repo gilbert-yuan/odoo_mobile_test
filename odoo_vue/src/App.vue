@@ -7,7 +7,7 @@
       <div v-transfer-dom>
         <actionsheet :menus="vux.menus" v-model="showMenu" @on-click-menu="vux.actionSheetFunction"></actionsheet>
       </div>
-      <x-header :left-options="{showBack: vux.showBackHeader, preventGoBack: true, backText: '返回首页'}"
+      <x-header :left-options="{showBack: vux.showBackHeader, preventGoBack: true, backText: '返回首页'}" v-show="false"
                 :title="vux.headerTitle"
                 style="width:100%" @on-click-back="onclickBack()">
       </x-header>
@@ -16,7 +16,8 @@
           <router-view class="router-view"></router-view>
         </box>
       </transition>
-      <tabbar class="vux-demo-tabbar" icon-class="vux-center" v-show="['odooGrid', 'OdooUser'].indexOf($route.name) >=0" slot="bottom">
+      <tabbar class="vux-demo-tabbar" icon-class="vux-center"
+              v-show="['odooGrid', 'OdooUser'].indexOf($route.name) >= 10" slot="bottom">
         <!--<tabbar-item :link="{path:'/odoo/charts'}" :selected="$router.path === '/odoo/charts'">-->
           <!--<span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon"-->
                 <!--style="position:relative;top: -2px;">&#xe637;</span>-->

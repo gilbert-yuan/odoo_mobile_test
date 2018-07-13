@@ -118,7 +118,6 @@
             id: self.$route.params.recordId
           }
         }).then(function (response) {
-          console.log(response.data.fieldVals, 'response.data.fieldVals')
           self.allFormData = response.data.fieldVals
           self.id = response.data.id
         }).catch(function (error) {

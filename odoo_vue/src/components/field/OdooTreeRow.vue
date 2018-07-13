@@ -192,7 +192,6 @@
         this.$emit('on-click-header')
       },
       onItemClick: function (item) {
-        console.log(item, 'item')
         this.$emit('on-click-tree-item', item)
       },
       get_form_data: function () {

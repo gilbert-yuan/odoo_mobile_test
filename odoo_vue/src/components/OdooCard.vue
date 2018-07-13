@@ -1,6 +1,6 @@
 <template>
   <div>
-    <scroller style="position:fixed; top: 90px;bottom: 70px;width:100%"
+    <scroller style="position:fixed; top: 45px;bottom: 70px;width:100%"
               :on-refresh="refresh"
               noDataText="暂无更多数据"
               loadingLayerColor="position: relative; top: -0.9em; padding: 0 .55em; color: #999999;font-size:5em"
@@ -58,7 +58,7 @@
       <template v-for="card in cardList">
         <div class="weui-cells">
           <cell-form-preview :card.sync="card" @on-click-card="treeRowClick" :border-intent="false"
-                             @refresh="refresh_data" @show-toast="showToast">
+                             @refresh="refresh_data" @show-toast="showToast" :model="model" :viewId="view_id">
           </cell-form-preview>
         </div>
       </template>

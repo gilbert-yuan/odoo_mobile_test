@@ -1,7 +1,8 @@
 <template>
-  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly" primary="title">
-    <div style="width:250px;overflow: hidden; text-overflow: ellipsis;white-space: nowrap;">
-      <span class="vux-cell-value" v-if="displayValue">{{ displayValue }}</span>
+  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly"
+        align-items="flex-start" primary="title">
+    <div style="width:12.5em;overflow: hidden; text-overflow: ellipsis;">
+      <span class="vux-cell-value" v-if="displayValue" v-html="displayValue"></span>
     </div>
     <div v-transfer-dom>
       <popup
@@ -58,7 +59,11 @@
           })
           if (match) {
             match.forEach(function (value) {
-              ChoiceVal = ChoiceVal + ' ' + value.value
+              if (ChoiceVal) {
+                ChoiceVal = ChoiceVal + '</br>' + value.value
+              } else {
+                ChoiceVal = ChoiceVal + value.value
+              }
             })
             return ChoiceVal
           }
@@ -68,7 +73,7 @@
     },
     methods: {
       onValueChange: function (val) {
-        // this.hide()
+        // console.log(this.field)
       },
       show: function () {
         if (!this.readonly) {
@@ -110,12 +115,15 @@
         this.currentValue = val
       },
       currentValue: function (val) {
-        console.log(val)
         this.$emit('update:value', val)
         this.$emit('update:options_default', this.currentValue)
       }
     },
     created: function () {
+      // console.log(this.options_default)
+      // console.log(this.currentValue)
+      // console.log(this.val)
+      // console.log(this.field)
       // this.getNewData()
     },
     data: function () {
@@ -125,7 +133,7 @@
         radioSearchHeight: '0px',
         options: this.options_default || [],
         showPopup: false,
-        currentValue: []
+        currentValue: this.value
       }
     }
   }

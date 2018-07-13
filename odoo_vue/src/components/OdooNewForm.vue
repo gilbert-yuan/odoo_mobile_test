@@ -53,7 +53,6 @@
       },
       get_form_data: function () {
         let self = this
-        console.log(self.$route.params)
         self.$http.get('/odoo/mobile/form/view/data',
           {params: {
             model: self.$route.params.model,

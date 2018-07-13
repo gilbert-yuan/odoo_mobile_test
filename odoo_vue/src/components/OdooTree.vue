@@ -1,6 +1,6 @@
 <template>
   <div>
-    <scroller style="position:fixed; top: 95px;bottom: 70px;width:100%"
+    <scroller style="position:fixed; top: 45px;bottom: 70px;width:100%"
               :on-refresh="refresh"
               noDataText="暂无更多数据"
               loadingLayerColor="position: relative; top: -0.9em; padding: 0 .55em; color: #999999;font-size:5em"

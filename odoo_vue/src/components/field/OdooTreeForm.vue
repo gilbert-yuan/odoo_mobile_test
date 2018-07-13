@@ -14,26 +14,30 @@
                       :required="field.required || false"></datetime>
           </template>
           <template v-else-if="field.type === 'many2one'">
-            <Many2one :title="field.title" :value.sync='field.value' :field="field"
+            <Many2one :title="field.title" :value.sync='field.value' :field="field" :readonly="field.readonly"
                       :options_default.sync="field.options"></Many2one>
           </template>
           <template v-else-if="field.type === 'boolean'">
-            <x-switch :title="field.title" v-model="field.value"></x-switch>
+            <x-switch :title="field.title" v-model="field.value"
+                      :required="field.required || false"
+                      :readonly="field.readonly"
+
+            ></x-switch>
           </template>
           <template v-else-if="field.type === 'integer'">
-            <x-number :title="field.title"  v-model="field.value" button-style="round"
+            <x-number :title="field.title"  v-model="field.value" button-style="round" :readonly="field.readonly"
                       :required="field.required || false"></x-number>
           </template>
           <template v-else-if="field.type === 'float'">
-            <Char :title="field.title" :value.sync="field.value" type="number"
+            <Char :title="field.title" :value.sync="field.value" type="number" :readonly="field.readonly"
                   :required="field.required || false"></Char>
           </template>
           <template v-else-if="field.type === 'selection'">
-            <selector :title="field.title" :options="field.options" v-model="field.value"
+            <selector :title="field.title" :options="field.options" v-model="field.value" :readonly="field.readonly"
                       :required="field.required || false"></selector>
           </template>
           <template v-else-if="field.type === 'text'">
-            <x-textarea :title="field.title" v-model="field.value"
+            <x-textarea :title="field.title" v-model="field.value" :readonly="field.readonly"
                         :required="field.required || false"></x-textarea>
           </template>
           <template v-else-if="field.type === 'Html'">
