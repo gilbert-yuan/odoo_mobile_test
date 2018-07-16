@@ -52,7 +52,7 @@
     props: {
       card: {},
       model: {type: String},
-      viewId: {type: String},
+      viewId: {type: Number},
       borderIntent: {
         type: Boolean,
         default: true

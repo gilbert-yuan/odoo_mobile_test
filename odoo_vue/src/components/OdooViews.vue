@@ -7,9 +7,10 @@
       :offset="46"
       :check-sticky-support="false"
       :disabled="disabled">
-      <tab>
+      <tab :line-width="1" custom-bar-width="2em">
         <template v-for="(item, index) in items">
-          <tab-item @on-item-click="ClickButtonTableItem(item)" :selected="$route.params.domain===JSON.stringify(item.domain)">{{ item.title }}</tab-item>
+          <tab-item @on-item-click="ClickButtonTableItem(item)"
+                    :selected="$route.params.domain===JSON.stringify(item.domain)">{{ item.title }}</tab-item>
         </template>
       </tab>
     </sticky>

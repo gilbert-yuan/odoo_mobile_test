@@ -45,7 +45,7 @@
     },
     methods: {
       clickGridItem: function (gridSingle) {
-        this.vux.headerTitle = gridSingle.title
+        document.title = gridSingle.title
         this.$router.push({name: 'odooViews', params: {actionId: gridSingle.actionId}})
       }
     },

@@ -4,7 +4,8 @@
       <template v-for="(field, index) in allFormData.fieldVals" >
         <template v-if="!field.is_show_edit_form">
           <template v-if="field.type === 'char'">
-            <Char :title="field.title" :value.sync="field.value" type="text" :required="field.required || false"></Char>
+            <Char :title="field.title" :value.sync="field.value" type="text" :readonly="field.readonly"
+                  :required="field.required || false"></Char>
           </template>
           <template v-else-if="field.type === 'date'">
             <datetime v-model="field.value" :title="field.title" :required="field.required || false"
@@ -33,7 +34,7 @@
                       :required="field.required || false"></x-number>
           </template>
           <template v-else-if="field.type === 'float'">
-            <Char :title="field.title" :value.sync="field.value" type="number"
+            <Char :title="field.title" :value.sync="field.value" type="number" :readonly="field.readonly"
                   :required="field.required || false"></Char>
           </template>
           <template v-else-if="field.type === 'selection'">
@@ -41,15 +42,15 @@
                       :required="field.required || false"></selector>
           </template>
           <template v-else-if="field.type === 'text'">
-            <x-textarea :title="field.title" v-model="field.value" :show-counter="false" :rows="3"
-                        :required="field.required || false"></x-textarea>
+             <x-textarea :title="field.title" :value.sync="field.value" type="text" :required="field.required || false"
+                  :readonly="field.readonly"></x-textarea>
           </template>
           <template v-else-if="field.type === 'Html'">
           </template>
           <template v-else-if="field.type === 'Binary'">
           </template>
           <template v-else-if="field.type === 'many2many'">
-            <Many2many :title="field.title" :value.sync="field.value" :field="field"
+            <Many2many :title="field.title" :value.sync="field.value" :field="field" :required="field.required"
                        :options_default.sync="field.options"></Many2many>
           </template>
         </template>
@@ -71,7 +72,7 @@
   import TreeRow from './OdooTreeRow.vue'
   import Many2one from './OdooMany2one.vue'
   import {
-    GroupTitle, Group, XInput, Selector, PopupRadio, XButton, Msg, TransferDom, Alert, Toast,
+    GroupTitle, Group, Selector, PopupRadio, XButton, Msg, TransferDom, Alert, Toast,
     Datetime, XNumber, XTextarea, XSwitch
   } from 'vux'
 
@@ -90,7 +91,6 @@
       PopupRadio,
       Many2one,
       GroupTitle,
-      XInput,
       Datetime,
       XNumber,
       XTextarea,
@@ -126,6 +126,7 @@
     },
     methods: {
       onShow: function () {
+        console.log(this.allFormData)
       },
       onHide: function () {
       },

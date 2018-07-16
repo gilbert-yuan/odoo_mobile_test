@@ -39,9 +39,9 @@
 
 <script>
   import {
-    Radio, Group, Cell, Badge, Drawer, Actionsheet, ButtonTab, ButtonTabItem, ViewBox, cookie,
+    Radio, Group, Cell, Badge, Drawer, Actionsheet, ButtonTab, ButtonTabItem, ViewBox,
     XHeader, Tabbar, TabbarItem, Loading, TransferDom, Box
-  } from 'vux'
+  } from 'vux'  // cookie,
 
   import {mapState} from 'vuex'
 
@@ -85,8 +85,8 @@
     methods: {
       onclickBack: function () {
         this.vux.showBackHeader = false
-        this.vux.headerTitle = '系统首页'
-        this.$router.push({name: 'odooGrid'})
+        document.title = '系统首页'
+        // this.$router.push({name: 'odooGrid'})
       },
       onclick_tabbar: function () {
         this.$router.push({name: 'OdooUser'})
@@ -106,14 +106,14 @@
     },
     mounted: function () {
       let self = this
-      if (cookie.get('uid', {})) {
-        self.vux.menus = ['刷新', '取消']
-        self.vux.actionSheetFunction = self.actionSheetFunction
-        self.headerTitle = self.vux.headerTitle
-        self.$router.push({name: 'odooGrid'})
-      } else {
-        self.$router.push({name: 'OdooLogin'})
-      }
+      // if (cookie.get('uid', {})) {
+      self.vux.menus = ['刷新', '取消']
+      self.vux.actionSheetFunction = self.actionSheetFunction
+      document.title = self.vux.headerTitle
+        // self.$router.push({name: 'odooGrid'})
+      // } else {
+      //   self.$router.push({name: 'OdooLogin'})
+      // }
     }
   }
 </script>

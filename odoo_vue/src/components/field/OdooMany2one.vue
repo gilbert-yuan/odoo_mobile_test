@@ -67,11 +67,11 @@
     props: ['title', 'value', 'readonly', 'field', 'options_default'],
     computed: {
       displayValue: function () {
-        if (this.options && !this.options.length) {
+        if (this.allOptions && !this.allOptions.length) {
           return ''
         }
-        if (typeof this.options[0] === 'object') {
-          const match = find(this.options, option => {
+        if (typeof this.allOptions[0] === 'object') {
+          const match = find(this.allOptions, option => {
             return option.key === this.currentValue
           })
           if (match) {
@@ -107,6 +107,17 @@
       hide: function () {
         this.showPopup = false
       },
+      unique: function (arr) {
+        let result = []
+        let hash = {}
+        for (let i = 0, elem; (elem = arr[i]) != null; i++) {
+          if (!hash[elem]) {
+            result.push(elem)
+            hash[elem] = true
+          }
+        }
+        return result
+      },
       getNewData: function () {
         let self = this
         self.$http.get('/odoo/mobile/model/name_search',
@@ -115,6 +126,7 @@
               {model: self.field.model, value: self.searchValue || '', domain: self.field.domain || [], limit: 15}
           }).then(function (response) {
             self.options = response.data
+            self.allOptions = self.allOptions.concat(response.data)
           }).catch(function (error) {
             alert(JSON.stringify(error))
           })
@@ -143,6 +155,7 @@
         searchValue: '',
         radioSearchHeight: '45px',
         options: this.options_default || [],
+        allOptions: this.options_default || [],
         showPopup: false,
         currentValue: this.value
       }

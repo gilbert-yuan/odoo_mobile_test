@@ -22,6 +22,7 @@
           @on-submit="onSubmit"
           ref="search"></search>
         <checklist random-order
+                   :required="required"
                    :style="'margin-top:' + radioSearchHeight"
                    :options.sync="options" v-model="currentValue"
                    @on-change="onValueChange"></checklist>
@@ -46,7 +47,7 @@
     directives: {
       TransferDom
     },
-    props: ['title', 'value', 'readonly', 'field', 'options_default'],
+    props: ['title', 'value', 'readonly', 'field', 'required', 'options_default'],
     computed: {
       displayValue: function () {
         let ChoiceVal = ''

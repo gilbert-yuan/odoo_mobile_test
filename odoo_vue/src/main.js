@@ -15,6 +15,8 @@ import NewForm from './components/OdooNewForm.vue'
 import Login from './components/OdooLogin.vue'
 import Echats from './components/OdooEcharts.vue'
 import OdooUser from './components/OdooUserMe.vue'
+const FastClick = require('fastclick')
+FastClick.attach(document.body)
 Vue.use(ToastPlugin, {position: 'middle'})
 Vue.use(VueRouter)
 require('./mock.js')
@@ -26,6 +28,7 @@ Vue.component('toast', Toast)
 
 const routes = [{
   path: '/',
+  name: 'App',
   component: App
 }, {
   path: '/odoo/grid',
@@ -35,10 +38,6 @@ const routes = [{
   path: '/odoo/charts',
   name: 'Echarts',
   component: Echats
-}, {
-  path: '/odoo/login/',
-  name: 'OdooLogin',
-  component: Login
 }, {
   path: '/odoo/view/:actionId',
   name: 'odooViews',
@@ -55,6 +54,10 @@ const routes = [{
   path: '/odoo/new/form',
   name: 'newForm',
   component: NewForm
+}, {
+  path: '/odoo/login/',
+  name: 'OdooLogin',
+  component: Login
 }, {
   path: '/odoo/form/:recordId',
   name: 'odooForm',
@@ -75,7 +78,9 @@ store.registerModule('vux', {
     actionSheetFunction: function () {}
   }
 })
-console.log(store)
+
+document.title = store.state.vux.headerTitle
+
 axios.interceptors.request.use(function (config) {
   store.state.vux.isLoading = true
   // if (!cookie.get('uid', {}) && config.url !== '/odoo/login') {
