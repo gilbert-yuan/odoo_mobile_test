@@ -7,10 +7,18 @@
       :offset="46"
       :check-sticky-support="false"
       :disabled="disabled">
-      <tab :line-width="1" custom-bar-width="2em">
+      <tab :scroll-threshold="items.length" :line-width="4">
         <template v-for="(item, index) in items">
-          <tab-item @on-item-click="ClickButtonTableItem(item)"
-                    :selected="$route.params.domain===JSON.stringify(item.domain)">{{ item.title }}</tab-item>
+          <template v-if="item.badge" >
+            <tab-item @on-item-click="ClickButtonTableItem(item)"  :badge-label="item.badge+''"
+                      :selected="$route.params.domain===JSON.stringify(item.domain)">{{ item.title  }}
+            </tab-item>
+          </template>
+          <template v-else>
+            <tab-item @on-item-click="ClickButtonTableItem(item)"
+                      :selected="$route.params.domain===JSON.stringify(item.domain)">{{ item.title  }}
+            </tab-item>
+          </template>
         </template>
       </tab>
     </sticky>
@@ -62,6 +70,7 @@
       ClickButtonTableItem: function (item) {
         let self = this
         if (item) {
+          self.getAllData()
           self.$router.push({path: '/odoo/view/' + self.$route.params.actionId + '/' + JSON.stringify(item.domain)})
         }
       },
@@ -85,6 +94,25 @@
             query: {recordId: item.value, model: self.model, viewId: self.view_id}
           })
         }
+      },
+      getAllData: function () {
+        let self = this
+        self.$http.get('/odoo/mobile/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
+          self.items = response.data.viewsData
+          self.view_id = response.data.view_id
+          self.offset = response.data.offset
+          self.limit = response.data.limit
+          self.order = response.data.order
+          self.context = response.data.context
+          self.noForm = response.data.noForm
+          self.curentComponent = response.data.view_type
+          self.model = response.data.model
+          if (!self.$route.params.domain && self.items) {
+            self.ClickButtonTableItem(self.items[0])
+          } else {
+            self.domain = JSON.parse(self.$route.params.domain)
+          }
+        })
       }
     },
     watch: {
@@ -106,23 +134,8 @@
       let self = this
       self.vux.tabbarShow = false
       self.vux.showBackHeader = true
-      this.$nextTick(() => {
-        self.$http.get('/odoo/mobile/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
-          self.items = response.data.viewsData
-          self.view_id = response.data.view_id
-          self.offset = response.data.offset
-          self.limit = response.data.limit
-          self.order = response.data.order
-          self.context = response.data.context
-          self.noForm = response.data.noForm
-          self.curentComponent = response.data.view_type
-          self.model = response.data.model
-          if (!self.$route.params.domain && self.items) {
-            self.ClickButtonTableItem(self.items[0])
-          } else {
-            self.domain = JSON.parse(self.$route.params.domain)
-          }
-        })
+      self.$nextTick(() => {
+        self.getAllData()
       })
     }
   }

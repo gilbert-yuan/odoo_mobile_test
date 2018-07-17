@@ -28,8 +28,8 @@ Vue.component('toast', Toast)
 
 const routes = [{
   path: '/',
-  name: 'App',
-  component: App
+  name: 'odooGrid',
+  component: Grid
 }, {
   path: '/odoo/grid',
   name: 'odooGrid',
