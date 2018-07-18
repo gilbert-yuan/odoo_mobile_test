@@ -42,8 +42,8 @@
                       :required="field.required || false"></selector>
           </template>
           <template v-else-if="field.type === 'text'">
-             <x-textarea :title="field.title" :value.sync="field.value" type="text" :required="field.required || false"
-                  :readonly="field.readonly"></x-textarea>
+             <x-textarea :title="field.title" v-model="field.value" :required="field.required || false"
+                         :readonly="field.readonly"></x-textarea>
           </template>
           <template v-else-if="field.type === 'Html'">
           </template>
