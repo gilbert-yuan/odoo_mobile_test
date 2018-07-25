@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 import App from './App'
 import axios from 'axios'
 import { sync } from 'vuex-router-sync'
-import { Toast, ToastPlugin, LoadingPlugin, Loading } from 'vux'
+import { Toast, ToastPlugin, LoadingPlugin, Loading, cookie } from 'vux'
 import VueScroller from 'vue-scroller'
 import Grid from './components/OdooGrid.vue'
 import View from './components/OdooViews.vue'
@@ -28,8 +28,8 @@ Vue.component('toast', Toast)
 
 const routes = [{
   path: '/',
-  name: 'odooGrid',
-  component: Grid
+  name: 'OdooLogin',
+  component: Login
 }, {
   path: '/odoo/grid',
   name: 'odooGrid',
@@ -83,11 +83,11 @@ document.title = store.state.vux.headerTitle
 
 axios.interceptors.request.use(function (config) {
   store.state.vux.isLoading = true
-  // if (!cookie.get('uid', {}) && config.url !== '/odoo/login') {
-  //   router.push({
-  //     path: '/odoo/login'
-  //   })
-  // }
+  if (!cookie.get('uid', {}) && config.url !== '/odoo/login') {
+    router.push({
+      path: '/odoo/login'
+    })
+  }
   return config
 }, function (error) {
   store.state.vux.isLoading = false
@@ -96,11 +96,17 @@ axios.interceptors.request.use(function (config) {
 
 axios.interceptors.response.use(function (response) {
   store.state.vux.isLoading = false
+  console.log(response)
+  if (response.data.error_code) {
+    router.push({
+      path: '/odoo/login'
+    })
+  }
   return response
 }, function (error) {
-  // router.push({
-  //   path: '/odoo/login'
-  // })
+  router.push({
+    path: '/odoo/login'
+  })
   store.state.vux.isLoading = false
   return Promise.reject(error)
 })
