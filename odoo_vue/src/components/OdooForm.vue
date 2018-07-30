@@ -46,8 +46,8 @@
       </template>
       <template  v-for="(item, index) in allFormData">
         <x-button v-show="!item.invisible && item.type === 'button'"
-                v-on:click.prevent="buttonHttp(item, index)" type="primary"
-                v-bind:value="item.value">{{item.title}} </x-button>
+                  @click.native="buttonHttp(item, index)" type="primary"
+                  v-bind:value="item.value">{{item.title}} </x-button>
       </template>
     </div>
   </div>
@@ -101,7 +101,7 @@
         let self = this
         self.$http.get('/odoo/mobile/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
           if (response.data.success) {
-            self.$emit('refresh', false)
+            self.get_form_data()
           } else {
             self.$emit('show-toast', {toastType: 'warn', toastMsg: response.data.errMsg, toastShow: true})
           }
