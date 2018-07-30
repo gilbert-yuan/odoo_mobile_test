@@ -96,7 +96,7 @@ axios.interceptors.request.use(function (config) {
 
 axios.interceptors.response.use(function (response) {
   store.state.vux.isLoading = false
-  console.log(response)
+  // console.log(response)
   if (response.data.error_code) {
     router.push({
       path: '/odoo/login'

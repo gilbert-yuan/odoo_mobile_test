@@ -38,8 +38,8 @@
                   :required="field.required || false"></Char>
           </template>
           <template v-else-if="field.type === 'selection'">
-            <selector :value="field.value" :title="field.title" :options="field.options" :readonly="field.readonly||false"
-                      :required="field.required || false"></selector>
+            <selector v-model="field.value" :title="field.title" :options="field.options" :readonly="field.readonly||false"
+                      :required="field.required || false" @on-change="onChange(field)"></selector>
           </template>
           <template v-else-if="field.type === 'text'">
              <x-textarea :title="field.title" v-model="field.value" :required="field.required || false"
@@ -126,9 +126,12 @@
     },
     methods: {
       onShow: function () {
-        console.log(this.allFormData)
+        // console.log(this.allFormData)
       },
       onHide: function () {
+      },
+      onChange: function (val) {
+
       },
       saveRecord: function () {
         let self = this

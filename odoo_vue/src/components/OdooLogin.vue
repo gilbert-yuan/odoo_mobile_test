@@ -4,17 +4,17 @@
       <group>
         <div class="container">
           <div class="box">
-            <p class="center"><img src="https://odoo.net.cn/uploads/profile/6861-profileimg.jpg"></p>
+            <p class="center"><img src="/web/binary/company_logo"></p>
           </div>
         </div>
       </group>
-    <group>
-      <x-input title="账号" v-model="name" type="text"></x-input>
-      <x-input title="密码" v-model="password" type="password"></x-input>
-    </group>
-    <group>
-      <x-button @click.native="login" type="primary">登录</x-button>
-    </group>
+      <group>
+        <x-input title="账号" v-model="name" type="text"></x-input>
+        <x-input title="密码" v-model="password" type="password"></x-input>
+      </group>
+      <group>
+        <x-button @click.native="login" type="primary">登录</x-button>
+      </group>
     </box>
   </div>
 </template>
@@ -83,20 +83,23 @@
     height: 100%;
     width: 100%;
   }
+
   .center {
     text-align: center;
     padding-top: 20px;
     color: #fff;
     font-size: 18px;
   }
+
   .center img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     border: 4px solid #ececec;
   }
+
   .box {
-    background-image: url("https://odoo.net.cn/uploads/profile/6861-profileimg.jpg");
+    // background-image: url("https://odoo.net.cn/uploads/profile/6861-profileimg.jpg");
     border-radius: 5px;
     font-family: sans-serif;
     text-align: center;

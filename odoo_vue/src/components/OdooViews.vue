@@ -151,7 +151,7 @@
   .floating-button {
     position: absolute;
     right: 16px;
-    bottom: 16px;
+    bottom: 66px;
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -183,7 +183,7 @@
   .floating-button-toolbar, .speed-dial {
     position: absolute;
     right: 16px;
-    bottom: 16px;
+    bottom: 36px;
     z-index: 1500
   }
 
