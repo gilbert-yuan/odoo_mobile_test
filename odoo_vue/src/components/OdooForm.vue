@@ -50,6 +50,7 @@
                   v-bind:value="item.value">{{item.title}} </x-button>
       </template>
     </div>
+    <toast v-model="toastShow" :type="toastType">{{toastMsg}}</toast>
   </div>
 </template>
 
@@ -70,6 +71,9 @@
       return {
         second_level_menu: [],
         id: 0,
+        toastShow: false,
+        toastType: 'warn',
+        toastMsg: '',
         allFormData: []
       }
     },
@@ -103,7 +107,9 @@
           if (response.data.success) {
             self.get_form_data()
           } else {
-            self.$emit('show-toast', {toastType: 'warn', toastMsg: response.data.errMsg, toastShow: true})
+            self.toastMsg = response.data.errMsg
+            self.toastType = 'warn'
+            self.toastShow = true
           }
         }).catch(function () {
 
