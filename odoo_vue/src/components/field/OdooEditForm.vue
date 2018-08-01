@@ -1,18 +1,22 @@
 <template>
   <div>
-    <group label-width="5.5em" label-margin-right="2em" label-align="justify">
+    <group label-width="5.5em" label-margin-right="2em" label-align="left" gutter="20px">
       <template v-for="(field, index) in allFormData.fieldVals" >
         <template v-if="!field.is_show_edit_form">
           <template v-if="field.type === 'char'">
-            <Char :title="field.title" :value.sync="field.value" type="text" :readonly="field.readonly"
-                  :required="field.required || false"></Char>
+            <x-input :title="field.title" v-model="field.value" type="text"
+                     :required="field.required && true || false"
+                     value-text-align="left"
+                     :readonly="field.readonly"></x-input>
           </template>
           <template v-else-if="field.type === 'date'">
-            <datetime v-model="field.value" :title="field.title" :required="field.required || false"
+            <datetime v-model="field.value" :title="field.title" :required="field.required || false" value-text-align="left"
+                      align="left"
             ></datetime>
           </template>
           <template v-else-if="field.type === 'datetime'">
             <datetime v-model="field.value" :title="field.title" format="YYYY-MM-DD HH:mm"
+					  value-text-align="left"
                       :required="field.required || false"></datetime>
           </template>
           <template v-else-if="field.type === 'many2one'">
@@ -27,22 +31,23 @@
             ></TreeRow>
           </template>
           <template v-else-if="field.type === 'boolean'">
-            <x-switch :title="field.title" v-model="field.value"></x-switch>
+            <x-switch :title="field.title" v-model="field.value" value-align="left"></x-switch>
           </template>
           <template v-else-if="field.type === 'integer'">
-            <x-number :title="field.title" v-model="field.value" button-style="round"
+            <x-number :title="field.title" v-model="field.value" button-style="round" value-text-align="left"
                       :required="field.required || false"></x-number>
           </template>
           <template v-else-if="field.type === 'float'">
-            <Char :title="field.title" :value.sync="field.value" type="number" :readonly="field.readonly"
-                  :required="field.required || false"></Char>
+            <x-input :title="field.title" v-model="field.value" type="number"
+                     :required="field.required && true || false"
+                     :readonly="field.readonly"></x-input>
           </template>
           <template v-else-if="field.type === 'selection'">
             <selector v-model="field.value" :title="field.title" :options="field.options" :readonly="field.readonly||false"
                       :required="field.required || false" @on-change="onChange(field)"></selector>
           </template>
           <template v-else-if="field.type === 'text'">
-             <x-textarea :title="field.title" v-model="field.value" :required="field.required || false"
+             <x-textarea :title="field.title" v-model="field.value" :required="field.required || false" value-text-align="left"
                          :readonly="field.readonly"></x-textarea>
           </template>
           <template v-else-if="field.type === 'Html'">
@@ -54,12 +59,20 @@
                        :options_default.sync="field.options"></Many2many>
           </template>
         </template>
-        <group v-show="allFormData.fieldVals.length === index+1">
+        <group v-show="allFormData.fieldVals.length === index+1" gutter="20px">
+		<group>
+		</group>
+		 <flexbox>
+		  <flexbox-item>
+		  <x-button type="warn" @click.native="cancel" v-show="formShow">取消</x-button>
+		  </flexbox-item>
+		    <flexbox-item>
           <x-button type="primary" @click.native="saveRecord" v-show="formShow">保存</x-button>
+		  </flexbox-item>
+		  </flexbox>
         </group>
       </template>
     </group>
-
     <div v-transfer-dom>
       <alert v-model="showAlert" title="错误" @on-show="onShow" @on-hide="onHide"> {{ errorMessage}}</alert>
     </div>
@@ -72,7 +85,7 @@
   import TreeRow from './OdooTreeRow.vue'
   import Many2one from './OdooMany2one.vue'
   import {
-    GroupTitle, Group, Selector, PopupRadio, XButton, Msg, TransferDom, Alert, Toast,
+    GroupTitle, Group, Selector, PopupRadio, XButton, Msg, TransferDom, Alert, Toast, Flexbox, FlexboxItem, XInput,
     Datetime, XNumber, XTextarea, XSwitch
   } from 'vux'
 
@@ -80,6 +93,9 @@
     name: 'editForm',
     components: {
       Group,
+      Flexbox,
+      XInput,
+      FlexboxItem,
       Char,
       Many2many,
       Toast,
@@ -125,6 +141,9 @@
       }
     },
     methods: {
+      cancel: function () {
+        this.$router.go(-1)
+      },
       onShow: function () {
         // console.log(this.allFormData)
       },

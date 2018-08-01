@@ -1,6 +1,8 @@
 <template>
-  <x-input :title="title" v-model="changeVal" :required="required && true || false" :type="type" :placeholder="placeholder" text-align="right"
-           :readonly="readonly" :show-clear="showClear" :is-type="isType" @on-focus="focusChange" label-width="5.5em"></x-input>
+
+    <x-input :title="title" v-model="changeVal" :required="required && true || false" :type="type"
+             :placeholder="placeholder||'请输入'+title"
+             :readonly="readonly" :is-type="isType" @on-focus="focusChange"></x-input>
 </template>
 
 <script>
@@ -29,3 +31,6 @@
     }
   }
 </script>
+<style scoped>
+
+</style>

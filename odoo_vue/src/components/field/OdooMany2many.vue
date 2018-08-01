@@ -1,7 +1,7 @@
 <template>
-  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly"
-        align-items="flex-start" primary="title">
-    <div style="width:12.5em;overflow: hidden; text-overflow: ellipsis;">
+  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly"  value-align="left"
+        primary="title">
+    <div>
       <span class="vux-cell-value" v-if="displayValue" v-html="displayValue"></span>
     </div>
     <div v-transfer-dom>

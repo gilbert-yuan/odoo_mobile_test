@@ -1,5 +1,5 @@
 <template>
-  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly" :primary="'title'" value-text-align="left">
+  <cell @click.native="show" :title="title" :value="currentValue" :is-link="!readonly" :primary="'title'" 		value-align="left">
     <div  style="width:12.5em;overflow: hidden; text-overflow: ellipsis;white-space: nowrap;">
        <span v-if="displayValue" value-text-align="left" >{{ displayValue }}</span>
     </div>
@@ -31,6 +31,7 @@
           :style="'margin-top:' + radioSearchHeight"
           :options="options"
           v-model="currentValue"
+		  value-text-align="left"
           :fill-mode="false"
           @on-change="onValueChange">
           <template slot="each-item" slot-scope="props">
