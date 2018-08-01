@@ -1,7 +1,7 @@
 <template>
   <div>
     <group label-width="5.5em" label-margin-right="2em" label-align="left" gutter="20px">
-      <template v-for="(field, index) in allFormData.fieldVals" >
+      <template v-for="(field, index) in allFormData.fieldVals">
         <template v-if="!field.is_show_edit_form">
           <template v-if="field.type === 'char'">
             <x-input :title="field.title" v-model="field.value" type="text"
@@ -10,13 +10,14 @@
                      :readonly="field.readonly"></x-input>
           </template>
           <template v-else-if="field.type === 'date'">
-            <datetime v-model="field.value" :title="field.title" :required="field.required || false" value-text-align="left"
+            <datetime v-model="field.value" :title="field.title" :required="field.required || false"
+                      value-text-align="left"
                       align="left"
             ></datetime>
           </template>
           <template v-else-if="field.type === 'datetime'">
             <datetime v-model="field.value" :title="field.title" format="YYYY-MM-DD HH:mm"
-					  value-text-align="left"
+                      value-text-align="left"
                       :required="field.required || false"></datetime>
           </template>
           <template v-else-if="field.type === 'many2one'">
@@ -43,12 +44,14 @@
                      :readonly="field.readonly"></x-input>
           </template>
           <template v-else-if="field.type === 'selection'">
-            <selector v-model="field.value" :title="field.title" :options="field.options" :readonly="field.readonly||false"
+            <selector v-model="field.value" :title="field.title" :options="field.options"
+                      :readonly="field.readonly||false"
                       :required="field.required || false" @on-change="onChange(field)"></selector>
           </template>
           <template v-else-if="field.type === 'text'">
-             <x-textarea :title="field.title" v-model="field.value" :required="field.required || false" value-text-align="left"
-                         :readonly="field.readonly"></x-textarea>
+            <x-textarea :title="field.title" v-model="field.value" :required="field.required || false"
+                        value-text-align="left"
+                        :readonly="field.readonly"></x-textarea>
           </template>
           <template v-else-if="field.type === 'Html'">
           </template>
@@ -60,16 +63,16 @@
           </template>
         </template>
         <group v-show="allFormData.fieldVals.length === index+1" gutter="20px">
-		<group>
-		</group>
-		 <flexbox>
-		  <flexbox-item>
-		  <x-button type="warn" @click.native="cancel" v-show="formShow">取消</x-button>
-		  </flexbox-item>
-		    <flexbox-item>
-          <x-button type="primary" @click.native="saveRecord" v-show="formShow">保存</x-button>
-		  </flexbox-item>
-		  </flexbox>
+          <group>
+          </group>
+          <flexbox>
+            <flexbox-item>
+              <x-button type="warn" @click.native="cancel" v-show="formShow">取消</x-button>
+            </flexbox-item>
+            <flexbox-item>
+              <x-button type="primary" @click.native="saveRecord" v-show="formShow">保存</x-button>
+            </flexbox-item>
+          </flexbox>
         </group>
       </template>
     </group>
