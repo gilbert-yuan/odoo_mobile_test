@@ -97,16 +97,17 @@
       },
       getAllData: function () {
         let self = this
-        self.$http.get('/odoo/mobile/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
-          self.items = response.data.viewsData
-          self.view_id = response.data.view_id
-          self.offset = response.data.offset
-          self.limit = response.data.limit
-          self.order = response.data.order
-          self.context = response.data.context
-          self.noForm = response.data.noForm
-          self.curentComponent = response.data.view_type
-          self.model = response.data.model
+        self.$http.post('/odoo/mobile/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
+          let result = response.data.result
+          self.items = result.viewsData
+          self.view_id = result.view_id
+          self.offset = result.offset
+          self.limit = result.limit
+          self.order = result.order
+          self.context = result.context
+          self.noForm = result.noForm
+          self.curentComponent = result.view_type
+          self.model = result.model
           if (!self.$route.params.domain && self.items) {
             self.ClickButtonTableItem(self.items[0])
           } else {

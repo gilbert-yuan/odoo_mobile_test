@@ -73,7 +73,7 @@
   }
 
   .box {
-    //background-image: url("https://odoo.net.cn/uploads/profile/6861-profileimg.jpg");
+    background-image: url("https://odoo.net.cn/uploads/profile/6861-profileimg.jpg");
     border-radius: 5px;
     font-family: sans-serif;
     text-align: center;

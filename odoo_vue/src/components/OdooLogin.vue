@@ -60,13 +60,14 @@
     methods: {
       login: function () {
         let self = this
-        self.$http.post('/odoo/mobile/login', {name: this.name, password: this.password}).then(function (response) {
+        self.$http.post('/odoo/mobile/login', {params: {name: this.name, password: this.password}}).then(function (response) {
+          console.log(response)
           if (response.data && response.data.result && response.data.result.success) {
             cookie.set('uid', response.data.result.uid, {expires: 60 * 60 * 24})
-            self.$vux.toast.show({text: response.data.result.errMsg, type: 'text'})
+            // self.$vux.toast.show({text: response.data.result.errMsg, type: 'text'})
             self.$router.push({name: 'odooGrid'})
           } else if (response.data && response.data.result) {
-            self.$vux.toast.show({text: response.data.result.errMsg, type: 'warn'})
+            // self.$vux.toast.show({text: response.data.result.errMsg, type: 'warn'})
           }
         }).catch(function () {
 

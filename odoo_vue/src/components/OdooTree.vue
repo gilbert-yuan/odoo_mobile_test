@@ -127,7 +127,7 @@
         if (!self.model || !self.limit || !offset & offset !== 0 || !self.view_id || !self.domain) {
           return
         }
-        self.$http.get('/odoo/mobile/get/list/view/data', {
+        self.$http.post('/odoo/mobile/get/list/view/data', {
           params: {
             model: self.model,
             view_id: self.view_id,
@@ -136,20 +136,21 @@
             order: self.order,
             offset: offset}
         }).then(function (response) {
-          if (!response.data) {
+          let result = response.data.result
+          if (!result) {
             return ''
           }
           if (type === 'add') {
-            if (response.data.length !== self.offset_step) {
+            if (result.length !== self.offset_step) {
               self.is_all_records_data = true
             } else {
               self.is_all_records_data = false
             }
-            self.now_record_length = response.data.length
-            self.list = self.list.concat(response.data)
+            self.now_record_length = result.length
+            self.list = self.list.concat(result)
           } else {
-            self.now_record_length = response.data.length
-            self.list = response.data
+            self.now_record_length = result.length
+            self.list = result
           }
         }).catch(function (error) {
           alert(error)

@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuex from 'vuex'
+import qs from 'qs'
 import VueRouter from 'vue-router'
 import App from './App'
 import axios from 'axios'
@@ -23,6 +24,7 @@ require('./mock.js')
 Vue.use(Vuex)
 Vue.use(Loading)
 Vue.use(LoadingPlugin)
+Vue.use(qs)
 Vue.use(VueScroller)
 Vue.component('toast', Toast)
 
@@ -80,8 +82,8 @@ store.registerModule('vux', {
 })
 
 document.title = store.state.vux.headerTitle
-
 axios.interceptors.request.use(function (config) {
+  console.log(config)
   store.state.vux.isLoading = true
   if (!cookie.get('uid', {}) && config.url !== '/odoo/login') {
     router.push({
@@ -96,7 +98,6 @@ axios.interceptors.request.use(function (config) {
 
 axios.interceptors.response.use(function (response) {
   store.state.vux.isLoading = false
-  // console.log(response)
   if (response.data.error_code) {
     router.push({
       path: '/odoo/login'
@@ -119,10 +120,15 @@ const router = new VueRouter({
 
 sync(store, router)
 Vue.config.productionTip = false
-
+// Before you create app
+Vue.config.devtools = process.env.NODE_ENV === 'development'
 /* eslint-disable no-new */
-new Vue({
+let app = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app-box')
+// After you create app
+window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor
+// then had to add in ./store.js as well.
+Vue.config.devtools = process.env.NODE_ENV === 'development'

@@ -1,7 +1,7 @@
 <template>
   <div class="vux-form-preview weui-form-preview">
     <div class="weui-form-preview__bd">
-      <div class="weui-form-preview__item" v-for="item in list" @click.prevent="card_onclick(list)">
+      <div class="weui-form-preview__item" v-for="(item, index) in list" @click.prevent="card_onclick(list)" :key="index">
         <template v-if="!item.invisible">
           <template v-if="['char', 'text', 'integer', 'float', 'date', 'datetime'].indexOf(item.type) >= 0">
             <label class="weui-form-preview__label">{{item.title}}</label>
@@ -31,13 +31,13 @@
       </div>
     </div>
     <div class="weui-form-preview__ft" v-show="button">
-      <template v-for="(item, index) in list">
+      <div v-for="(item, index) in list" :key="index">
         <a class="weui-form-preview__btn"  v-show="!item.invisible && item.type === 'button'"
                href="javascript:"  v-on:click.prevent="buttonHttp(item, index)"
            :class="{'weui-form-preview__btn_default': item.style==='default', 'weui-form-preview__btn_primary': item.style === 'primary'}"
                 v-bind:value="list[0].value">{{item.title}}
         </a>
-      </template>
+      </div>
     </div>
   </div>
 </template>
@@ -83,17 +83,18 @@
             }
           })
         } else {
-          self.$http.get('/odoo/mobile/button/method', {
+          self.$http.post('/odoo/mobile/button/method', {
             params: {
               method: item.value,
               model: item.model,
               ids: self.id
             }
           }).then(function (response) {
-            if (response.data.success) {
+            let result = response.data.result
+            if (result.success) {
               self.$emit('refresh', false)
             } else {
-              self.$emit('show-toast', {toastType: 'warn', toastMsg: response.data.errMsg, toastShow: true})
+              self.$emit('show-toast', {toastType: 'warn', toastMsg: result.errMsg, toastShow: true})
             }
           }).catch(function () {
 

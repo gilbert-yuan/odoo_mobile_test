@@ -163,12 +163,13 @@
             return
           }
         }
-        self.$http.post('/odoo/mobile/save/record', {
+        self.$http.post('/odoo/mobile/save/record', {params:
+        {
           value: this.allFormData.fieldVals,
           id: this.allFormData.id,
           model: this.$route.params.model,
           context: this.$route.params.context
-        }).then(function (response) {
+        }}).then(function (response) {
           if (response.data && response.data.result.success) {
             self.$vux.toast.show({text: response.data.result.errMsg, type: 'text'})
             self.$router ? self.$router.back() : window.history.back()

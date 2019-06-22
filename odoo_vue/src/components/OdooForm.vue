@@ -103,11 +103,12 @@
       },
       buttonHttp: function (item, index) {
         let self = this
-        self.$http.get('/odoo/mobile/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
-          if (response.data.success) {
+        self.$http.post('/odoo/mobile/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
+          let result = response.data.result
+          if (result.success) {
             self.get_form_data()
           } else {
-            self.toastMsg = response.data.errMsg
+            self.toastMsg = result.errMsg
             self.toastType = 'warn'
             self.toastShow = true
           }
@@ -117,15 +118,16 @@
       },
       get_form_data: function () {
         let self = this
-        self.$http.get('/odoo/mobile/form/view/data', {
+        self.$http.post('/odoo/mobile/form/view/data', {
           params: {
             model: self.$route.query.model,
             viewId: self.$route.query.viewId,
             id: self.$route.params.recordId
           }
         }).then(function (response) {
-          self.allFormData = response.data.fieldVals
-          self.id = response.data.id
+          let result = response.data.result
+          self.allFormData = result.fieldVals
+          self.id = result.id
         }).catch(function (error) {
           alert(error)
         })

@@ -17,11 +17,11 @@
         </box>
       </transition>
       <tabbar class="vux-demo-tabbar" icon-class="vux-center" slot="bottom">
-        <!--<tabbar-item :link="{path:'/odoo/charts'}" :selected="$router.path === '/odoo/charts'">-->
-          <!--<span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon"-->
-                <!--style="position:relative;top: -2px;">&#xe637;</span>-->
-          <!--<span slot="label">首页</span>-->
-        <!--</tabbar-item>-->
+<!--        <tabbar-item :link="{path:'/odoo/charts'}" :selected="$router.path === '/odoo/charts'">-->
+<!--          <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon"-->
+<!--                style="position:relative;top: -2px;">&#xe637;</span>-->
+<!--          <span slot="label">首页</span>-->
+<!--        </tabbar-item>-->
         <tabbar-item :link="{path:'/odoo/grid'}" :selected="$router.path === '/odoo/grid'">
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon"
                 style="position:relative;top: -2px;">&#xe637;</span>

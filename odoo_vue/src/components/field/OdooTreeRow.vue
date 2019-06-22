@@ -149,17 +149,18 @@
       delete: function (item, index) {
         let self = this
         if (!self.recordField) {
-          self.$http.get('/odoo/mobile/button/method', {
+          self.$http.post('/odoo/mobile/button/method', {
             params: {
               method: 'unlink',
               model: self.model,
               ids: item.id
             }
           }).then(function (response) {
-            if (response.data.success) {
+            let result = response.data.result
+            if (result.success) {
               self.list_locate.splice(index, index + 1)
             } else {
-              self.$emit('error-toast', {toastType: 'warn', toastMsg: response.data.errMsg, toastShow: true})
+              self.$emit('error-toast', {toastType: 'warn', toastMsg: result.errMsg, toastShow: true})
             }
           }).catch(function () {
 
@@ -196,8 +197,8 @@
       },
       get_form_data: function () {
         let self = this
-        self.$http.get('/odoo/mobile/form/new/data', {model: this.model, id: this.recordId}).then(function (response) {
-          self.allFormData = response.data
+        self.$http.post('/odoo/mobile/form/new/data', {params: {model: this.model, id: this.recordId}}).then(function (response) {
+          self.allFormData = response.data.result
         }).catch(function (error) {
           alert(error)
         })

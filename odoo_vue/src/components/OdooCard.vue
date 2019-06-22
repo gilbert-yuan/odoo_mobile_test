@@ -55,13 +55,13 @@
           </line>
         </g>
       </svg>
-      <template v-for="card in cardList">
+      <div v-for="(card, index) in cardList" :key="index">
         <div class="weui-cells">
-          <cell-form-preview :card.sync="card" @on-click-card="treeRowClick" :border-intent="false"
+          <cell-form-preview :card="card" @on-click-card="treeRowClick" :border-intent="false"
                              @refresh="refresh_data" @show-toast="showToast" :model="model" :viewId="view_id">
           </cell-form-preview>
         </div>
-      </template>
+      </div>
     </scroller>
     <toast v-model="toastShow" :type="toastType">{{toastMsg}}</toast>
   </div>
@@ -130,7 +130,7 @@
         if (!self.model || !self.limit || !self.offset & self.offset !== 0 || !self.view_id || !self.domain) {
           return
         }
-        self.$http.get('/odoo/mobile/get/list/view/data', {
+        self.$http.post('/odoo/mobile/get/list/view/data', {
           params: {
             model: self.model,
             view_id: self.view_id,
@@ -139,20 +139,21 @@
             limit: self.limit,
             offset: self.offset}
         }).then(function (response) {
-          if (!response.data) {
+          let result = response.data.result
+          if (!result) {
             return
           }
           if (type === 'add') {
-            if (response.data.length !== self.offset_step) {
+            if (result.length !== self.offset_step) {
               self.is_all_records_data = true
             } else {
               self.is_all_records_data = false
             }
-            self.now_record_length = response.data.length
-            self.cardList = self.cardList.concat(response.data)
+            self.now_record_length = result.length
+            self.cardList = self.cardList.concat(result)
           } else {
-            self.now_record_length = response.data.length
-            self.cardList = response.data
+            self.now_record_length = result.length
+            self.cardList = result
           }
         }).catch(function (error) {
           alert(error)
