@@ -170,11 +170,11 @@
           model: this.$route.params.model,
           context: this.$route.params.context
         }}).then(function (response) {
-          if (response.data && response.data.result.success) {
-            self.$vux.toast.show({text: response.data.result.errMsg, type: 'text'})
+          if (response.data && response.data.success) {
+            self.$vux.toast.show({text: response.data.errMsg, type: 'text'})
             self.$router ? self.$router.back() : window.history.back()
-          } else if (response.data && !response.data.result.success) {
-            self.$vux.toast.show({text: response.data.result.errMsg, type: 'warn'})
+          } else if (response.data && !response.data.success) {
+            self.$vux.toast.show({text: response.data.errMsg, type: 'warn'})
           }
         }).catch(function () {
 

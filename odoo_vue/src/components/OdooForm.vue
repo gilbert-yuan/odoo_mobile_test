@@ -103,8 +103,8 @@
       },
       buttonHttp: function (item, index) {
         let self = this
-        self.$http.post('/odoo/mobile/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
-          let result = response.data.result
+        self.$http.get('/odoo/mobile/button/method', {params: { method: item.value, model: item.model, ids: self.id }}).then(function (response) {
+          let result = response.data
           if (result.success) {
             self.get_form_data()
           } else {
@@ -125,7 +125,7 @@
             id: self.$route.params.recordId
           }
         }).then(function (response) {
-          let result = response.data.result
+          let result = response.data
           self.allFormData = result.fieldVals
           self.id = result.id
         }).catch(function (error) {

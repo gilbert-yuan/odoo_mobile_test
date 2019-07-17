@@ -53,9 +53,9 @@
     created: function () {
       let self = this
       this.$nextTick(() => {
-        self.$http.post('/odoo/mobile/get/all/grid_data', {params: {}}).then(function (response) {
+        self.$http.get('/odoo/mobile/get/all/grid_data', {params: {}}).then(function (response) {
           console.log(response)
-          self.gridDatas = response.data && response.data.result
+          self.gridDatas = response.data && response.data
         }).catch(function (error) {
           alert(error)
         })

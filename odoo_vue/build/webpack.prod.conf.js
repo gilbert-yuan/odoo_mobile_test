@@ -33,6 +33,19 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
+    new CopyWebpackPlugin([
+      {
+        from: 'service-worker.js',
+        to: 'sw.js'
+      }
+    ]),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'odoo-app',
+      filename: './service-worker.js',
+      staticFileGlobs: ['dist/**/*.{js,html,css}'],
+      minify: true,
+      stripPrefix: 'dist/'
+    }),
     // UglifyJs do not support ES6+, you can also use babel-minify for better treeshaking: https://github.com/babel/minify
     new webpack.optimize.UglifyJsPlugin({
       compress: {

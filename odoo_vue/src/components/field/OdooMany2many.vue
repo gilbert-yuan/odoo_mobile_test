@@ -100,12 +100,12 @@
       },
       getNewData: function () {
         let self = this
-        self.$http.post('/odoo/mobile/model/name_search',
+        self.$http.get('/odoo/mobile/model/name_search',
           {
             params:
               {model: self.field.model, value: self.searchValue || '', domain: self.field.domain || [], limit: 15}
           }).then(function (response) {
-            self.options = response.data.result
+            self.options = response.data
           }).catch(function (error) {
             alert(JSON.stringify(error))
           })

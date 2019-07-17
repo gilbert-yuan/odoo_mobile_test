@@ -90,7 +90,7 @@
               ids: self.id
             }
           }).then(function (response) {
-            let result = response.data.result
+            let result = response.data
             if (result.success) {
               self.$emit('refresh', false)
             } else {

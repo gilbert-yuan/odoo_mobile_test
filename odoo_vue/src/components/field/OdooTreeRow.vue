@@ -156,7 +156,7 @@
               ids: item.id
             }
           }).then(function (response) {
-            let result = response.data.result
+            let result = response.data
             if (result.success) {
               self.list_locate.splice(index, index + 1)
             } else {
@@ -197,8 +197,8 @@
       },
       get_form_data: function () {
         let self = this
-        self.$http.post('/odoo/mobile/form/new/data', {params: {model: this.model, id: this.recordId}}).then(function (response) {
-          self.allFormData = response.data.result
+        self.$http.get('/odoo/mobile/form/new/data', {params: {model: this.model, id: this.recordId}}).then(function (response) {
+          self.allFormData = response.data
         }).catch(function (error) {
           alert(error)
         })

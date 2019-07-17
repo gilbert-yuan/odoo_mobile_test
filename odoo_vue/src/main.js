@@ -114,7 +114,27 @@ axios.interceptors.response.use(function (response) {
 
 Vue.prototype.$http = axios
 
+axios.interceptors.response.use(data => { // 响应成功关闭loading
+  if (data.data.code === 'offline') {
+    store.commit('UPDATE_LOADING', false)
+    store.commit('UPDATE_OfflineShow', true)
+  } else {
+    let code = Number(data.data.code)
+    switch (code) {
+      case 5000:
+        store.commit('SHOWTOAST', '服务器内部处理异常')
+        break
+      case 404:
+        store.commit('SHOWTOAST', '该请求没有找到指定资源')
+        break
+      default:
+        return data
+    }
+  }
+})
+
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

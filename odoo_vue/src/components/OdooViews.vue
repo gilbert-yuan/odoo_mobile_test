@@ -97,8 +97,8 @@
       },
       getAllData: function () {
         let self = this
-        self.$http.post('/odoo/mobile/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
-          let result = response.data.result
+        self.$http.get('/odoo/mobile/get/action/views', {params: {actionId: self.$route.params.actionId}}).then(function (response) {
+          let result = response.data
           self.items = result.viewsData
           self.view_id = result.view_id
           self.offset = result.offset
