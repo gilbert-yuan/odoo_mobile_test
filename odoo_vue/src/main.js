@@ -134,7 +134,6 @@ axios.interceptors.response.use(data => { // 响应成功关闭loading
 })
 
 const router = new VueRouter({
-  mode: 'history',
   routes
 })
 
