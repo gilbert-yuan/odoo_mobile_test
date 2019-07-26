@@ -7,7 +7,7 @@
         </div>
         <div class="weui-panel__bd">
           <div ame="body">
-            <div v-for="(item, index) in list_locate">
+            <div v-for="(item, index) in list_locate" :key="index">
               <swipeout-item transition-mode="follow">
                 <div slot="right-menu" v-if="showOperation">
                   <swipeout-button @click.native="onButtonClick('edit', item, index)" type="primary">{{'编辑'}}
@@ -20,8 +20,8 @@
                     <h4 class="weui-media-box__title">{{item.title}}</h4>
                   </template>
                   <ul class="weui-media-box__info">
-                    <template v-for="(field) in item.meta">
-                      <template v-if="!field.invisible || !field.is_show_form_tree">
+                    <div v-for="(field, index) in item.meta" :key="index">
+                      <template v-if="!field.invisible">
                         <template
                           v-if="['char', 'date', 'datetime', 'integer', 'float'].indexOf(field.type)>=0">
                           <li class="weui-media-box__info__meta">{{field.title}}: <span class="line_color_value">{{field.value}}</span></li>
@@ -44,7 +44,7 @@
                           </li>
                         </template>
                       </template>
-                    </template>
+                    </div>
                   </ul>
                 </div>
               </swipeout-item>

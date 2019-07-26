@@ -1,5 +1,4 @@
 <template>
-
     <x-input :title="title" v-model="changeVal" :required="required && true || false" :type="type"
              :placeholder="placeholder||'请输入'+title"
              :readonly="readonly" :is-type="isType" @on-focus="focusChange"></x-input>

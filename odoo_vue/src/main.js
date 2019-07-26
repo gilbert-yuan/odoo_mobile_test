@@ -57,10 +57,6 @@ const routes = [{
   name: 'newForm',
   component: NewForm
 }, {
-  path: '/odoo/login/',
-  name: 'OdooLogin',
-  component: Login
-}, {
   path: '/odoo/form/:recordId',
   name: 'odooForm',
   component: Form

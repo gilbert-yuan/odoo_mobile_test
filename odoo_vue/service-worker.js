@@ -22,7 +22,7 @@ function cacheKey () {
 }
  
 function log () {
-  console.log('SW:', ...arguments)
+  //console.log('SW:', ...arguments)
 }
  
 // 缓存 html 页面

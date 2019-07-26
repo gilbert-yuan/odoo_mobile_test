@@ -1,8 +1,8 @@
 <template>
   <div>
     <group label-width="5.5em" label-margin-right="2em" label-align="left" gutter="20px">
-      <template v-for="(field, index) in allFormData.fieldVals">
-        <template v-if="!field.is_show_edit_form">
+      <div v-for="(field, index) in allFormData.fieldVals" :key="index">
+        <template v-if="!field.invisible">
           <template v-if="field.type === 'char'">
             <x-input :title="field.title" v-model="field.value" type="text"
                      :required="field.required && true || false"
@@ -74,7 +74,7 @@
             </flexbox-item>
           </flexbox>
         </group>
-      </template>
+      </div>
     </group>
     <div v-transfer-dom>
       <alert v-model="showAlert" title="错误" @on-show="onShow" @on-hide="onHide"> {{ errorMessage}}</alert>
