@@ -1,6 +1,6 @@
 # odoo_mobile_test
 ### 已支持部分WPA 功能，能够在离线状态下链接访问历史数据
-### 需要配合 [odoo_mobile](https://github.com/gilbert-yuan/odoo_mobile) 模块的最新共能
+### 需要配合 [odoo_mobile](https://github.com/gilbert-yuan/odoo_mobile) 模块的最新功能
 测试性，写odoo 8/10 的手机端，功能尽量做到能配置页面。odoo模块对应的是8.0/10.0
 
 
